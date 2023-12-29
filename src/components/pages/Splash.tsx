@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { COMPANY_NAME } from '../../lib/constants/constants'
-import Logo from '../atoms/Logo'
 import { useEffect } from 'react'
+import Logo from '../atoms/Logo'
 
 export default function Splash() {
   const navigate = useNavigate()

@@ -1,0 +1,10 @@
+@mixin base-input {
+  padding: 7px 10px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  @content;
+  &:focus {
+    outline: none;
+  }
+}
