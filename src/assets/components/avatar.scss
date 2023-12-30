@@ -1,0 +1,10 @@
+@import '../colors/colors.scss';
+.user-avatar {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $higher-color;
+}

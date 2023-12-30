@@ -1,0 +1,24 @@
+.room-header {
+  display: flex;
+  padding: 20px 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+.room-logo {
+  flex: 1;
+}
+.room-options {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 20px;
+  flex: 1;
+
+  .invite-button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    font-weight: 100;
+    font-size: 12px;
+  }
+}

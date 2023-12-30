@@ -22,3 +22,9 @@ export const validateName = (value: string) => {
     throw new Error('Must not contain special characters')
   }
 }
+
+export const getFirstUserLetters = (name: string) => {
+  const words = name.split(' ')
+  if (words.length > 1) return (words[0][0] + words[1][0]).toUpperCase()
+  else return (words[0][0] + words[0][1]).toUpperCase()
+}
