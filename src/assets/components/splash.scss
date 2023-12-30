@@ -1,0 +1,10 @@
+@import '../colors/colors.scss';
+.splash-page-wrapper {
+  display: grid;
+  place-content: center;
+  place-items: center;
+  .splash-title {
+    font-weight: 100;
+    font-size: 40px;
+  }
+}

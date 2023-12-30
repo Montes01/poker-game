@@ -1,0 +1,19 @@
+@import '../colors/colors.scss';
+@import '../utils/mixins.scss';
+.basic-button {
+  @include base-interactive-element {
+    background-color: white;
+    color: $base-color;
+    font-weight: 700;
+    width: 170px;
+    font-size: 17px;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: $higher-color;
+    opacity: .5;
+    color: white;
+    cursor: not-allowed;
+  }
+}
