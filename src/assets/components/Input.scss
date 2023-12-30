@@ -1,0 +1,17 @@
+@import '../colors/colors.scss';
+@import '../utils/mixins.scss';
+.basic-input {
+  @include base-interactive-element {
+    width: 100%;
+    border: $higher-color 1px solid;
+    font-size: 15px;
+    background-color: transparent;
+    color: white;
+  }
+}
+.input-with-label {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}

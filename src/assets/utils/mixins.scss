@@ -1,4 +1,4 @@
-@mixin base-input {
+@mixin base-interactive-element {
   padding: 7px 10px;
   border-radius: 25px;
   outline: none;
@@ -8,3 +8,4 @@
     outline: none;
   }
 }
+

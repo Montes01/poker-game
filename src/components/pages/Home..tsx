@@ -1,4 +1,6 @@
 import '../../assets/components/home.scss'
+import Button from '../atoms/Button'
+import Input from '../atoms/Input'
 export default function Home() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -7,11 +9,8 @@ export default function Home() {
   return (
     <main className="page-wrapper home-page-wrapper">
       <form onSubmit={handleSubmit} className="base-form">
-        <label className="input-with-label">
-          Nombra la partida
-          <input className="basic-input" type="text" />
-        </label>
-        <button>Crear partida</button>
+        <Input name="room-name" type="text" label="crea la partida" />
+        <Button content="Crear partida" submit />
       </form>
     </main>
   )
