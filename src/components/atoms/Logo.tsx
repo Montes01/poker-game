@@ -1,10 +1,8 @@
-export default function Logo({
-  height,
-  width,
-}: {
+interface Props {
   width: string
   height: string
-}) {
+}
+export default function Logo({ height, width }: Props) {
   return (
     <svg width={width} height={height} viewBox="0 0 45 45" fill="none">
       <g clipPath="url(#clip0_467_1600)">

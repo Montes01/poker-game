@@ -21,6 +21,7 @@ interface Props {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   name: string
+  children?: React.ReactNode
 }
 export default function Input({
   label,
@@ -28,17 +29,20 @@ export default function Input({
   onChange,
   placeholder,
   name,
+  children,
 }: Props) {
   return (
     <label className="input-with-label">
       {label}
       <input
+        autoComplete="off"
         className="basic-input"
         name={name}
         type={type}
         onChange={onChange}
         placeholder={placeholder}
       />
+      {children}
     </label>
   )
 }

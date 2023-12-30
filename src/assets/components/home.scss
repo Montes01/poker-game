@@ -7,11 +7,31 @@
   justify-content: center;
 }
 
-
 .base-form {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 30px;
   width: 350px;
+}
+
+.home-header {
+  padding: 35px 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.warning-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  height: auto;
+  width: auto;
 }
