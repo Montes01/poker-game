@@ -5,6 +5,8 @@
   align-items: center;
 }
 .room-logo {
+    display: flex;
+    justify-content: start;
   flex: 1;
 }
 .room-options {
@@ -21,4 +23,9 @@
     font-weight: 100;
     font-size: 12px;
   }
+}
+
+.game-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

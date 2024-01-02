@@ -3,7 +3,8 @@ interface player {
   vote: number
 }
 
-interface player {
-  players: player[]
+interface room {
+  id: string
   name: string
+  players: player[]
 }

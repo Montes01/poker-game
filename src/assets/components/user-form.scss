@@ -1,0 +1,33 @@
+@import '../colors/colors.scss';
+
+.user-form-dialog {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  border: none;
+  height: 100%;
+  border-radius: 25px;
+  margin: auto;
+  display: grid;
+  place-content: center;
+  .user-form {
+    border: 1px solid $third-color;
+    color: white;
+    width: 500px;
+    height: 300px;
+    border-radius: 25px;
+    background: $base-color;
+    padding: 25px;
+    box-shadow: 0px 0px 10px 0px $third-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+
+    .user-type-buttons {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
