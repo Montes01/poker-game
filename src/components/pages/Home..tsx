@@ -1,14 +1,18 @@
-import { useState } from 'react'
-import '../../assets/components/home.scss'
-import { validateName } from '../../lib/constants/utils'
-
-import Button from '../atoms/Button'
-import Input from '../atoms/Input'
-import HeadLogo from '../molecules/HeadLogo'
-import WarningIcon from '../atoms/WarningIcon'
+import { useState } from "react"
+import "../../assets/components/home.scss"
+import { validateName } from "../../lib/constants/utils"
+import roomActions from "../../lib/hooks/room/roomActions"
+import Button from "../atoms/Button"
+import Input from "../atoms/Input"
+import HeadLogo from "../molecules/HeadLogo"
+import WarningIcon from "../atoms/WarningIcon"
+import { useNavigate } from "react-router-dom"
+import { store } from "../../lib/store/store"
 export default function Home() {
+  const navigator = useNavigate()
   const [isValid, setIsValid] = useState<boolean | null>(null)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState("")
+  const { useCreateRoom } = roomActions()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     try {
@@ -22,8 +26,9 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
-    const roomName = form.get('room-name')!.toString()
-    alert(roomName)
+    const roomName = form.get("room-name")!.toString()
+    useCreateRoom(roomName)
+    navigator(`/room/${store.getState().room.id}`)
   }
   return (
     <main className="page-wrapper home-page-wrapper">

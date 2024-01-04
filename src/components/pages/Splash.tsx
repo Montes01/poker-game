@@ -9,7 +9,7 @@ export default function Splash() {
     setTimeout(() => {
       navigate('/home')
     }, 2000)
-  }, [])
+  }, [navigate])
   return (
     <main className="page-wrapper splash-page-wrapper">
       <Logo width="80" height="80" />

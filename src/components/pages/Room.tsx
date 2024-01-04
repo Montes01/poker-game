@@ -1,19 +1,21 @@
-import '../../assets/components/room.scss'
-import '../../assets/components/user-form.scss'
-import HeadLogo from '../molecules/HeadLogo'
-import UserAvatar from '../atoms/UserAvatar'
-import Button from '../atoms/Button'
-import Table from '../atoms/Table'
-import Input from '../atoms/Input'
-import RadioButton from '../atoms/RadioButton'
-import { useEffect, useRef, useState } from 'react'
-import { validateName } from '../../lib/constants/utils'
-import WarningIcon from '../atoms/WarningIcon'
+import "../../assets/components/room.scss"
+import "../../assets/components/user-form.scss"
+import HeadLogo from "../molecules/HeadLogo"
+import UserAvatar from "../atoms/UserAvatar"
+import Button from "../atoms/Button"
+import Table from "../atoms/Table"
+import Input from "../atoms/Input"
+import RadioButton from "../atoms/RadioButton"
+import { useEffect, useRef, useState } from "react"
+import { validateName } from "../../lib/constants/utils"
+import WarningIcon from "../atoms/WarningIcon"
+import { store } from "../../lib/store/store"
 
 export default function Room() {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const [roomName, setRoomName] = useState("")
   const [isValid, setIsValid] = useState<boolean | null>(null)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState("")
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     try {
@@ -24,9 +26,12 @@ export default function Room() {
       setErrorMessage((error as Error).message)
     }
   }
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {}
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
   useEffect(() => {
     dialogRef.current?.showModal()
+    setRoomName(store.getState().room.name)
   }, [])
   return (
     <section className="page-wrapper">
@@ -34,7 +39,7 @@ export default function Room() {
         <section className="room-logo">
           <HeadLogo />
         </section>
-        <h1>Game Name</h1>
+        <h1>{roomName}</h1>
         <section className="room-options">
           <UserAvatar name="example" />
           <Button className="invite-button" content="invitar jugadores" />
