@@ -8,7 +8,7 @@ export default function Splash() {
   useEffect(() => {
     setTimeout(() => {
       navigate('/home')
-    }, 2000)
+    }, 2500)
   }, [navigate])
   return (
     <main className="page-wrapper splash-page-wrapper">

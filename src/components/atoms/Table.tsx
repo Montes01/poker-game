@@ -1,3 +1,4 @@
+import "../../assets/components/table.scss"
 interface Props {
   children?: React.ReactNode
 }

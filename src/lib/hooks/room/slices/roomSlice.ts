@@ -29,3 +29,4 @@ const roomSlice = createSlice({
 export const slice = roomSlice.reducer
 
 export const createRoom = roomSlice.actions.createRoom
+export const addPlayer = roomSlice.actions.addPlayer

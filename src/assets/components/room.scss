@@ -5,8 +5,8 @@
   align-items: center;
 }
 .room-logo {
-    display: flex;
-    justify-content: start;
+  display: flex;
+  justify-content: start;
   flex: 1;
 }
 .room-options {
@@ -26,6 +26,22 @@
 }
 
 .game-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  padding: 50px;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-areas:
+    ". . . . . "
+    ". a a a . "
+    ". . . . . ";
+}
+
+.room-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.game-cards {
+  height: 30px;
 }

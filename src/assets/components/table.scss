@@ -1,0 +1,8 @@
+@import "../colors/colors.scss";
+.game-table {
+    grid-area: a;
+    height: 100%;
+    width: 100%;
+    background-color: $base-color;
+    border-radius: 300px;
+}
