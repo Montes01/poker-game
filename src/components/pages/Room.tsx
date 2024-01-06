@@ -12,7 +12,8 @@ import { playerType, player } from "../../lib/constants/declarations"
 import Card from "../atoms/Card"
 import { useNavigate } from "react-router-dom"
 import { cards as Cards } from "../../lib/constants/constants"
-
+import Footer from "../organisms/Footer"
+import { Card as cardT } from "../../lib/constants/declarations"
 export default function Room() {
   const navigator = useNavigate()
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -25,7 +26,8 @@ export default function Room() {
   const [isSpectator, setIsSpectator] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
-  const { useAddPlayer, useVote, useRevealCards } = roomActions()
+  const { useAddPlayer, useReset, useVote, useRevealCards, useVotePerCard } =
+    roomActions()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -80,7 +82,14 @@ export default function Room() {
   const handleRevealClick = () => {
     setAverage(useRevealCards())
     setIsRevealed(true)
+    setCards(useVotePerCard() as cardT[])
   }
+  const handleResetClick = () => {
+    useReset()
+    setIsRevealed(false)
+    setCards(Cards.map((card) => ({ ...card, voted: false })))
+  }
+
   return (
     <section className="page-wrapper room-page-wrapper">
       <header className="room-header">
@@ -98,7 +107,7 @@ export default function Room() {
           <>
             {isAdmin && (
               <Button
-                onClick={handleRevealClick}
+                onClick={isRevealed ? handleResetClick : handleRevealClick}
                 disabled={!isComplete}
                 content={isRevealed ? "Nueva partida" : "Revelar cartas"}
               />
@@ -110,6 +119,7 @@ export default function Room() {
           <>
             {player.type === "spectator" ? (
               <UserAvatar
+                key={player.id}
                 onTable
                 name={player.name}
                 className={`user${index}`}
@@ -127,18 +137,16 @@ export default function Room() {
         ))}
       </main>
       <footer className={`game-cards ${isSpectator && "spectator-footer"}`}>
-        {cards.map((card) => (
-          <Card
-            vote={card.voted ? "1" : "none"}
-            onClick={() => handleVoteClick(card.content)}
-            content={card.content}
-            key={card.content}
-          />
-        ))}
-        {isRevealed && (
-          <div className="average">
-            <h2>Media: {average}</h2>
-          </div>
+        {!isRevealed ? (
+          <Footer cards={cards} vote={handleVoteClick} />
+        ) : (
+          <section className="average">
+            <Footer revealed cards={cards} vote={() => {}} />
+            <article className="average-text">
+              <strong>Promedio:</strong>
+              <h2>{average}</h2>
+            </article>
+          </section>
         )}
       </footer>
       <PlayerNameDialog dialogRef={dialogRef} handleSubmit={handleSubmit} />

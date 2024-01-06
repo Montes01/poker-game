@@ -4,6 +4,7 @@ interface Props {
   vote?: string
   className?: string
   onClick?: () => void
+  voteCount?: number
 }
 export default function Card({
   content,
@@ -11,14 +12,18 @@ export default function Card({
   className,
   vote,
   onClick,
+  voteCount,
 }: Props) {
   return (
     <button
       onClick={onClick}
       className={`game-card ${className}
-       ${onTable ? "table-card" : ""} ${vote && vote !== "none" ? "voted" : ""}`}
+       ${onTable ? "table-card" : ""} ${
+        vote && vote !== "none" ? "voted" : ""
+      }`}
     >
       <strong className="card-content">{content}</strong>
+     {voteCount &&  <strong className="vote-count">Votos: {voteCount}</strong>}
     </button>
   )
 }

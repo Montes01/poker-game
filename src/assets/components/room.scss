@@ -65,3 +65,14 @@
   gap: 5px;
 
 }
+
+.average {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  .average-text {
+    font-size: 20px;
+    text-align: center;
+  }
+}

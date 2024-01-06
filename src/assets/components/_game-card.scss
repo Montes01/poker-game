@@ -23,6 +23,11 @@
     color: white;
     font-size: 20px;
   }
+  .vote-count {
+    position: absolute;
+    bottom: -25px;
+    color: white;
+  }
 }
 .game-card.table-card {
   pointer-events: none;

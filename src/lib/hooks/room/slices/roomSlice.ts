@@ -32,7 +32,12 @@ const roomSlice = createSlice({
         }),
       }
     },
-
+    reset: (state) => {
+      return {
+        ...state,
+        players: state.players.map((player) => ({ ...player, vote: "none" })),
+      }
+    },
   },
   initialState,
 })
@@ -42,3 +47,4 @@ export const slice = roomSlice.reducer
 export const createRoom = roomSlice.actions.createRoom
 export const addPlayer = roomSlice.actions.addPlayer
 export const vote = roomSlice.actions.vote
+export const reset = roomSlice.actions.reset

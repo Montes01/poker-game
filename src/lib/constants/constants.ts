@@ -1,6 +1,8 @@
+import { Card } from "./declarations";
+
 export const COMPANY_NAME = 'pragma';
 
-export const cards = [
+export const cards:Card[] = [
     { content: "0", voted: false },
     { content: "1", voted: false },
     { content: "2", voted: false },

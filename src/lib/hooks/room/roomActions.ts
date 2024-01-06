@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../store"
-import { createRoom, addPlayer, vote } from "../../hooks/room/slices/roomSlice"
-import { playerType } from "../../constants/declarations"
+import { createRoom, addPlayer, vote, reset } from "../../hooks/room/slices/roomSlice"
+import { Card, playerType } from "../../constants/declarations"
 import { store } from "../../store/store"
 export default function roomActions() {
   const dispatcher = useAppDispatch()
@@ -32,5 +32,30 @@ export default function roomActions() {
     }
     return average === 0 ? average : average / players.length
   }
-  return { useCreateRoom, useAddPlayer, useVote, useRevealCards }
+
+  const useVotePerCard = () => {
+    const players = store
+      .getState()
+      .room.players.filter((player) => player.type === playerType.player)
+    const cards: { content: string; count: number }[] = []
+    for (let i = 0; i < players.length; i++) {
+      if (cards.find((el) => el.content === players[i].vote)) {
+        cards.find((card) => card.content === players[i].vote)!.count++
+      } else {
+        cards.push({ content: players[i].vote, count: 1 })
+      }
+    }
+    return cards
+  }
+  const useReset = () => {
+    dispatcher(reset())
+  }
+  return {
+    useCreateRoom,
+    useAddPlayer,
+    useVote,
+    useReset,
+    useRevealCards,
+    useVotePerCard,
+  }
 }

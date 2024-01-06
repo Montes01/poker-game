@@ -15,3 +15,9 @@ export interface room {
   admin: string
   players: player[]
 }
+
+export interface Card {
+  content: string
+  voted: boolean
+  count?: number
+}
