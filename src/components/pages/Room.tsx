@@ -11,6 +11,7 @@ import roomActions from "../../lib/hooks/room/roomActions"
 import { playerType, player } from "../../lib/constants/declarations"
 import Card from "../atoms/Card"
 import { useNavigate } from "react-router-dom"
+import { cards } from "../../lib/constants/constants"
 
 export default function Room() {
   const navigator = useNavigate()
@@ -64,7 +65,11 @@ export default function Room() {
           />
         ))}
       </main>
-      <footer className="game-cards"></footer>
+      <footer className="game-cards">
+        {cards.map((card) => (
+          <Card content={card} key={card} />
+        ))}
+      </footer>
       <PlayerNameDialog dialogRef={dialogRef} handleSubmit={handleSubmit} />
     </section>
   )
