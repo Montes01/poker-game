@@ -22,6 +22,7 @@ export default function Room() {
   const [cards, setCards] = useState(Cards)
   const [isComplete, setIsComplete] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isSpectator, setIsSpectator] = useState(false)
   const { useAddPlayer, useVote } = roomActions()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,6 +30,7 @@ export default function Room() {
     const userType = formData.get("user-type")! as keyof typeof playerType
     const username = formData.get("username")!.toString()
     const player = useAddPlayer(username, userType)
+    if (userType === "spectator") setIsSpectator(true)
     localStorage.setItem("playerId", player.id)
     setPlayerName(player.name)
     dialogRef.current?.close()
@@ -46,7 +48,6 @@ export default function Room() {
     if (store.getState().room.admin === playerId) setIsAdmin(true)
     if (players.every((player) => player.vote !== "none")) setIsComplete(true)
     else setIsComplete(false)
-    console.log(players.every((player) => player.vote !== "none"))
   }, [players])
 
   useEffect(() => {
@@ -92,17 +93,28 @@ export default function Room() {
             <Button disabled={!isComplete} content="Revelar cartas" />
           )}
         </Table>
+
         {players.map((player, index) => (
-          <Card
-            vote={player.vote}
-            onTable
-            content={player.name}
-            key={player.id}
-            className={`user${index}`}
-          />
+          <>
+            {player.type === "spectator" ? (
+              <UserAvatar
+                onTable
+                name={player.name}
+                className={`user${index}`}
+              />
+            ) : (
+              <Card
+                vote={player.vote}
+                onTable
+                content={player.name}
+                key={player.id}
+                className={`user${index}`}
+              />
+            )}
+          </>
         ))}
       </main>
-      <footer className="game-cards">
+      <footer className={`game-cards ${isSpectator && "spectator-footer"}`}>
         {cards.map((card) => (
           <Card
             vote={card.voted ? "1" : "none"}

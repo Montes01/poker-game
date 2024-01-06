@@ -1,12 +1,17 @@
-import { getFirstUserLetters } from '../../lib/constants/utils'
-import '../../assets/components/avatar.scss'
+import { getFirstUserLetters } from "../../lib/constants/utils"
+import "../../assets/components/avatar.scss"
 interface Props {
   name: string
+  className?: string
+  onTable?: boolean
 }
-export default function UserAvatar({ name }: Props) {
+export default function UserAvatar({ name, className, onTable }: Props) {
   return (
-    <article className="user-avatar">
+    <button
+      className={`user-avatar ${className} ${onTable ? "table-card" : ""}`}
+    >
       <h3 className="user-avatar-name">{getFirstUserLetters(name)}</h3>
-    </article>
+      {onTable && <strong className="card-content">{name}</strong>}
+    </button>
   )
 }

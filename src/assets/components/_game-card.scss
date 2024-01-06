@@ -1,0 +1,43 @@
+.game-cards.spectator-footer {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.game-card {
+  border-radius: 15px;
+  height: 105px;
+  width: 70px;
+  background-color: $base-color;
+  border: 2px solid $third-color;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: translateY(-10px);
+    background-color: $third-color;
+    box-shadow: 0px 0px 10px 0px $third-color;
+  }
+  .card-content {
+    color: white;
+    font-size: 20px;
+  }
+}
+.game-card.table-card {
+  pointer-events: none;
+  height: 90px;
+  width: 60px;
+  .card-content {
+    position: absolute;
+    bottom: -25px;
+    text-align: center;
+    font-weight: 200;
+    font-size: 15px;
+  }
+}
+
+.game-card.voted {
+  background-color: $third-color;
+  box-shadow: 0px 0px 10px 0px $third-color;
+}
