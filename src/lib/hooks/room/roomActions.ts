@@ -7,7 +7,9 @@ export default function roomActions() {
     dispatcher(createRoom(name))
   }
   const useAddPlayer = (name: string, type: keyof typeof playerType) => {
-    dispatcher(addPlayer({ id: crypto.randomUUID(), name, type, vote: 0 }))
+    const player = { id: crypto.randomUUID(), name, type, vote: 0 }
+    dispatcher(addPlayer(player))
+    return player.id
   }
 
   return { useCreateRoom, useAddPlayer }

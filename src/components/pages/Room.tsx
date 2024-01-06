@@ -8,10 +8,15 @@ import { useEffect, useRef, useState } from "react"
 import { store } from "../../lib/store/store"
 import PlayerNameDialog from "../templates/PlayerNameDialog"
 import roomActions from "../../lib/hooks/room/roomActions"
-import { playerType } from "../../lib/constants/declarations"
+import { playerType, player } from "../../lib/constants/declarations"
+import Card from "../atoms/Card"
+import { useNavigate } from "react-router-dom"
+
 export default function Room() {
+  const navigator = useNavigate()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [roomName, setRoomName] = useState("")
+  const [players, setPlayers] = useState<player[]>([])
   const { useAddPlayer } = roomActions()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -20,10 +25,19 @@ export default function Room() {
     const username = formData.get("username")!.toString()
     useAddPlayer(username, userType)
     dialogRef.current?.close()
-    dialogRef.current!.style.display = "none"
-    
   }
   useEffect(() => {
+    const unsuscribe = store.subscribe(() => {
+      const state = store.getState()
+      setRoomName(state.room.name)
+      setPlayers(state.room.players)
+    })
+    return () => unsuscribe()
+  }, [])
+
+  useEffect(() => {
+    localStorage.clear()
+    if (store.getState().room.id === "") navigator("/home")
     dialogRef.current?.showModal()
     setRoomName(store.getState().room.name)
   }, [])
@@ -40,7 +54,15 @@ export default function Room() {
         </section>
       </header>
       <main className="game-body">
-        <Table />
+        <Table></Table>
+        {players.map((player, index) => (
+          <Card
+            onTable
+            content={player.name}
+            key={player.id}
+            className={`user${index}`}
+          />
+        ))}
       </main>
       <footer className="game-cards"></footer>
       <PlayerNameDialog dialogRef={dialogRef} handleSubmit={handleSubmit} />
