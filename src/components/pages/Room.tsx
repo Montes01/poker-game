@@ -23,7 +23,9 @@ export default function Room() {
   const [isComplete, setIsComplete] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isSpectator, setIsSpectator] = useState(false)
-  const { useAddPlayer, useVote } = roomActions()
+  const [isRevealed, setIsRevealed] = useState(false)
+  const [average, setAverage] = useState(0)
+  const { useAddPlayer, useVote, useRevealCards } = roomActions()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -58,7 +60,7 @@ export default function Room() {
     } else {
       const playerId = localStorage.getItem("playerId")!
       const player = state.room.players.find((player) => player.id === playerId)
-      setPlayerName(player?.name || "404")
+      setPlayerName(player?.name ?? "404")
     }
 
     setRoomName(state.room.name)
@@ -75,6 +77,10 @@ export default function Room() {
     useVote(card, localStorage.getItem("playerId")!)
   }
 
+  const handleRevealClick = () => {
+    setAverage(useRevealCards())
+    setIsRevealed(true)
+  }
   return (
     <section className="page-wrapper room-page-wrapper">
       <header className="room-header">
@@ -89,9 +95,15 @@ export default function Room() {
       </header>
       <main className="game-body">
         <Table>
-          {isAdmin && (
-            <Button disabled={!isComplete} content="Revelar cartas" />
-          )}
+          <>
+            {isAdmin && (
+              <Button
+                onClick={handleRevealClick}
+                disabled={!isComplete}
+                content={isRevealed ? "Nueva partida" : "Revelar cartas"}
+              />
+            )}
+          </>
         </Table>
 
         {players.map((player, index) => (
@@ -123,6 +135,11 @@ export default function Room() {
             key={card.content}
           />
         ))}
+        {isRevealed && (
+          <div className="average">
+            <h2>Media: {average}</h2>
+          </div>
+        )}
       </footer>
       <PlayerNameDialog dialogRef={dialogRef} handleSubmit={handleSubmit} />
     </section>
