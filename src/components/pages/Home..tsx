@@ -25,6 +25,7 @@ export default function Home() {
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    localStorage.clear()
     const form = new FormData(e.currentTarget)
     const roomName = form.get("room-name")!.toString()
     useCreateRoom(roomName)

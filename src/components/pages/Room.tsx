@@ -11,20 +11,26 @@ import roomActions from "../../lib/hooks/room/roomActions"
 import { playerType, player } from "../../lib/constants/declarations"
 import Card from "../atoms/Card"
 import { useNavigate } from "react-router-dom"
-import { cards } from "../../lib/constants/constants"
+import { cards as Cards } from "../../lib/constants/constants"
 
 export default function Room() {
   const navigator = useNavigate()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [roomName, setRoomName] = useState("")
   const [players, setPlayers] = useState<player[]>([])
-  const { useAddPlayer } = roomActions()
+  const [playerName, setPlayerName] = useState("NA")
+  const [cards, setCards] = useState(Cards)
+  const [isComplete, setIsComplete] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const { useAddPlayer, useVote } = roomActions()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const userType = formData.get("user-type")! as keyof typeof playerType
     const username = formData.get("username")!.toString()
-    useAddPlayer(username, userType)
+    const player = useAddPlayer(username, userType)
+    localStorage.setItem("playerId", player.id)
+    setPlayerName(player.name)
     dialogRef.current?.close()
   }
   useEffect(() => {
@@ -35,13 +41,38 @@ export default function Room() {
     })
     return () => unsuscribe()
   }, [])
+  useEffect(() => {
+    const playerId = localStorage.getItem("playerId")!
+    if (store.getState().room.admin === playerId) setIsAdmin(true)
+    if (players.every((player) => player.vote !== "none")) setIsComplete(true)
+    console.log(players)
+  }, [players])
 
   useEffect(() => {
-    localStorage.clear()
-    if (store.getState().room.id === "") navigator("/home")
-    dialogRef.current?.showModal()
-    setRoomName(store.getState().room.name)
+    const state = store.getState()
+    if (state.room.id === "") navigator("/home")
+    if (!localStorage.getItem("playerId")) {
+      dialogRef.current?.showModal()
+    } else {
+      const playerId = localStorage.getItem("playerId")!
+      const player = state.room.players.find((player) => player.id === playerId)
+      setPlayerName(player?.name || "404")
+    }
+
+    setRoomName(state.room.name)
   }, [])
+
+  const handleVoteClick = (card: string) => {
+    setCards((prev) => {
+      return prev.map((prevCard) => {
+        if (prevCard.content === card) prevCard.voted = true
+        else prevCard.voted = false
+        return prevCard
+      })
+    })
+    useVote(card, localStorage.getItem("playerId")!)
+  }
+
   return (
     <section className="page-wrapper room-page-wrapper">
       <header className="room-header">
@@ -50,14 +81,19 @@ export default function Room() {
         </section>
         <h1>{roomName}</h1>
         <section className="room-options">
-          <UserAvatar name="example" />
+          <UserAvatar name={playerName} />
           <Button className="invite-button" content="invitar jugadores" />
         </section>
       </header>
       <main className="game-body">
-        <Table></Table>
+        <Table>
+          {isAdmin && (
+            <Button disabled={isComplete} content="Revelar cartas" />
+          )}
+        </Table>
         {players.map((player, index) => (
           <Card
+            vote={player.vote}
             onTable
             content={player.name}
             key={player.id}
@@ -67,7 +103,12 @@ export default function Room() {
       </main>
       <footer className="game-cards">
         {cards.map((card) => (
-          <Card content={card} key={card} />
+          <Card
+            vote={card.voted ? "1" : "none"}
+            onClick={() => handleVoteClick(card.content)}
+            content={card.content}
+            key={card.content}
+          />
         ))}
       </footer>
       <PlayerNameDialog dialogRef={dialogRef} handleSubmit={handleSubmit} />

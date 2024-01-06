@@ -6,7 +6,7 @@ export interface player {
   name: string
   id: string
   type: keyof typeof playerType
-  vote: number
+  vote: string
 }
 
 export interface room {
