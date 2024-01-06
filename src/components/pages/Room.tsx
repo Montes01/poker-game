@@ -45,7 +45,8 @@ export default function Room() {
     const playerId = localStorage.getItem("playerId")!
     if (store.getState().room.admin === playerId) setIsAdmin(true)
     if (players.every((player) => player.vote !== "none")) setIsComplete(true)
-    console.log(players)
+    else setIsComplete(false)
+    console.log(players.every((player) => player.vote !== "none"))
   }, [players])
 
   useEffect(() => {
@@ -88,7 +89,7 @@ export default function Room() {
       <main className="game-body">
         <Table>
           {isAdmin && (
-            <Button disabled={isComplete} content="Revelar cartas" />
+            <Button disabled={!isComplete} content="Revelar cartas" />
           )}
         </Table>
         {players.map((player, index) => (
