@@ -1,9 +1,16 @@
 import { useAppDispatch } from "../store"
-import { createRoom, addPlayer, vote, reset } from "../../hooks/room/slices/roomSlice"
+import {
+  createRoom,
+  addPlayer,
+  vote,
+  reset,
+} from "../../hooks/room/slices/roomSlice"
 import { Card, playerType } from "../../constants/declarations"
 import { store } from "../../store/store"
+import playerActions from "../player/playerActions"
 export default function roomActions() {
   const dispatcher = useAppDispatch()
+  const { useSetPlayer } = playerActions()
   const useCreateRoom = (name: string) => {
     dispatcher(createRoom(name))
   }
@@ -14,7 +21,7 @@ export default function roomActions() {
     }
     const player = { id: crypto.randomUUID(), name, type, vote }
     dispatcher(addPlayer(player))
-    return player
+    useSetPlayer(player)
   }
 
   const useVote = (card: string, id: string) => {
@@ -33,16 +40,16 @@ export default function roomActions() {
     return average === 0 ? average : average / players.length
   }
 
-  const useVotePerCard = () => {
+  const useVotePerCard = (): Card[] => {
     const players = store
       .getState()
       .room.players.filter((player) => player.type === playerType.player)
-    const cards: { content: string; count: number }[] = []
+    const cards: Card[] = []
     for (let i = 0; i < players.length; i++) {
-      if (cards.find((el) => el.content === players[i].vote)) {
-        cards.find((card) => card.content === players[i].vote)!.count++
+      if (cards.find((card) => card.content === players[i].vote)) {
+        cards.find((card) => card.content === players[i].vote)!.count!++
       } else {
-        cards.push({ content: players[i].vote, count: 1 })
+        cards.push({ content: players[i].vote, count: 1, voted: false })
       }
     }
     return cards

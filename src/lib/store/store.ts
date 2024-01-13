@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { slice } from "../hooks/room/slices/roomSlice"
+import { slice as roomSlice } from "../hooks/room/slices/roomSlice"
+import { slice as playerSlice } from "../hooks/player/slices/playerSlice"
 export const store = configureStore({
   reducer: {
-    room: slice,
+    room: roomSlice,
+    player: playerSlice,
   },
 })
 

@@ -6,39 +6,31 @@ import Button from "../atoms/Button"
 import Table from "../atoms/Table"
 import { useEffect, useRef, useState } from "react"
 import { store } from "../../lib/store/store"
-import PlayerNameDialog from "../templates/PlayerNameDialog"
+import FormDialog from "../templates/FormDialog"
 import roomActions from "../../lib/hooks/room/roomActions"
-import { playerType, player } from "../../lib/constants/declarations"
+import { player } from "../../lib/constants/declarations"
 import Card from "../atoms/Card"
 import { useNavigate } from "react-router-dom"
 import { cards as Cards } from "../../lib/constants/constants"
 import Footer from "../organisms/Footer"
 import { Card as cardT } from "../../lib/constants/declarations"
+import Input from "../atoms/Input"
+import RoomInitialDialog from "../organisms/RoomInitialDialog"
+import { generateLink } from "../../lib/constants/utils"
 export default function Room() {
+  const { player } = store.getState()
   const navigator = useNavigate()
-  const dialogRef = useRef<HTMLDialogElement>(null)
+  const [initial, setInitial] = useState(true)
   const [roomName, setRoomName] = useState("")
   const [players, setPlayers] = useState<player[]>([])
-  const [playerName, setPlayerName] = useState("NA")
   const [cards, setCards] = useState(Cards)
   const [isComplete, setIsComplete] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-  const [isSpectator, setIsSpectator] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
-  const { useAddPlayer, useReset, useVote, useRevealCards, useVotePerCard } =
-    roomActions()
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const userType = formData.get("user-type")! as keyof typeof playerType
-    const username = formData.get("username")!.toString()
-    const player = useAddPlayer(username, userType)
-    if (userType === "spectator") setIsSpectator(true)
-    localStorage.setItem("playerId", player.id)
-    setPlayerName(player.name)
-    dialogRef.current?.close()
-  }
+  const inviteRef = useRef<HTMLDialogElement>(null)
+  const { useReset, useVote, useRevealCards, useVotePerCard } = roomActions()
+
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
@@ -48,7 +40,7 @@ export default function Room() {
     return () => unsuscribe()
   }, [])
   useEffect(() => {
-    const playerId = localStorage.getItem("playerId")!
+    const playerId = player.id
     if (store.getState().room.admin === playerId) setIsAdmin(true)
     if (players.every((player) => player.vote !== "none")) setIsComplete(true)
     else setIsComplete(false)
@@ -58,13 +50,8 @@ export default function Room() {
     const state = store.getState()
     if (state.room.id === "") navigator("/home")
     if (!localStorage.getItem("playerId")) {
-      dialogRef.current?.showModal()
-    } else {
-      const playerId = localStorage.getItem("playerId")!
-      const player = state.room.players.find((player) => player.id === playerId)
-      setPlayerName(player?.name ?? "404")
+      setInitial(false)
     }
-
     setRoomName(state.room.name)
   }, [])
 
@@ -76,7 +63,7 @@ export default function Room() {
         return prevCard
       })
     })
-    useVote(card, localStorage.getItem("playerId")!)
+    useVote(card, player.id)
   }
 
   const handleRevealClick = () => {
@@ -89,6 +76,9 @@ export default function Room() {
     setIsRevealed(false)
     setCards(Cards.map((card) => ({ ...card, voted: false })))
   }
+  const handleInviteClick = () => {
+    inviteRef.current?.showModal()
+  }
 
   return (
     <section className="page-wrapper room-page-wrapper">
@@ -98,21 +88,23 @@ export default function Room() {
         </section>
         <h1>{roomName}</h1>
         <section className="room-options">
-          <UserAvatar name={playerName} />
-          <Button className="invite-button" content="invitar jugadores" />
+          <UserAvatar name={player.name ?? "NA"} />
+          <Button
+            className="invite-button"
+            onClick={handleInviteClick}
+            content="invitar jugadores"
+          />
         </section>
       </header>
       <main className="game-body">
         <Table>
-          <>
-            {isAdmin && (
-              <Button
-                onClick={isRevealed ? handleResetClick : handleRevealClick}
-                disabled={!isComplete}
-                content={isRevealed ? "Nueva partida" : "Revelar cartas"}
-              />
-            )}
-          </>
+          {isAdmin && (
+            <Button
+              onClick={isRevealed ? handleResetClick : handleRevealClick}
+              disabled={!isComplete}
+              content={isRevealed ? "Nueva partida" : "Revelar cartas"}
+            />
+          )}
         </Table>
 
         {players.map((player, index) => (
@@ -136,7 +128,11 @@ export default function Room() {
           </>
         ))}
       </main>
-      <footer className={`game-cards ${isSpectator && "spectator-footer"}`}>
+      <footer
+        className={`game-cards ${
+          player.type === "spectator" && "spectator-footer"
+        }`}
+      >
         {!isRevealed ? (
           <Footer cards={cards} vote={handleVoteClick} />
         ) : (
@@ -149,7 +145,10 @@ export default function Room() {
           </section>
         )}
       </footer>
-      <PlayerNameDialog dialogRef={dialogRef} handleSubmit={handleSubmit} />
+      <RoomInitialDialog initial={initial} />
+      <FormDialog dialogRef={inviteRef} handleSubmit={() => {}}>
+        <Input name="" type="text" readonly defaultValue={generateLink()} />
+      </FormDialog>
     </section>
   )
 }

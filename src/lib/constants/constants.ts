@@ -1,5 +1,6 @@
 import { Card } from "./declarations";
 
+
 export const COMPANY_NAME = 'pragma';
 
 export const cards:Card[] = [
