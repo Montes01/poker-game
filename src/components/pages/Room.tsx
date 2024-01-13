@@ -66,6 +66,17 @@ export default function Room() {
     useVote(card, player.id)
   }
 
+  const handleCopySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    let link = data.get("link") as string
+
+    try {
+      window.navigator.clipboard.writeText(link)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleRevealClick = () => {
     setAverage(useRevealCards())
     setIsRevealed(true)
@@ -146,8 +157,9 @@ export default function Room() {
         )}
       </footer>
       <RoomInitialDialog initial={initial} />
-      <FormDialog dialogRef={inviteRef} handleSubmit={() => {}}>
-        <Input name="" type="text" readonly defaultValue={generateLink()} />
+      <FormDialog dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
+        <Input name="link" type="text" readonly defaultValue={generateLink()} />
+        <Button submit content="Copy link" />
       </FormDialog>
     </section>
   )
