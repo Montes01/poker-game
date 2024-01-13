@@ -1,10 +1,28 @@
-@import '../colors/colors.scss';
+@import "../colors/colors.scss";
 .splash-page-wrapper {
   display: grid;
   place-content: center;
   place-items: center;
+  & > * {
+    animation: fade-out 2s linear both;
+  }
   .splash-title {
     font-weight: 100;
     font-size: 40px;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

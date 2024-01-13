@@ -1,9 +1,23 @@
-interface player {
+export enum playerType {
+  player = "player",
+  spectator = "spectator",
+}
+export interface player {
   name: string
-  vote: number
+  id: string
+  type: keyof typeof playerType
+  vote: string
 }
 
-interface player {
-  players: player[]
+export interface room {
+  id: string
   name: string
+  admin: string
+  players: player[]
+}
+
+export interface Card {
+  content: string
+  voted: boolean
+  count?: number
 }

@@ -1,4 +1,4 @@
-import '../../assets/components/button.scss'
+import "../../assets/components/button.scss"
 interface Props {
   content: string
   onClick?: () => void
@@ -16,7 +16,7 @@ export default function Button({
   return (
     <button
       className={`basic-button ${className}`}
-      type={submit ? 'submit' : 'button'}
+      type={submit ? "submit" : "button"}
       onClick={onClick}
       disabled={disabled ?? false}
     >

@@ -1,27 +1,29 @@
-import '../../assets/components/Input.scss'
+import "../../assets/components/Input.scss"
 interface Props {
   label?: string
   type:
-    | 'text'
-    | 'password'
-    | 'email'
-    | 'number'
-    | 'date'
-    | 'time'
-    | 'file'
-    | 'checkbox'
-    | 'radio'
-    | 'color'
-    | 'range'
-    | 'search'
-    | 'tel'
-    | 'url'
-    | 'week'
-    | 'month'
+    | "text"
+    | "password"
+    | "email"
+    | "number"
+    | "date"
+    | "time"
+    | "file"
+    | "checkbox"
+    | "radio"
+    | "color"
+    | "range"
+    | "search"
+    | "tel"
+    | "url"
+    | "week"
+    | "month"
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   name: string
   children?: React.ReactNode
+  readonly?: boolean
+  defaultValue?: string
 }
 export default function Input({
   label,
@@ -30,6 +32,8 @@ export default function Input({
   placeholder,
   name,
   children,
+  readonly,
+  defaultValue,
 }: Props) {
   return (
     <label className="input-with-label">
@@ -41,6 +45,8 @@ export default function Input({
         type={type}
         onChange={onChange}
         placeholder={placeholder}
+        readOnly={readonly ?? false}
+        defaultValue={defaultValue ?? ""}
       />
       {children}
     </label>

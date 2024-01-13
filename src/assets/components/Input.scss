@@ -3,9 +3,9 @@
 .basic-input {
   @include base-interactive-element {
     width: 100%;
-    border: $higher-color 1px solid;
+    border: $third-color 1px solid;
     font-size: 15px;
-    background-color: transparent;
+    background-color:$input-color;
     color: white;
   }
 }
