@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { type room, type player } from "../../../constants/declarations"
 import { type PayloadAction } from "@reduxjs/toolkit"
-
+import { io } from "socket.io-client"
+import { ioEvents, serverPath } from "../../../constants/constants"
 const initialState: room = {
   id: "",
   name: "",
@@ -13,7 +14,9 @@ const roomSlice = createSlice({
   name: "room",
   reducers: {
     createRoom: (state, action: PayloadAction<string>) => {
-      return { ...state, id: crypto.randomUUID(), name: action.payload }
+      const room = { ...state, id: crypto.randomUUID(), name: action.payload }
+      io(serverPath).emit(ioEvents.createRoom, room.id)
+      return room
     },
     addPlayer: (state, action: PayloadAction<player>) => {
       return {
