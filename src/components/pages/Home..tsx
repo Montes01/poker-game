@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React,{ useState } from "react"
 import "../../assets/components/home.scss"
 import { validateName } from "../../lib/constants/utils"
 import roomActions from "../../lib/hooks/room/roomActions"

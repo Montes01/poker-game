@@ -17,7 +17,10 @@ import { Card as cardT } from "../../lib/constants/declarations"
 import Input from "../atoms/Input"
 import RoomInitialDialog from "../organisms/RoomInitialDialog"
 import { generateLink } from "../../lib/constants/utils"
+import { io } from "socket.io-client"
+
 export default function Room() {
+  io("http://localhost:3000")
   const { player } = store.getState()
   const navigator = useNavigate()
   const [initial, setInitial] = useState(true)
