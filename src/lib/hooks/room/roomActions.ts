@@ -3,7 +3,7 @@ import {
   createRoom,
   addPlayer,
   vote,
-  joinRoom,
+  updateRoom,
   reset,
 } from "../../hooks/room/slices/roomSlice"
 import { Card, playerType, room } from "../../constants/declarations"
@@ -59,11 +59,11 @@ export default function roomActions() {
   const useReset = () => {
     dispatcher(reset())
   }
-  const useJoinRoom = (room: room) => {
-    dispatcher(joinRoom(room))
+  const useUpdateRoom = (room: room) => {
+    dispatcher(updateRoom(room))
   }
   return {
-    useJoinRoom,
+    useUpdateRoom,
     useCreateRoom,
     useAddPlayer,
     useVote,

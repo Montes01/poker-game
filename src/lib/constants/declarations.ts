@@ -30,4 +30,5 @@ export enum ioEvents {
   disconnect = "disconnect",
   connect = "connect",
   joinRoom = "joinRoom",
+  updateRoom = "updateRoom",
 }

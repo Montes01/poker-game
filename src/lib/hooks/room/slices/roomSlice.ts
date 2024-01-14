@@ -49,7 +49,7 @@ const roomSlice = createSlice({
         players: state.players.map((player) => ({ ...player, vote: "none" })),
       }
     },
-    joinRoom: (_, { payload }: PayloadAction<room>) => {
+    updateRoom: (_, { payload }: PayloadAction<room>) => {
       return payload
     },
   },
@@ -62,4 +62,4 @@ export const createRoom = roomSlice.actions.createRoom
 export const addPlayer = roomSlice.actions.addPlayer
 export const vote = roomSlice.actions.vote
 export const reset = roomSlice.actions.reset
-export const joinRoom = roomSlice.actions.joinRoom
+export const updateRoom = roomSlice.actions.updateRoom

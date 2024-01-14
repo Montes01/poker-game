@@ -18,12 +18,11 @@ import Input from "../atoms/Input"
 import RoomInitialDialog from "../organisms/RoomInitialDialog"
 import { generateLink } from "../../lib/constants/utils"
 import { connection } from "../../App"
-import { connect } from "react-redux"
 
 export default function Room() {
+  const navigator = useNavigate()
   const params = useParams()
   const { player } = store.getState()
-  const navigator = useNavigate()
   const [initial, setInitial] = useState(true)
   const [roomName, setRoomName] = useState("")
   const [players, setPlayers] = useState<player[]>([])
@@ -33,8 +32,12 @@ export default function Room() {
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
   const inviteRef = useRef<HTMLDialogElement>(null)
-  const { useReset, useVote, useRevealCards, useVotePerCard, useJoinRoom } =
+  const { useReset, useVote, useRevealCards, useVotePerCard, useUpdateRoom } =
     roomActions()
+
+  useEffect(() => {
+    connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
+  }, [])
 
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
@@ -61,7 +64,7 @@ export default function Room() {
           if (!exists) navigator("/home")
           else {
             setInitial(false)
-            useJoinRoom(room!)
+            useUpdateRoom(room!)
           }
         }
       )
