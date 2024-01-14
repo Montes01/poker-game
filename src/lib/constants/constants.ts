@@ -19,16 +19,3 @@ export const cards:Card[] = [
     { content: "?", voted: false },
 ];
 
-export enum ioEvents {
-    createRoom = "createRoom",
-    addPlayer = "addPlayer",
-    vote = "vote",
-    reset = "reset",
-    reveal = "reveal",
-    disconnect = "disconnect",
-    connect = "connect",
-    connect_error = "connect_error",
-    connect_timeout = "connect_timeout",
-    reconnect = "reconnect",
-    reconnect_attempt = "reconnect_attempt",
-}

@@ -21,3 +21,13 @@ export interface Card {
   voted: boolean
   count?: number
 }
+export enum ioEvents {
+  createRoom = "createRoom",
+  addPlayer = "addPlayer",
+  vote = "vote",
+  reset = "reset",
+  reveal = "reveal",
+  disconnect = "disconnect",
+  connect = "connect",
+  joinRoom = "joinRoom",
+}

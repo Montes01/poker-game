@@ -8,17 +8,20 @@ import { useEffect, useRef, useState } from "react"
 import { store } from "../../lib/store/store"
 import FormDialog from "../templates/FormDialog"
 import roomActions from "../../lib/hooks/room/roomActions"
-import { player } from "../../lib/constants/declarations"
+import { ioEvents, player, room } from "../../lib/constants/declarations"
 import Card from "../atoms/Card"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { cards as Cards } from "../../lib/constants/constants"
 import Footer from "../organisms/Footer"
 import { Card as cardT } from "../../lib/constants/declarations"
 import Input from "../atoms/Input"
 import RoomInitialDialog from "../organisms/RoomInitialDialog"
 import { generateLink } from "../../lib/constants/utils"
+import { connection } from "../../App"
+import { connect } from "react-redux"
 
 export default function Room() {
+  const params = useParams()
   const { player } = store.getState()
   const navigator = useNavigate()
   const [initial, setInitial] = useState(true)
@@ -30,7 +33,8 @@ export default function Room() {
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
   const inviteRef = useRef<HTMLDialogElement>(null)
-  const { useReset, useVote, useRevealCards, useVotePerCard } = roomActions()
+  const { useReset, useVote, useRevealCards, useVotePerCard, useJoinRoom } =
+    roomActions()
 
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
@@ -48,12 +52,20 @@ export default function Room() {
   }, [players])
 
   useEffect(() => {
-    const state = store.getState()
-    if (state.room.id === "") navigator("/home")
-    if (!localStorage.getItem("playerId")) {
-      setInitial(false)
+    if (store.getState().room.id === "") {
+      const roomId = params.id
+      connection.emit(
+        ioEvents.joinRoom,
+        roomId,
+        (exists: boolean, room?: room) => {
+          if (!exists) navigator("/home")
+          else {
+            setInitial(false)
+            useJoinRoom(room!)
+          }
+        }
+      )
     }
-    setRoomName(state.room.name)
   }, [])
 
   const handleVoteClick = (card: string) => {

@@ -3,7 +3,7 @@ import { createServer } from "http"
 import { Server } from "socket.io"
 const app = express()
 const server = createServer(app)
-
+const PORT = 3000
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -12,13 +12,43 @@ const io = new Server(server, {
 })
 
 server.listen(process.env.PORT ?? 3000, () => {
-  console.log("Server listening on port 3000")
+  console.log(` Server is running on port ${PORT}`)
 })
 
+const rooms = []
 io.on("connection", (socket) => {
   console.log("New client connected")
-
-  socket.on("createRoom", (id) => {
-    console.log("room created with id: ", id)
+  socket.on("createRoom", (room) => {
+    console.log("room created with id: ", room.id)
+    rooms.push(room)
+    console.log(rooms)
   })
+  socket.on("joinRoom", (roomId, callback) => {
+    if (!rooms.find((r) => r.id === roomId)) callback(false)
+    else
+      callback(
+        true,
+        rooms.find((r) => r.id === roomId)
+      )
+  })
+
+  socket.on("addPlayer", (info) => {
+    const id = info.roomId
+    const player = info.player
+    console.log({ id, player })
+    rooms.find((room) => room.id === id).players.push(player)
+  })
+
+  socket.on("vote", (info) => {
+    const id = info.roomId
+    const vote = info.vote
+    console.log({ id, vote })
+    rooms
+      .find((room) => room.id === id)
+      .players.find((player) => player.id === vote.id).vote = vote.vote
+  })
+})
+
+io.on("disconnect", () => {
+  console.log("Client disconnected")
 })
