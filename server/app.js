@@ -38,6 +38,18 @@ io.on("connection", (socket) => {
     }
   })
 
+  socket.on("changeCards", (data) => {
+    const id = data.roomId
+    const cards = data.cards
+    rooms.find((room) => room.id === id).cards = cards
+    rooms.find((room) => room.id === id).players = rooms
+      .find((room) => room.id === id)
+      .players.map((player) => {
+        return { ...player, vote: "none" }
+      })
+    emitRoomUpdate(id)
+  })
+
   socket.on("addPlayer", (data) => {
     const id = data.roomId
     const player = data.player
@@ -122,9 +134,13 @@ io.on("connection", (socket) => {
         .find((room) => room.id === roomId)
         .players.filter((player) => player.serverId !== socket.id)
       if (player.id === rooms.find((room) => room.id === roomId).admin) {
-        rooms.find((room) => room.id === roomId).admin = rooms.find(
-          (room) => room.id === roomId
-        ).players[0].id
+        try {
+          rooms.find((room) => room.id === roomId).admin = rooms.find(
+            (room) => room.id === roomId
+          ).players[0].id
+        } catch {
+          rooms.pop(rooms.find((room) => room.id === roomId))
+        }
       }
       emitRoomUpdate(roomId)
     }

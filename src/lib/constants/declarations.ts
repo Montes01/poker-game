@@ -24,15 +24,22 @@ export interface Card {
   voted: boolean
   count?: number
 }
+
+export const cardTypes = {
+  fibonacci: "fibonacci",
+  normal: "normal",
+  tenX: "tenX",
+}
+
 export enum ioEvents {
   createRoom = "createRoom",
   addPlayer = "addPlayer",
   vote = "vote",
   reset = "reset",
   reveal = "reveal",
-  disconnect = "disconnect",
   connect = "connect",
   joinRoom = "joinRoom",
   updateRoom = "updateRoom",
   giveAdmin = "giveAdmin",
+  changeCards = "changeCards",
 }

@@ -8,8 +8,10 @@ import RadioButton from "../../system-design/atoms/RadioButton"
 import "../../assets/components/game-table.scss"
 import { connection } from "../../App"
 import { ioEvents } from "../../lib/constants/declarations"
+import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
   const { useReset, useRevealCards } = roomActions()
+  const changeCardsRef = useRef<HTMLDialogElement>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -47,6 +49,10 @@ export default function GameTable() {
     changeAdminRef.current?.showModal()
   }
   const changeAdminRef = useRef<HTMLDialogElement>(null)
+  const handleChangeCardsClick = () => {
+    changeCardsRef.current?.showModal()
+  }
+
   return (
     <Table>
       {isAdmin && (
@@ -57,6 +63,7 @@ export default function GameTable() {
             content={isRevealed ? "Nueva partida" : "Revelar cartas"}
           />
           <Button content="Cambiar admin" onClick={handleGiveAdminClick} />
+          <Button content="Cambiar cartas" onClick={handleChangeCardsClick} />
         </section>
       )}
       <FormDialog
@@ -79,6 +86,7 @@ export default function GameTable() {
         </section>
         <Button content="confirm" submit />
       </FormDialog>
+      <ChangeCardsDialog changeCardsRef={changeCardsRef} />
     </Table>
   )
 }

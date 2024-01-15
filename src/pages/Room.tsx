@@ -15,7 +15,6 @@ import Players from "./components/Players"
 import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 import playerActions from "../lib/hooks/player/playerActions"
-import FormDialog from "../system-design/templates/FormDialog"
 
 export default function Room() {
   const navigator = useNavigate()
