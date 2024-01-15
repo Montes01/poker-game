@@ -37,10 +37,7 @@ export default function Room() {
     roomActions()
 
   useEffect(() => {
-    connection.on(ioEvents.updateRoom, (room: room) => {
-      console.log("updated", room)
-      useUpdateRoom(room)
-    })
+    connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
   }, [])
 
   useEffect(() => {
@@ -51,6 +48,7 @@ export default function Room() {
     })
     return () => unsuscribe()
   }, [])
+  
   useEffect(() => {
     const playerId = player.id
     if (store.getState().room.admin === playerId) setIsAdmin(true)

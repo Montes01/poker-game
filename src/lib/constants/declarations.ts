@@ -31,4 +31,5 @@ export enum ioEvents {
   connect = "connect",
   joinRoom = "joinRoom",
   updateRoom = "updateRoom",
+  giveAdmin = "giveAdmin",
 }

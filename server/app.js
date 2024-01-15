@@ -63,6 +63,12 @@ io.on("connection", (socket) => {
     })
     emitRoomUpdate(roomId)
   })
+  socket.on("giveAdmin", (data) => {
+    const id = data.roomId
+    const admin = data.admin
+    rooms.find((room) => room.id === id).admin = admin
+    emitRoomUpdate(id)
+  })
   socket.on("disconnect", () => {
     console.log("Client disconnected")
   })

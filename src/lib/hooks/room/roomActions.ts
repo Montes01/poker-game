@@ -1,8 +1,5 @@
 import { useAppDispatch } from "../store"
-import {
-  createRoom,
-  updateRoom,
-} from "../../hooks/room/slices/roomSlice"
+import { createRoom, updateRoom } from "../../hooks/room/slices/roomSlice"
 import { Card, ioEvents, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
@@ -66,6 +63,13 @@ export default function roomActions() {
   const useUpdateRoom = (room: room) => {
     dispatcher(updateRoom(room))
   }
+  const useGiveAdmin = (playerId: string) => {
+    connection.emit(ioEvents.giveAdmin, {
+      roomId: store.getState().room.id,
+      admin: playerId,
+    })
+  }
+
   return {
     useUpdateRoom,
     useCreateRoom,
@@ -74,5 +78,6 @@ export default function roomActions() {
     useReset,
     useRevealCards,
     useVotePerCard,
+    useGiveAdmin,
   }
 }
