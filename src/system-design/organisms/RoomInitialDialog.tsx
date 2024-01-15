@@ -4,16 +4,12 @@ import FormDialog from "../templates/FormDialog"
 import PlayerNameForm from "../templates/PlayerNameForm"
 import roomActions from "../../lib/hooks/room/roomActions"
 
-interface Props {
-  initial?: boolean
-}
-
-export default function RoomInitialDialog({ initial }: Props) {
+export default function RoomInitialDialog() {
   const { useAddPlayer } = roomActions()
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
-    if (initial) dialogRef.current?.showModal()
+    dialogRef.current?.showModal()
   }, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

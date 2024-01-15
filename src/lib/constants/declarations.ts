@@ -14,6 +14,8 @@ export interface room {
   name: string
   admin: string
   players: player[]
+  isRevealed: boolean
+  cards: Card[]
 }
 
 export interface Card {

@@ -47,13 +47,14 @@ io.on("connection", (socket) => {
     emitRoomUpdate(id)
   })
 
-  socket.on("vote", (data) => {
+  socket.on("vote", (data, callback) => {
     const id = data.roomId
     const vote = data.vote
     rooms
       .find((room) => room.id === id)
       .players.find((player) => player.id === vote.id).vote = vote.card
     emitRoomUpdate(id)
+    callback(vote.card)
   })
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
@@ -61,6 +62,7 @@ io.on("connection", (socket) => {
       player.vote = null
       return player
     })
+    rooms.find((room) => room.id === roomId).isRevealed = false
     emitRoomUpdate(roomId)
   })
   socket.on("giveAdmin", (data) => {
@@ -69,6 +71,11 @@ io.on("connection", (socket) => {
     rooms.find((room) => room.id === id).admin = admin
     emitRoomUpdate(id)
   })
+  socket.on("reveal", (roomId) => {
+    rooms.find((room) => room.id === roomId).isRevealed = true
+    emitRoomUpdate(roomId)
+  })
+
   socket.on("disconnect", () => {
     console.log("Client disconnected")
   })

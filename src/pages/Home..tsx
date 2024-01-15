@@ -1,5 +1,5 @@
 import React,{ useState } from "react"
-import "../../assets/components/home.scss"
+import "../assets/components/home.scss"
 import { validateName } from "../lib/constants/utils"
 import roomActions from "../lib/hooks/room/roomActions"
 import Button from "../system-design/atoms/Button"

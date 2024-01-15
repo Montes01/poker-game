@@ -1,5 +1,9 @@
 import { useAppDispatch } from "../store"
-import { createRoom, updateRoom } from "../../hooks/room/slices/roomSlice"
+import {
+  createRoom,
+  updateRoom,
+  changeLocalVote,
+} from "../../hooks/room/slices/roomSlice"
 import { Card, ioEvents, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
@@ -25,22 +29,20 @@ export default function roomActions() {
   }
 
   const useVote = (card: string) => {
-    connection.emit(ioEvents.vote, {
-      roomId: store.getState().room.id,
-      vote: { card: card, id: store.getState().player.id },
-    })
+    connection.emit(
+      ioEvents.vote,
+      {
+        roomId: store.getState().room.id,
+        vote: { card: card, id: store.getState().player.id },
+      },
+      (card: string) => {
+        dispatcher(changeLocalVote(card))
+      }
+    )
   }
 
   const useRevealCards = () => {
-    const players = store
-      .getState()
-      .room.players.filter((player) => player.type === playerType.player)
-      .filter((player) => isNaN(Number(player.vote)) === false)
-    let average = 0
-    for (let i = 0; i < players.length; i++) {
-      average += Number(players[i].vote)
-    }
-    return average === 0 ? average : average / players.length
+    connection.emit(ioEvents.reveal, store.getState().room.id)
   }
 
   const useVotePerCard = (): Card[] => {

@@ -1,40 +1,28 @@
-import "../../assets/components/room.scss"
-import "../../assets/components/user-form.scss"
+import "../assets/components/room.scss"
+import "../assets/components/user-form.scss"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import UserAvatar from "../system-design/atoms/UserAvatar"
 import Button from "../system-design/atoms/Button"
-import Table from "../system-design/atoms/Table"
 import { useEffect, useRef, useState } from "react"
 import { store } from "../lib/store/store"
-import FormDialog from "../system-design/templates/FormDialog"
 import roomActions from "../lib/hooks/room/roomActions"
-import { ioEvents, player, room } from "../lib/constants/declarations"
-import Card from "../system-design/atoms/Card"
+import { ioEvents, room } from "../lib/constants/declarations"
 import { useNavigate, useParams } from "react-router-dom"
-import { cards as Cards } from "../lib/constants/constants"
 import Footer from "../system-design/organisms/Footer"
-import { Card as cardT } from "../lib/constants/declarations"
-import Input from "../system-design/atoms/Input"
 import RoomInitialDialog from "../system-design/organisms/RoomInitialDialog"
-import { generateLink } from "../lib/constants/utils"
 import { connection } from "../App"
+import Players from "./components/Players"
+import InviteDialog from "./components/InviteDialog"
+import GameTable from "./components/GameTable"
 
 export default function Room() {
   const navigator = useNavigate()
   const params = useParams()
-  const { player } = store.getState()
-  const [initial, setInitial] = useState(true)
-  const [roomName, setRoomName] = useState("")
-  const [players, setPlayers] = useState<player[]>([])
-  const [cards, setCards] = useState(Cards)
-  const [isComplete, setIsComplete] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [isRevealed, setIsRevealed] = useState(false)
-  const [average, setAverage] = useState(0)
-  const [copyMessage, setCopyMessage] = useState("Copy link")
   const inviteRef = useRef<HTMLDialogElement>(null)
-  const { useReset, useVote, useRevealCards, useVotePerCard, useUpdateRoom } =
-    roomActions()
+  const { player, room } = store.getState()
+  const [roomName, setRoomName] = useState("")
+  const [average, setAverage] = useState(0)
+  const { useVote, useUpdateRoom } = roomActions()
 
   useEffect(() => {
     connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
@@ -44,17 +32,10 @@ export default function Room() {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
       setRoomName(state.room.name)
-      setPlayers(state.room.players)
     })
     return () => unsuscribe()
   }, [])
-  
-  useEffect(() => {
-    const playerId = player.id
-    if (store.getState().room.admin === playerId) setIsAdmin(true)
-    if (players.every((player) => player.vote !== "none")) setIsComplete(true)
-    else setIsComplete(false)
-  }, [players])
+
 
   useEffect(() => {
     if (store.getState().room.id === "") {
@@ -65,7 +46,6 @@ export default function Room() {
         (exists: boolean, room?: room) => {
           if (!exists) navigator("/home")
           else {
-            setInitial(false)
             useUpdateRoom(room!)
           }
         }
@@ -74,42 +54,10 @@ export default function Room() {
   }, [])
 
   const handleVoteClick = (card: string) => {
-    setCards((prev) => {
-      return prev.map((prevCard) => {
-        if (prevCard.content === card) prevCard.voted = true
-        else prevCard.voted = false
-        return prevCard
-      })
-    })
     useVote(card)
   }
 
-  const handleCopySubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    let link = data.get("link") as string
-
-    try {
-      window.navigator.clipboard.writeText(link)
-      setCopyMessage("Copied ✔")
-    } catch (error) {
-      console.log(error)
-      setCopyMessage("Error ❌")
-    }
-  }
-  const handleRevealClick = () => {
-    setAverage(useRevealCards())
-    setIsRevealed(true)
-    setCards(useVotePerCard() as cardT[])
-  }
-  const handleResetClick = () => {
-    useReset()
-    setIsRevealed(false)
-    setCards(Cards.map((card) => ({ ...card, voted: false })))
-  }
-  const handleInviteClick = () => {
-    inviteRef.current?.showModal()
-  }
+  const handleInviteClick = () => inviteRef.current?.showModal()
 
   return (
     <section className="page-wrapper room-page-wrapper">
@@ -128,47 +76,19 @@ export default function Room() {
         </section>
       </header>
       <main className="game-body">
-        <Table>
-          {isAdmin && (
-            <Button
-              onClick={isRevealed ? handleResetClick : handleRevealClick}
-              disabled={!isComplete}
-              content={isRevealed ? "Nueva partida" : "Revelar cartas"}
-            />
-          )}
-        </Table>
-
-        {players.map((player, index) => (
-          <>
-            {player.type === "spectator" ? (
-              <UserAvatar
-                key={player.id}
-                onTable
-                name={player.name}
-                className={`user${index}`}
-              />
-            ) : (
-              <Card
-                vote={player.vote}
-                onTable
-                content={player.name}
-                key={player.id}
-                className={`user${index}`}
-              />
-            )}
-          </>
-        ))}
+        <GameTable />
+        <Players />
       </main>
       <footer
         className={`game-cards ${
           player.type === "spectator" && "spectator-footer"
         }`}
       >
-        {!isRevealed ? (
-          <Footer cards={cards} vote={handleVoteClick} />
+        {!room.isRevealed ? (
+          <Footer cards={room.cards} vote={handleVoteClick} />
         ) : (
           <section className="average">
-            <Footer revealed cards={cards} vote={() => {}} />
+            <Footer revealed cards={room.cards} vote={() => {}} />
             <article className="average-text">
               <strong>Promedio:</strong>
               <h2>{average}</h2>
@@ -176,11 +96,8 @@ export default function Room() {
           </section>
         )}
       </footer>
-      <RoomInitialDialog initial={initial} />
-      <FormDialog dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
-        <Input name="link" type="text" readonly defaultValue={generateLink()} />
-        <Button submit content={copyMessage} />
-      </FormDialog>
+      <InviteDialog inviteRef={inviteRef} />
+      <RoomInitialDialog />
     </section>
   )
 }
