@@ -55,7 +55,6 @@ io.on("connection", (socket) => {
       .players.find((player) => player.id === vote.id).vote = vote.card
     emitRoomUpdate(id)
   })
-  //reset
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
     rooms.find((room) => room.id === roomId).players = players.map((player) => {
@@ -64,7 +63,6 @@ io.on("connection", (socket) => {
     })
     emitRoomUpdate(roomId)
   })
-  //add disconnection
   socket.on("disconnect", () => {
     console.log("Client disconnected")
   })

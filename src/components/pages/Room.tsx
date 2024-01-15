@@ -31,6 +31,7 @@ export default function Room() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
+  const [copyMessage, setCopyMessage] = useState("Copy link")
   const inviteRef = useRef<HTMLDialogElement>(null)
   const { useReset, useVote, useRevealCards, useVotePerCard, useUpdateRoom } =
     roomActions()
@@ -92,8 +93,10 @@ export default function Room() {
 
     try {
       window.navigator.clipboard.writeText(link)
+      setCopyMessage("Copied ✔")
     } catch (error) {
       console.log(error)
+      setCopyMessage("Error ❌")
     }
   }
   const handleRevealClick = () => {
@@ -178,7 +181,7 @@ export default function Room() {
       <RoomInitialDialog initial={initial} />
       <FormDialog dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
         <Input name="link" type="text" readonly defaultValue={generateLink()} />
-        <Button submit content="Copy link" />
+        <Button submit content={copyMessage} />
       </FormDialog>
     </section>
   )
