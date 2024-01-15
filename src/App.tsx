@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
-import Splash from "./components/pages/Splash"
-import Home from "./components/pages/Home."
-import Room from "./components/pages/Room"
+import Splash from "./pages/Splash"
+import Home from "./pages/Home."
+import Room from "./pages/Room"
 import { io } from "socket.io-client"
 export const connection = io("http://localhost:3000")
 

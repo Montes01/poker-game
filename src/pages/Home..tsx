@@ -1,13 +1,13 @@
 import React,{ useState } from "react"
 import "../../assets/components/home.scss"
-import { validateName } from "../../lib/constants/utils"
-import roomActions from "../../lib/hooks/room/roomActions"
-import Button from "../atoms/Button"
-import Input from "../atoms/Input"
-import HeadLogo from "../molecules/HeadLogo"
-import WarningIcon from "../atoms/WarningIcon"
+import { validateName } from "../lib/constants/utils"
+import roomActions from "../lib/hooks/room/roomActions"
+import Button from "../system-design/atoms/Button"
+import Input from "../system-design/atoms/Input"
+import HeadLogo from "../system-design/molecules/HeadLogo"
+import WarningIcon from "../system-design/atoms/WarningIcon"
 import { useNavigate } from "react-router-dom"
-import { store } from "../../lib/store/store"
+import { store } from "../lib/store/store"
 export default function Home() {
   const navigator = useNavigate()
   const [isValid, setIsValid] = useState<boolean | null>(null)
