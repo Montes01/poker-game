@@ -10,7 +10,3 @@ export const store = configureStore({
 
 export default store.dispatch
 export type RootState = ReturnType<typeof store.getState>
-
-store.subscribe(() => {
-  console.log(store.getState())
-})

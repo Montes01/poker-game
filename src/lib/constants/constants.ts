@@ -1,21 +1,32 @@
-import { Card } from "./declarations";
+import { Card } from "./declarations"
 
-export const COMPANY_NAME = 'pragma';
+export const COMPANY_NAME = "pragma"
 
-export const serverPath = "http://localhost:3000";
+export const serverPath = "http://localhost:3000"
 
-export const cards:Card[] = [
-    { content: "0", voted: false },
-    { content: "1", voted: false },
-    { content: "2", voted: false },
-    { content: "3", voted: false },
-    { content: "4", voted: false },
-    { content: "5", voted: false },
-    { content: "6", voted: false },
-    { content: "7", voted: false },
-    { content: "8", voted: false },
-    { content: "9", voted: false },
-    { content: "☕", voted: false },
-    { content: "?", voted: false },
-];
+export const cards: Card[] = generateCards("normal")
 
+export function generateCards(type: "fibonacci" | "normal" | "tenX") {
+  const cards: Card[] = []
+  if (type === "fibonacci") {
+    for (let i = 0; i < 13; i++) {
+      cards.push({ content: `${i}`, voted: false })
+    }
+
+    cards.push({ content: "☕", voted: false })
+    cards.push({ content: "?", voted: false })
+  } else if (type === "normal") {
+    for (let i = 0; i < 10; i++) {
+      cards.push({ content: `${i}`, voted: false })
+    }
+    cards.push({ content: "☕", voted: false })
+    cards.push({ content: "?", voted: false })
+  } else if (type === "tenX") {
+    for (let i = 0; i < 10; i++) {
+      cards.push({ content: `${i * 10}`, voted: false })
+    }
+    cards.push({ content: "☕", voted: false })
+    cards.push({ content: "?", voted: false })
+  }
+  return cards
+}
