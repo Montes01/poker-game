@@ -19,9 +19,13 @@ export default function Footer({ vote, revealed }: Props) {
     return () => unsuscribe()
   }, [])
   useEffect(() => {
-    setCards(
-      store.getState().room.cards.filter((card) => card.count !== undefined)
-    )
+    if (revealed) {
+      setCards(
+        store.getState().room.cards.filter((card) => card.count !== undefined)
+      )
+    } else {
+      setCards(store.getState().room.cards)
+    }
   }, [revealed])
   return (
     <>
