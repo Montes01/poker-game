@@ -25,10 +25,11 @@ const roomSlice = createSlice({
       return payload
     },
     changeLocalVote: (state, { payload }: PayloadAction<string>) => {
+      console.log(payload)
       return {
         ...state,
         cards: state.cards.map((card) => {
-          return { ...card, voted: card.content === payload ? true : false }
+          return { ...card, voted: card.content === payload }
         }),
       }
     },

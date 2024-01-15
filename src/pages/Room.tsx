@@ -8,7 +8,7 @@ import { store } from "../lib/store/store"
 import roomActions from "../lib/hooks/room/roomActions"
 import { ioEvents, room } from "../lib/constants/declarations"
 import { useNavigate, useParams } from "react-router-dom"
-import Footer from "../system-design/organisms/Footer"
+import Footer from "./components/Footer"
 import RoomInitialDialog from "../system-design/organisms/RoomInitialDialog"
 import { connection } from "../App"
 import Players from "./components/Players"
@@ -35,7 +35,6 @@ export default function Room() {
     })
     return () => unsuscribe()
   }, [])
-
 
   useEffect(() => {
     if (store.getState().room.id === "") {
@@ -79,23 +78,7 @@ export default function Room() {
         <GameTable />
         <Players />
       </main>
-      <footer
-        className={`game-cards ${
-          player.type === "spectator" && "spectator-footer"
-        }`}
-      >
-        {!room.isRevealed ? (
-          <Footer cards={room.cards} vote={handleVoteClick} />
-        ) : (
-          <section className="average">
-            <Footer revealed cards={room.cards} vote={() => {}} />
-            <article className="average-text">
-              <strong>Promedio:</strong>
-              <h2>{average}</h2>
-            </article>
-          </section>
-        )}
-      </footer>
+      <Footer />
       <InviteDialog inviteRef={inviteRef} />
       <RoomInitialDialog />
     </section>

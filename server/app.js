@@ -47,14 +47,13 @@ io.on("connection", (socket) => {
     emitRoomUpdate(id)
   })
 
-  socket.on("vote", (data, callback) => {
+  socket.on("vote", (data) => {
     const id = data.roomId
     const vote = data.vote
     rooms
       .find((room) => room.id === id)
       .players.find((player) => player.id === vote.id).vote = vote.card
     emitRoomUpdate(id)
-    callback(vote.card)
   })
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players

@@ -11,7 +11,7 @@ import { connection } from "../../../App"
 
 export default function roomActions() {
   const dispatcher = useAppDispatch()
-  const { useSetPlayer } = playerActions()
+  const { useSetPlayer, useSetVote } = playerActions()
   const useCreateRoom = (name: string) => {
     dispatcher(createRoom(name))
   }
@@ -34,11 +34,9 @@ export default function roomActions() {
       {
         roomId: store.getState().room.id,
         vote: { card: card, id: store.getState().player.id },
-      },
-      (card: string) => {
-        dispatcher(changeLocalVote(card))
       }
     )
+    useSetVote(card)
   }
 
   const useRevealCards = () => {
