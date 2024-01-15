@@ -32,33 +32,47 @@ io.on("connection", (socket) => {
         rooms.find((r) => r.id === roomId)
       )
       socket.join(roomId)
-      io.to(roomId).emit(
-        "updateRoom",
-        rooms.find((r) => r.id === roomId)
-      )
+      emitRoomUpdate(roomId)
     }
   })
 
-  socket.on("addPlayer", (info) => {
-    const id = info.roomId
-    const player = info.player
+  socket.on("addPlayer", (data) => {
+    const id = data.roomId
+    const player = data.player
     console.log({ id, player })
     rooms.find((room) => room.id === id).players.push(player)
-    io.to(id).emit(
-      "updateRoom",
-      rooms.find((r) => r.id === id)
-    )
+    if (rooms.find((room) => room.id === id).players.length === 1) {
+      rooms.find((room) => room.id === id).admin = player.id
+    }
+    emitRoomUpdate(id)
   })
 
-  socket.on("vote", (info) => {
-    const id = info.roomId
-    const vote = info.vote
+  socket.on("vote", (data) => {
+    const id = data.roomId
+    const vote = data.vote
     rooms
       .find((room) => room.id === id)
-      .players.find((player) => player.id === vote.id).vote = vote.vote
+      .players.find((player) => player.id === vote.id).vote = vote.card
+    emitRoomUpdate(id)
+  })
+  //reset
+  socket.on("reset", (roomId) => {
+    const players = rooms.find((room) => room.id === roomId).players
+    rooms.find((room) => room.id === roomId).players = players.map((player) => {
+      player.vote = null
+      return player
+    })
+    emitRoomUpdate(roomId)
   })
   //add disconnection
   socket.on("disconnect", () => {
     console.log("Client disconnected")
   })
+
+  function emitRoomUpdate(roomId) {
+    io.to(roomId).emit(
+      "updateRoom",
+      rooms.find((r) => r.id === roomId)
+    )
+  }
 })

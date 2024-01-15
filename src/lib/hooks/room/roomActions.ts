@@ -1,14 +1,12 @@
 import { useAppDispatch } from "../store"
 import {
   createRoom,
-  addPlayer,
-  vote,
   updateRoom,
-  reset,
 } from "../../hooks/room/slices/roomSlice"
-import { Card, playerType, room } from "../../constants/declarations"
+import { Card, ioEvents, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
+import { connection } from "../../../App"
 
 export default function roomActions() {
   const dispatcher = useAppDispatch()
@@ -22,12 +20,18 @@ export default function roomActions() {
       vote = "spectator"
     }
     const player = { id: crypto.randomUUID(), name, type, vote }
-    dispatcher(addPlayer(player))
     useSetPlayer(player)
+    connection.emit(ioEvents.addPlayer, {
+      roomId: store.getState().room.id,
+      player: player,
+    })
   }
 
-  const useVote = (card: string, id: string) => {
-    dispatcher(vote({ card, id }))
+  const useVote = (card: string) => {
+    connection.emit(ioEvents.vote, {
+      roomId: store.getState().room.id,
+      vote: { card: card, id: store.getState().player.id },
+    })
   }
 
   const useRevealCards = () => {
@@ -57,7 +61,7 @@ export default function roomActions() {
     return cards
   }
   const useReset = () => {
-    dispatcher(reset())
+    connection.emit(ioEvents.reset, store.getState().room.id)
   }
   const useUpdateRoom = (room: room) => {
     dispatcher(updateRoom(room))

@@ -36,7 +36,10 @@ export default function Room() {
     roomActions()
 
   useEffect(() => {
-    connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
+    connection.on(ioEvents.updateRoom, (room: room) => {
+      console.log("updated", room)
+      useUpdateRoom(room)
+    })
   }, [])
 
   useEffect(() => {
@@ -79,7 +82,7 @@ export default function Room() {
         return prevCard
       })
     })
-    useVote(card, player.id)
+    useVote(card)
   }
 
   const handleCopySubmit = (e: React.FormEvent<HTMLFormElement>) => {
