@@ -1,3 +1,4 @@
+import { createReducer } from "@reduxjs/toolkit"
 import express from "express"
 import { createServer } from "http"
 import { Server } from "socket.io"
@@ -63,12 +64,20 @@ io.on("connection", (socket) => {
   })
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
+    //all cards will have count undefined
+    rooms.find((room) => room.id === roomId).cards = rooms
+      .find((room) => room.id === roomId)
+      .cards.map((card) => {
+        return { ...card, count: undefined }
+      })
+
     rooms.find((room) => room.id === roomId).players = players.map((player) => {
       player.vote = null
       return player
     })
     rooms.find((room) => room.id === roomId).isRevealed = false
     emitRoomUpdate(roomId)
+    socket.to(roomId).emit("reset")
   })
   socket.on("giveAdmin", (data) => {
     const id = data.roomId
@@ -78,6 +87,25 @@ io.on("connection", (socket) => {
   })
   socket.on("reveal", (roomId) => {
     rooms.find((room) => room.id === roomId).isRevealed = true
+    rooms
+      .find((room) => room.id === roomId)
+      .players.forEach((player) => {
+        const vote = player.vote
+        if (
+          rooms
+            .find((room) => room.id === roomId)
+            .cards.find((card) => card.content === vote).count
+        ) {
+          rooms
+            .find((room) => room.id === roomId)
+            .cards.find((card) => card.content === vote).count++
+        } else {
+          rooms
+            .find((room) => room.id === roomId)
+            .cards.find((card) => card.content === vote).count = 1
+        }
+      })
+    console.log(rooms.find((room) => room.id === roomId).cards)
     emitRoomUpdate(roomId)
   })
 

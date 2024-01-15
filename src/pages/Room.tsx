@@ -14,23 +14,27 @@ import { connection } from "../App"
 import Players from "./components/Players"
 import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
+import playerActions from "../lib/hooks/player/playerActions"
+import FormDialog from "../system-design/templates/FormDialog"
 
 export default function Room() {
   const navigator = useNavigate()
   const params = useParams()
   const inviteRef = useRef<HTMLDialogElement>(null)
-  const { player } = store.getState()
+  const [playerName, setPlayerName] = useState(store.getState().player.name)
   const [roomName, setRoomName] = useState("")
   const { useUpdateRoom } = roomActions()
-
+  const { useRemoveVote } = playerActions()
   useEffect(() => {
     connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
+    connection.on(ioEvents.reset, () => useRemoveVote())
   }, [])
 
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
       setRoomName(state.room.name)
+      setPlayerName(state.player.name)
     })
     return () => unsuscribe()
   }, [])
@@ -61,7 +65,7 @@ export default function Room() {
         </section>
         <h1>{roomName}</h1>
         <section className="room-options">
-          <UserAvatar name={player.name ?? "NA"} />
+          <UserAvatar name={playerName ?? "NA"} />
           <Button
             className="invite-button"
             onClick={handleInviteClick}
