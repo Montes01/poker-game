@@ -21,6 +21,7 @@ io.on("connection", (socket) => {
 
   socket.on("createRoom", (room) => {
     socket.join(room.id)
+    socket.roomId = room.id
     console.log("room created with id: ", room.id)
     rooms.push(room)
   })
@@ -39,12 +40,17 @@ io.on("connection", (socket) => {
   socket.on("addPlayer", (data) => {
     const id = data.roomId
     const player = data.player
+    socket.roomId = id
     console.log({ id, player })
-    rooms.find((room) => room.id === id).players.push(player)
+    rooms
+      .find((room) => room.id === id)
+      .players.push({ ...player, serverId: socket.id })
     if (rooms.find((room) => room.id === id).players.length === 1) {
       rooms.find((room) => room.id === id).admin = player.id
     }
+
     emitRoomUpdate(id)
+    console.log(socket.id)
   })
 
   socket.on("vote", (data) => {
@@ -76,6 +82,24 @@ io.on("connection", (socket) => {
   })
 
   socket.on("disconnect", () => {
+    const roomId = socket.roomId
+    console.log("roomId", roomId)
+    if (!roomId) return
+    const player = rooms
+      .find((room) => room.id === roomId)
+      .players.find((player) => player.serverId === socket.id)
+
+    if (player) {
+      rooms.find((room) => room.id === roomId).players = rooms
+        .find((room) => room.id === roomId)
+        .players.filter((player) => player.serverId !== socket.id)
+      if (player.id === rooms.find((room) => room.id === roomId).admin) {
+        rooms.find((room) => room.id === roomId).admin = rooms.find(
+          (room) => room.id === roomId
+        ).players[0].id
+      }
+      emitRoomUpdate(roomId)
+    }
     console.log("Client disconnected")
   })
 
@@ -86,3 +110,4 @@ io.on("connection", (socket) => {
     )
   }
 })
+//24688dc9-a4d1-49ce-8940-5bfe6822cb12

@@ -7,6 +7,7 @@ export interface player {
   id: string
   type: keyof typeof playerType
   vote: string
+  serverId?: string
 }
 
 export interface room {

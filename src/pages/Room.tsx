@@ -19,10 +19,9 @@ export default function Room() {
   const navigator = useNavigate()
   const params = useParams()
   const inviteRef = useRef<HTMLDialogElement>(null)
-  const { player, room } = store.getState()
+  const { player } = store.getState()
   const [roomName, setRoomName] = useState("")
-  const [average, setAverage] = useState(0)
-  const { useVote, useUpdateRoom } = roomActions()
+  const { useUpdateRoom } = roomActions()
 
   useEffect(() => {
     connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
@@ -51,10 +50,6 @@ export default function Room() {
       )
     }
   }, [])
-
-  const handleVoteClick = (card: string) => {
-    useVote(card)
-  }
 
   const handleInviteClick = () => inviteRef.current?.showModal()
 

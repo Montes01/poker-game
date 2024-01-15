@@ -1,11 +1,18 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import roomActions from "../../lib/hooks/room/roomActions"
 import { store } from "../../lib/store/store"
 import Foot from "../../system-design/organisms/Footer"
 export default function Footer() {
   const { room, player } = store.getState()
+  const [isRevealed, setIsRevealed] = useState(false)
   const { useVote } = roomActions()
-
+  useEffect(() => {
+    const unsuscribe = store.subscribe(() => {
+      const state = store.getState()
+      setIsRevealed(state.room.isRevealed)
+    })
+    return () => unsuscribe()
+  }, [])
   const handleVoteClick = (card: string) => {
     useVote(card)
   }
@@ -16,7 +23,7 @@ export default function Footer() {
         player.type === "spectator" && "spectator-footer"
       }`}
     >
-      {!room.isRevealed ? (
+      {!isRevealed ? (
         <Foot cards={room.cards} vote={handleVoteClick} />
       ) : (
         <section className="average">

@@ -4,7 +4,7 @@ import { store } from "../../lib/store/store"
 import Button from "../../system-design/atoms/Button"
 import Table from "../../system-design/atoms/Table"
 export default function GameTable() {
-  const { useReset } = roomActions()
+  const { useReset, useRevealCards } = roomActions()
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -25,7 +25,7 @@ export default function GameTable() {
     return () => unsuscribe()
   }, [])
   const handleRevealClick = () => {
-    // setCards(useVotePerCard())
+    useRevealCards()
   }
   const handleResetClick = () => {
     useReset()
