@@ -76,7 +76,7 @@ io.on("connection", (socket) => {
   })
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
-    //all cards will have count undefined
+    
     rooms.find((room) => room.id === roomId).cards = rooms
       .find((room) => room.id === roomId)
       .cards.map((card) => {

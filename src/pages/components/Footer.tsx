@@ -14,19 +14,17 @@ export default function Footer() {
     })
     return () => unsuscribe()
   }, [])
-    useEffect(() => {
-      if (isRevealed) {
-        console.log("is here")
-        setAverage(
-          store
-            .getState()
-            .room.players.reduce(
-              (acc, player) => acc + Number(player.vote),
-              0
-            ) / store.getState().room.players.length
-        )
-      }
-    }, [isRevealed])
+  useEffect(() => {
+    if (isRevealed) {
+      console.log("is here")
+      setAverage(
+        store
+          .getState()
+          .room.players.reduce((acc, player) => acc + Number(player.vote), 0) /
+          store.getState().room.players.length
+      )
+    }
+  }, [isRevealed])
 
   const handleVoteClick = (card: string) => {
     useVote(card)
