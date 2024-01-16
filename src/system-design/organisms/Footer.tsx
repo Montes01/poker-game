@@ -14,7 +14,7 @@ export default function Footer({ vote, revealed }: Props) {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
       setPlayerVote(state.player.vote)
-      setCards(state.room.cards)
+      setCards([...state.room.cards])
     })
     return () => unsuscribe()
   }, [])

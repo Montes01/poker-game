@@ -1,4 +1,4 @@
-import React,{ useState } from "react"
+import { useMemo, useState } from "react"
 import "../assets/components/home.scss"
 import { validateName } from "../lib/constants/utils"
 import roomActions from "../lib/hooks/room/roomActions"
@@ -7,11 +7,13 @@ import Input from "../system-design/atoms/Input"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import WarningIcon from "../system-design/atoms/WarningIcon"
 import { useNavigate } from "react-router-dom"
-import { store } from "../lib/store/store"
+import { connection } from "../App"
+import { room } from "../lib/constants/declarations"
 export default function Home() {
   const navigator = useNavigate()
   const [isValid, setIsValid] = useState<boolean | null>(null)
   const [errorMessage, setErrorMessage] = useState("")
+  const [loading, setLoading] = useState(false)
   const { useCreateRoom } = roomActions()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
@@ -25,12 +27,18 @@ export default function Home() {
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    localStorage.clear()
     const form = new FormData(e.currentTarget)
     const roomName = form.get("room-name")!.toString()
     useCreateRoom(roomName)
-    navigator(`/room/${store.getState().room.id}`)
+    setLoading(true)
   }
+  useMemo(() => {
+    console.log("this is created")
+    connection.on("updateRoom", (room: room) => {
+      navigator(`/room/${room.id}`)
+    })
+  }, [])
+
   return (
     <main className="page-wrapper home-page-wrapper">
       <header className="home-header">
@@ -41,6 +49,7 @@ export default function Home() {
           onChange={handleChange}
           name="room-name"
           type="text"
+          placeholder="Sprint 32"
           label="Nombra la partida"
         >
           {!isValid && isValid != null && (
@@ -49,6 +58,7 @@ export default function Home() {
         </Input>
         <Button disabled={!isValid ?? false} content="Crear partida" submit />
       </form>
+      {loading && <h2>Creando partida...</h2>}
     </main>
   )
 }

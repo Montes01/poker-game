@@ -25,6 +25,7 @@ io.on("connection", (socket) => {
     socket.roomId = room.id
     console.log("room created with id: ", room.id)
     rooms.push(room)
+    emitRoomUpdate(room.id)
   })
   socket.on("joinRoom", (roomId, callback) => {
     if (!rooms.find((r) => r.id === roomId)) callback(false)
@@ -76,7 +77,7 @@ io.on("connection", (socket) => {
   })
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
-    
+
     rooms.find((room) => room.id === roomId).cards = rooms
       .find((room) => room.id === roomId)
       .cards.map((card) => {
