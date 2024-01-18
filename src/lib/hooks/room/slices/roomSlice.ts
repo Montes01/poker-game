@@ -1,41 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { type room, type player } from "../../../constants/declarations"
 import { type PayloadAction } from "@reduxjs/toolkit"
-
+import { ioEvents } from "../../../constants/declarations"
+import { connection } from "../../../../App"
+import { cards } from "../../../constants/constants"
 const initialState: room = {
   id: "",
   name: "",
   admin: "",
   players: [],
+  isRevealed: false,
+  cards: cards,
 }
 
 const roomSlice = createSlice({
   name: "room",
-  reducers: {
-    createRoom: (state, action: PayloadAction<string>) => {
-      return { ...state, id: crypto.randomUUID(), name: action.payload }
+  reducers: {    
+    updateRoom: (_, { payload }: PayloadAction<room>) => {
+      return payload
     },
-    addPlayer: (state, action: PayloadAction<player>) => {
+    changeLocalVote: (state, { payload }: PayloadAction<string>) => {
+      console.log(payload)
       return {
         ...state,
-        players: [...state.players, action.payload],
-        admin: state.players.length < 1 ? action.payload.id : state.admin,
-      }
-    },
-    vote: (state, action: PayloadAction<{ card: string; id: string }>) => {
-      return {
-        ...state,
-        players: state.players.map((player) => {
-          if (player.id === action.payload.id) {
-            return { ...player, vote: action.payload.card }
-          } else return player
+        cards: state.cards.map((card) => {
+          return { ...card, voted: card.content === payload }
         }),
-      }
-    },
-    reset: (state) => {
-      return {
-        ...state,
-        players: state.players.map((player) => ({ ...player, vote: "none" })),
       }
     },
   },
@@ -43,8 +33,5 @@ const roomSlice = createSlice({
 })
 
 export const slice = roomSlice.reducer
-
-export const createRoom = roomSlice.actions.createRoom
-export const addPlayer = roomSlice.actions.addPlayer
-export const vote = roomSlice.actions.vote
-export const reset = roomSlice.actions.reset
+export const updateRoom = roomSlice.actions.updateRoom
+export const changeLocalVote = roomSlice.actions.changeLocalVote

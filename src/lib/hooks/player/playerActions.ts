@@ -12,9 +12,13 @@ export default function playerActions() {
   const useSetVote = (vote: string) => {
     dispatcher(setVote(vote))
   }
+  const useRemoveVote = () => {
+    dispatcher(setVote("none"))
+  }
   return {
     useSetPlayer,
     useSetVote,
     useSetIsSpectator,
+    useRemoveVote
   }
 }

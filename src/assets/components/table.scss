@@ -8,4 +8,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    .table-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
 }

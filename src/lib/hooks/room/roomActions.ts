@@ -1,18 +1,26 @@
 import { useAppDispatch } from "../store"
-import {
-  createRoom,
-  addPlayer,
-  vote,
-  reset,
-} from "../../hooks/room/slices/roomSlice"
-import { Card, playerType } from "../../constants/declarations"
+import { updateRoom } from "../../hooks/room/slices/roomSlice"
+import { Card, ioEvents, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
+import { connection } from "../../../App"
+import { cards } from "../../constants/constants"
+
 export default function roomActions() {
   const dispatcher = useAppDispatch()
-  const { useSetPlayer } = playerActions()
+  const { useSetPlayer, useSetVote } = playerActions()
   const useCreateRoom = (name: string) => {
-    dispatcher(createRoom(name))
+    const initialRoom: room = {
+      id: "",
+      name: "",
+      admin: "",
+      players: [],
+      isRevealed: false,
+      cards: cards,
+    }
+
+    const room = { ...initialRoom, id: crypto.randomUUID(), name }
+    connection.emit(ioEvents.createRoom, room)
   }
   const useAddPlayer = (name: string, type: keyof typeof playerType) => {
     let vote = "none"
@@ -20,24 +28,23 @@ export default function roomActions() {
       vote = "spectator"
     }
     const player = { id: crypto.randomUUID(), name, type, vote }
-    dispatcher(addPlayer(player))
     useSetPlayer(player)
+    connection.emit(ioEvents.addPlayer, {
+      roomId: store.getState().room.id,
+      player: player,
+    })
   }
 
-  const useVote = (card: string, id: string) => {
-    dispatcher(vote({ card, id }))
+  const useVote = (card: string) => {
+    connection.emit(ioEvents.vote, {
+      roomId: store.getState().room.id,
+      vote: { card: card, id: store.getState().player.id },
+    })
+    useSetVote(card)
   }
 
   const useRevealCards = () => {
-    const players = store
-      .getState()
-      .room.players.filter((player) => player.type === playerType.player)
-      .filter((player) => isNaN(Number(player.vote)) === false)
-    let average = 0
-    for (let i = 0; i < players.length; i++) {
-      average += Number(players[i].vote)
-    }
-    return average === 0 ? average : average / players.length
+    connection.emit(ioEvents.reveal, store.getState().room.id)
   }
 
   const useVotePerCard = (): Card[] => {
@@ -55,14 +62,26 @@ export default function roomActions() {
     return cards
   }
   const useReset = () => {
-    dispatcher(reset())
+    connection.emit(ioEvents.reset, store.getState().room.id)
   }
+  const useUpdateRoom = (room: room) => {
+    dispatcher(updateRoom(room))
+  }
+  const useGiveAdmin = (playerId: string) => {
+    connection.emit(ioEvents.giveAdmin, {
+      roomId: store.getState().room.id,
+      admin: playerId,
+    })
+  }
+
   return {
+    useUpdateRoom,
     useCreateRoom,
     useAddPlayer,
     useVote,
     useReset,
     useRevealCards,
     useVotePerCard,
+    useGiveAdmin,
   }
 }
