@@ -15,12 +15,7 @@ const initialState: room = {
 
 const roomSlice = createSlice({
   name: "room",
-  reducers: {
-    createRoom: (state, action: PayloadAction<string>) => {
-      const room = { ...state, id: crypto.randomUUID(), name: action.payload }
-      connection.emit(ioEvents.createRoom, room)
-      return room
-    },
+  reducers: {    
     updateRoom: (_, { payload }: PayloadAction<room>) => {
       return payload
     },
@@ -38,6 +33,5 @@ const roomSlice = createSlice({
 })
 
 export const slice = roomSlice.reducer
-export const createRoom = roomSlice.actions.createRoom
 export const updateRoom = roomSlice.actions.updateRoom
 export const changeLocalVote = roomSlice.actions.changeLocalVote

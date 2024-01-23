@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react"
 import roomActions from "../../lib/hooks/room/roomActions"
-import { store } from "../../lib/store/store"
 import Foot from "../../system-design/organisms/Footer"
-import { Card } from "../../lib/constants/declarations"
+import { useEffect, useState } from "react"
+import { store } from "../../lib/store/store"
 export default function Footer() {
-  const { room, player } = store.getState()
+  const { player } = store.getState()
   const [isRevealed, setIsRevealed] = useState(false)
-  const [revealedCards, setRevealedCards] = useState<Card[]>([])
+  const [average, setAverage] = useState(0)
   const { useVote } = roomActions()
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
@@ -15,13 +14,18 @@ export default function Footer() {
     })
     return () => unsuscribe()
   }, [])
-
   useEffect(() => {
     if (isRevealed) {
-      const revealedCards = room.cards.filter((card) => card.count !== undefined)
-      setRevealedCards(revealedCards)
+      console.log("is here")
+      setAverage(
+        store
+          .getState()
+          .room.players.reduce((acc, player) => acc + Number(player.vote), 0) /
+          store.getState().room.players.length
+      )
     }
   }, [isRevealed])
+
   const handleVoteClick = (card: string) => {
     useVote(card)
   }
@@ -33,13 +37,13 @@ export default function Footer() {
       }`}
     >
       {!isRevealed ? (
-        <Foot cards={room.cards} vote={handleVoteClick} />
+        <Foot vote={handleVoteClick} />
       ) : (
         <section className="average">
-          <Foot revealed cards={revealedCards} vote={() => {}} />
+          <Foot revealed vote={() => {}} />
           <article className="average-text">
             <strong>Promedio:</strong>
-            <h2>{0}</h2>
+            <h2>{average}</h2>
           </article>
         </section>
       )}

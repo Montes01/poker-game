@@ -25,6 +25,7 @@ io.on("connection", (socket) => {
     socket.roomId = room.id
     console.log("room created with id: ", room.id)
     rooms.push(room)
+    emitRoomUpdate(room.id)
   })
   socket.on("joinRoom", (roomId, callback) => {
     if (!rooms.find((r) => r.id === roomId)) callback(false)
@@ -43,6 +44,18 @@ io.on("connection", (socket) => {
     const type = data.type
     rooms.find((room) => room.id === roomId).players.find((player) => player.id === playerId).type = type
     emitRoomUpdate(roomId)
+  })
+
+  socket.on("changeCards", (data) => {
+    const id = data.roomId
+    const cards = data.cards
+    rooms.find((room) => room.id === id).cards = cards
+    rooms.find((room) => room.id === id).players = rooms
+      .find((room) => room.id === id)
+      .players.map((player) => {
+        return { ...player, vote: "none" }
+      })
+    emitRoomUpdate(id)
   })
 
   socket.on("addPlayer", (data) => {
@@ -71,7 +84,7 @@ io.on("connection", (socket) => {
   })
   socket.on("reset", (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
-    //all cards will have count undefined
+
     rooms.find((room) => room.id === roomId).cards = rooms
       .find((room) => room.id === roomId)
       .cards.map((card) => {
@@ -129,9 +142,13 @@ io.on("connection", (socket) => {
         .find((room) => room.id === roomId)
         .players.filter((player) => player.serverId !== socket.id)
       if (player.id === rooms.find((room) => room.id === roomId).admin) {
-        rooms.find((room) => room.id === roomId).admin = rooms.find(
-          (room) => room.id === roomId
-        ).players[0].id
+        try {
+          rooms.find((room) => room.id === roomId).admin = rooms.find(
+            (room) => room.id === roomId
+          ).players[0].id
+        } catch {
+          rooms.pop(rooms.find((room) => room.id === roomId))
+        }
       }
       emitRoomUpdate(roomId)
     }

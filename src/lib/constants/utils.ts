@@ -32,9 +32,7 @@ export const getFirstUserLetters = (name: string) => {
   else return (words[0][0] + words[0][1]).toUpperCase()
 }
 
-export function generateLink() {
-  const state = store.getState()
-  const { id } = state.room
+export function generateLink(id:string) {
   let link = window.location.origin + "/room/" + id
   return link
 }
