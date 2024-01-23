@@ -2,7 +2,6 @@ import { useAppDispatch } from "../store"
 import {
   createRoom,
   updateRoom,
-  changeLocalVote,
 } from "../../hooks/room/slices/roomSlice"
 import { Card, ioEvents, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
@@ -11,7 +10,7 @@ import { connection } from "../../../App"
 
 export default function roomActions() {
   const dispatcher = useAppDispatch()
-  const { useSetPlayer, useSetVote } = playerActions()
+  const { useSetPlayer, useSetVote, useSetIsSpectator } = playerActions()
   const useCreateRoom = (name: string) => {
     dispatcher(createRoom(name))
   }
@@ -69,8 +68,20 @@ export default function roomActions() {
       admin: playerId,
     })
   }
+  const useChangeType = (playerId: string, type: keyof typeof playerType) => {
+    connection.emit(ioEvents.changeType, {
+      roomId: store.getState().room.id,
+      playerId: playerId,
+      type,
+    })
+    useSetIsSpectator(type === playerType.spectator)
+    if (type === playerType.spectator)
+      useVote("spectator")
+    else useVote("none")
+  }
 
   return {
+    useChangeType,
     useUpdateRoom,
     useCreateRoom,
     useAddPlayer,

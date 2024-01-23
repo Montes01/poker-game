@@ -25,6 +25,7 @@ export interface Card {
   count?: number
 }
 export enum ioEvents {
+  changeType = "changeType",
   createRoom = "createRoom",
   addPlayer = "addPlayer",
   vote = "vote",

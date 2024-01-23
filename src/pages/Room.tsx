@@ -15,15 +15,15 @@ import Players from "./components/Players"
 import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 import playerActions from "../lib/hooks/player/playerActions"
-import FormDialog from "../system-design/templates/FormDialog"
 
 export default function Room() {
   const navigator = useNavigate()
   const params = useParams()
   const inviteRef = useRef<HTMLDialogElement>(null)
   const [playerName, setPlayerName] = useState(store.getState().player.name)
+  const [playerType, setPlayerType] = useState(store.getState().player.type)
   const [roomName, setRoomName] = useState("")
-  const { useUpdateRoom } = roomActions()
+  const { useUpdateRoom, useChangeType } = roomActions()
   const { useRemoveVote } = playerActions()
   useEffect(() => {
     connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
@@ -33,6 +33,7 @@ export default function Room() {
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
+      setPlayerType(state.player.type)
       setRoomName(state.room.name)
       setPlayerName(state.player.name)
     })
@@ -56,7 +57,11 @@ export default function Room() {
   }, [])
 
   const handleInviteClick = () => inviteRef.current?.showModal()
-
+  const handleChangeTypeClick = () => {
+    const type = store.getState().player.type
+    if (type === "player") useChangeType(store.getState().player.id, "spectator")
+    else useChangeType(store.getState().player.id, "player")
+  }
   return (
     <section className="page-wrapper room-page-wrapper">
       <header className="room-header">
@@ -70,6 +75,11 @@ export default function Room() {
             className="invite-button"
             onClick={handleInviteClick}
             content="invitar jugadores"
+          />
+          <Button
+            className="invite-button"
+            onClick={handleChangeTypeClick}
+            content={`Cambiar a ${playerType === "player" ? "espectador" : "jugador"}`}
           />
         </section>
       </header>

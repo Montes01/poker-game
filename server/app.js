@@ -37,6 +37,13 @@ io.on("connection", (socket) => {
       emitRoomUpdate(roomId)
     }
   })
+  socket.on("changeType", (data) => {
+    const roomId = data.roomId
+    const playerId = data.playerId
+    const type = data.type
+    rooms.find((room) => room.id === roomId).players.find((player) => player.id === playerId).type = type
+    emitRoomUpdate(roomId)
+  })
 
   socket.on("addPlayer", (data) => {
     const id = data.roomId
