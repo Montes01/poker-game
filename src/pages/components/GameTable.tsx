@@ -62,6 +62,7 @@ export default function GameTable() {
             disabled={!isComplete}
             content={isRevealed ? "Nueva partida" : "Revelar cartas"}
           />
+          {!isRevealed && <Button content="Cambiar admin" onClick={handleGiveAdminClick} />}
           <Button content="Cambiar admin" onClick={handleGiveAdminClick} />
           <Button content="Cambiar cartas" onClick={handleChangeCardsClick} />
         </section>

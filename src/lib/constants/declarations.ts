@@ -32,6 +32,7 @@ export const cardTypes = {
 }
 
 export enum ioEvents {
+  changeType = "changeType",
   createRoom = "createRoom",
   addPlayer = "addPlayer",
   vote = "vote",
