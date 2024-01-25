@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../store"
-import { updateRoom } from "../../hooks/room/slices/roomSlice"
-import { Card, ioEvents, playerType, room } from "../../constants/declarations"
+import { updateRoom, addPlayer, vote } from "../../hooks/room/slices/roomSlice"
+import { Card, ioEvents, player, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
 import { connection } from "../../../App"
@@ -8,7 +8,7 @@ import { cards } from "../../constants/constants"
 
 export default function roomActions() {
   const dispatcher = useAppDispatch()
-  const { useSetPlayer, useSetVote, useSetIsSpectator } = playerActions()
+  const { useSetVote, useSetIsSpectator } = playerActions()
   const useCreateRoom = (name: string) => {
     const initialRoom: room = {
       id: "",
@@ -22,25 +22,12 @@ export default function roomActions() {
     const room = { ...initialRoom, id: crypto.randomUUID(), name }
     connection.emit(ioEvents.createRoom, room)
   }
-  const useAddPlayer = (name: string, type: keyof typeof playerType) => {
-    let vote = "none"
-    if (type === playerType.spectator) {
-      vote = "spectator"
-    }
-    const player = { id: crypto.randomUUID(), name, type, vote }
-    useSetPlayer(player)
-    connection.emit(ioEvents.addPlayer, {
-      roomId: store.getState().room.id,
-      player: player,
-    })
+  const useAddPlayer = (player: player) => {
+    dispatcher(addPlayer(player))
   }
 
-  const useVote = (card: string) => {
-    connection.emit(ioEvents.vote, {
-      roomId: store.getState().room.id,
-      vote: { card: card, id: store.getState().player.id },
-    })
-    useSetVote(card)
+  const useVote = (playerId: string, cardContent: string) => {
+    dispatcher(vote({ playerId, cardContent }))
   }
 
   const useRevealCards = () => {
@@ -80,9 +67,9 @@ export default function roomActions() {
       type,
     })
     useSetIsSpectator(type === playerType.spectator)
-    if (type === playerType.spectator)
-      useVote("spectator")
-    else useVote("none")
+    // if (type === playerType.spectator)
+    //   useVote("spectator")
+    // else useVote("none")
   }
 
   return {

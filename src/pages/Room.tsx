@@ -14,7 +14,6 @@ import { connection } from "../App"
 import Players from "./components/Players"
 import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
-import playerActions from "../lib/hooks/player/playerActions"
 
 export default function Room() {
   const navigator = useNavigate()
@@ -23,12 +22,24 @@ export default function Room() {
   const [playerName, setPlayerName] = useState(store.getState().player.name)
   const [playerType, setPlayerType] = useState(store.getState().player.type)
   const [roomName, setRoomName] = useState("")
-  const { useUpdateRoom, useChangeType } = roomActions()
-  const { useRemoveVote } = playerActions()
+  const { useUpdateRoom, useChangeType, useAddPlayer, useVote } = roomActions()
+
   useEffect(() => {
-    if (!connection.connected) navigator("/home")
-    connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
-    connection.on(ioEvents.reset, () => useRemoveVote())
+    const roomId = params.id
+    connection.emit(
+      ioEvents.joinRoom,
+      roomId,
+      (exists: boolean, room?: room) => {
+        if (!exists) navigator("/home")
+        else {
+          useUpdateRoom(room!)
+        }
+      })
+  }, [])
+  useEffect(() => {
+    // if (!connection.connected) navigator("/home")
+    connection.on(ioEvents.addPlayer, (player) => useAddPlayer(player))
+    connection.on(ioEvents.vote, (data) => useVote(data.playerId, data.cardContent))
   }, [])
 
   useEffect(() => {
@@ -39,22 +50,6 @@ export default function Room() {
       setPlayerName(state.player.name)
     })
     return () => unsuscribe()
-  }, [])
-
-  useEffect(() => {
-    if (store.getState().room.id === "") {
-      const roomId = params.id
-      connection.emit(
-        ioEvents.joinRoom,
-        roomId,
-        (exists: boolean, room?: room) => {
-          if (!exists) navigator("/home")
-          else {
-            useUpdateRoom(room!)
-          }
-        }
-      )
-    }
   }, [])
 
   const handleInviteClick = () => inviteRef.current?.showModal()

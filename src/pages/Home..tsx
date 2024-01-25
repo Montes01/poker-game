@@ -33,10 +33,7 @@ export default function Home() {
     setLoading(true)
   }
   useMemo(() => {
-    console.log("this is created")
-    connection.on("updateRoom", (room: room) => {
-      navigator(`/room/${room.id}`)
-    })
+    connection.on("createRoom", (room: room) => navigator(`/room/${room.id}`))
   }, [])
 
   return (

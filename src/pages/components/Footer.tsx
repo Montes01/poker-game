@@ -1,16 +1,19 @@
-import roomActions from "../../lib/hooks/room/roomActions"
 import Foot from "../../system-design/organisms/Footer"
 import { useEffect, useState } from "react"
 import { store } from "../../lib/store/store"
+import { connection } from "../../App"
+import { ioEvents } from "../../lib/constants/declarations"
+import playerActions from "../../lib/hooks/player/playerActions"
 export default function Footer() {
-  const { player } = store.getState()
+  const [player, setPlayer] = useState(store.getState().player)
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
-  const { useVote } = roomActions()
+  const { useSetVote } = playerActions()
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
       setIsRevealed(state.room.isRevealed)
+      setPlayer(state.player)
     })
     return () => unsuscribe()
   }, [])
@@ -21,26 +24,33 @@ export default function Footer() {
         store
           .getState()
           .room.players.reduce((acc, player) => acc + Number(player.vote), 0) /
-          store.getState().room.players.length
+        store.getState().room.players.length
       )
     }
   }, [isRevealed])
 
   const handleVoteClick = (card: string) => {
-    useVote(card)
+    const playerId = player.id
+    console.log(playerId)
+    connection.emit(
+      ioEvents.vote,
+      { roomId: store.getState().room.id, playerId, cardContent: card },
+      (cardContent: string) => {
+        useSetVote(cardContent)
+      }
+    )
   }
 
   return (
     <footer
-      className={`game-cards ${
-        player.type === "spectator" && "spectator-footer"
-      }`}
+      className={`game-cards ${player.type === "spectator" && "spectator-footer"
+        }`}
     >
       {!isRevealed ? (
         <Foot vote={handleVoteClick} />
       ) : (
         <section className="average">
-          <Foot revealed vote={() => {}} />
+          <Foot revealed vote={() => { }} />
           <article className="average-text">
             <strong>Promedio:</strong>
             <h2>{average}</h2>
