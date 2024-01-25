@@ -10,7 +10,7 @@ import { connection } from "../../App"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
-  const { useReset, useRevealCards } = roomActions()
+  const { useReset } = roomActions()
   const changeCardsRef = useRef<HTMLDialogElement>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
@@ -30,10 +30,10 @@ export default function GameTable() {
     return () => unsuscribe()
   }, [])
   const handleRevealClick = () => {
-    useRevealCards()
+    connection.emit(ioEvents.reveal, store.getState().room.id)
   }
   const handleResetClick = () => {
-    useReset()
+    connection.emit(ioEvents.reset, store.getState().room.id)
   }
   const handleChangeAdminSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -57,14 +57,14 @@ export default function GameTable() {
     <Table>
       {isAdmin && (
         <section className="table-content">
-          <Button
-            onClick={isRevealed ? handleResetClick : handleRevealClick}
-            disabled={!isComplete}
-            content={isRevealed ? "Nueva partida" : "Revelar cartas"}
-          />
+          {isRevealed ? (
+            <Button onClick={handleResetClick} content="Nueva partida" />
+          ) : (
+            <Button onClick={handleRevealClick} disabled={!isComplete} content="Revelar cartas" />
+          )}
           {!isRevealed && <Button content="Cambiar admin" onClick={handleGiveAdminClick} />}
+          {!isRevealed && <Button content="Cambiar cartas" onClick={handleChangeCardsClick} />}
           <Button content="Cambiar admin" onClick={handleGiveAdminClick} />
-          <Button content="Cambiar cartas" onClick={handleChangeCardsClick} />
         </section>
       )}
       <FormDialog

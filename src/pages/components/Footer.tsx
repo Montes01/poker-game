@@ -19,13 +19,13 @@ export default function Footer() {
   }, [])
   useEffect(() => {
     if (isRevealed) {
-      console.log("is here")
-      setAverage(
-        store
-          .getState()
-          .room.players.reduce((acc, player) => acc + Number(player.vote), 0) /
-        store.getState().room.players.length
-      )
+      const average = store.getState().room.cards.reduce((acc, card) => {
+        if (card.count && !isNaN(Number(card.content))) {
+          return acc + card.count * Number(card.content)
+        }
+        return acc
+      }, 0)
+      setAverage(average)
     }
   }, [isRevealed])
 

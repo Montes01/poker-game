@@ -21,7 +21,7 @@ export default function Footer({ vote, revealed }: Props) {
   useEffect(() => {
     if (revealed) {
       setCards(
-        store.getState().room.cards.filter((card) => card.count !== undefined)
+        store.getState().room.cards.filter((card) => card.count !== undefined && card.count > 0)
       )
     } else {
       setCards(store.getState().room.cards)

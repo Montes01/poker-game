@@ -16,13 +16,13 @@ import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 
 export default function Room() {
+  const { useReset, useUpdateRoom, useChangeType, useAddPlayer, useVote, useChangeAdmin, useChangeCards, useRevealCards } = roomActions()
   const navigator = useNavigate()
   const params = useParams()
   const inviteRef = useRef<HTMLDialogElement>(null)
   const [playerName, setPlayerName] = useState(store.getState().player.name)
   const [playerType, setPlayerType] = useState(store.getState().player.type)
   const [roomName, setRoomName] = useState("")
-  const { useUpdateRoom, useChangeType, useAddPlayer, useVote, useChangeAdmin, useChangeCards } = roomActions()
 
   useEffect(() => {
     const roomId = params.id
@@ -37,11 +37,14 @@ export default function Room() {
       })
   }, [])
   useEffect(() => {
-    // if (!connection.connected) navigator("/home")
     connection.on(ioEvents.addPlayer, (player) => useAddPlayer(player))
     connection.on(ioEvents.vote, (data) => useVote(data.playerId, data.cardContent))
     connection.on(ioEvents.giveAdmin, (adminId) => useChangeAdmin(adminId))
     connection.on(ioEvents.changeCards, (cards) => useChangeCards(cards))
+    connection.on(ioEvents.reveal, ({ cards }) => useRevealCards(cards))
+    connection.on(ioEvents.reset, () => {
+      useReset()
+    })
   }, [])
 
   useEffect(() => {

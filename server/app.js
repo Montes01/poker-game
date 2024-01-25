@@ -96,6 +96,29 @@ io.on("connection", (socket) => {
     emitToRoom(id, ioEvents.CHANGE_CARDS, cards)
   })
 
+  //REVEAL
+  socket.on(ioEvents.REVEAL, (roomId) => {
+    rooms.find((room) => room.id === roomId).isRevealed = true
+    const players = rooms.find((room) => room.id === roomId).players
+    const votes = players.map((player) => player.vote)
+    const average = votes.reduce((a, b) => a + b) / votes.length
+    //increase the card count for each vote
+    rooms.find((room) => room.id === roomId).cards = rooms
+      .find((room) => room.id === roomId)
+      .cards.map((card) => {
+        return { ...card, count: votes.filter((vote) => vote === card.content).length }
+      })
+    emitToRoom(roomId, ioEvents.REVEAL, { cards: rooms.find((room) => room.id === roomId).cards })
+  })
+
+  //GIVE ADMIN
+  socket.on(ioEvents.GIVE_ADMIN, (data) => {
+    const id = data.roomId
+    const admin = data.admin
+    rooms.find((room) => room.id === id).admin = admin
+    emitToRoom(id, ioEvents.GIVE_ADMIN, admin)
+  })
+
   socket.on(ioEvents.CHANGE_TYPE, (data) => {
     const roomId = data.roomId
     const playerId = data.playerId
@@ -107,7 +130,7 @@ io.on("connection", (socket) => {
 
 
 
-
+  //RESET
   socket.on(ioEvents.RESET, (roomId) => {
     const players = rooms.find((room) => room.id === roomId).players
 
@@ -122,38 +145,10 @@ io.on("connection", (socket) => {
       return player
     })
     rooms.find((room) => room.id === roomId).isRevealed = false
-    emitToRoom(roomId)
-    socket.to(roomId).emit("reset")
+    emitToRoom(roomId, ioEvents.RESET, null)
   })
-  socket.on(ioEvents.GIVE_ADMIN, (data) => {
-    const id = data.roomId
-    const admin = data.admin
-    rooms.find((room) => room.id === id).admin = admin
-    emitToRoom(id)
-  })
-  socket.on(ioEvents.REVEAL, (roomId) => {
-    rooms.find((room) => room.id === roomId).isRevealed = true
-    rooms
-      .find((room) => room.id === roomId)
-      .players.forEach((player) => {
-        const vote = player.vote
-        if (
-          rooms
-            .find((room) => room.id === roomId)
-            .cards.find((card) => card.content === vote).count
-        ) {
-          rooms
-            .find((room) => room.id === roomId)
-            .cards.find((card) => card.content === vote).count++
-        } else {
-          rooms
-            .find((room) => room.id === roomId)
-            .cards.find((card) => card.content === vote).count = 1
-        }
-      })
-    console.log(rooms.find((room) => room.id === roomId).cards)
-    emitToRoom(roomId)
-  })
+
+
 
   socket.on("disconnect", () => {
     const roomId = socket.roomId

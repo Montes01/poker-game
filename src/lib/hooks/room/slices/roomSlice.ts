@@ -52,6 +52,24 @@ const roomSlice = createSlice({
         })
       }
     },
+    reveal: (state) => {
+      return {
+        ...state,
+        isRevealed: true,
+      }
+    },
+    reset: (state) => {
+      return {
+        ...state,
+        isRevealed: false,
+        players: state.players.map((player) => {
+          return { ...player, vote: "none" }
+        }),
+        cards: state.cards.map((card) => {
+          return { ...card, count: 0 }
+        }),
+      }
+    },
     changeLocalVote: (state, { payload }: PayloadAction<string>) => {
       console.log(payload)
       return {
@@ -72,3 +90,5 @@ export const addPlayer = roomSlice.actions.addPlayer
 export const vote = roomSlice.actions.vote
 export const changeAdmin = roomSlice.actions.changeAdmin
 export const changeCards = roomSlice.actions.changeCards
+export const reveal = roomSlice.actions.reveal
+export const reset = roomSlice.actions.reset

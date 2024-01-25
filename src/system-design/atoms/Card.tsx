@@ -23,7 +23,8 @@ export default function Card({
       }`}
     >
       <strong className="card-content">{content}</strong>
-     {voteCount &&  <strong className="vote-count">Votos: {voteCount}</strong>}
+      
+     {voteCount ?  <strong className="vote-count"> Votos:  {voteCount}</strong>: null}
     </button>
   )
 }
