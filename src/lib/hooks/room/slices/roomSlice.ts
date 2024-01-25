@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { type room, type player } from "../../../constants/declarations"
+import { type room, type player, Card } from "../../../constants/declarations"
 import { type PayloadAction } from "@reduxjs/toolkit"
 import { ioEvents } from "../../../constants/declarations"
 import { connection } from "../../../../App"
@@ -37,6 +37,21 @@ const roomSlice = createSlice({
         }),
       }
     },
+    changeAdmin: (state, { payload }: PayloadAction<string>) => {
+      return {
+        ...state,
+        admin: payload,
+      }
+    },
+    changeCards: (state, { payload }: PayloadAction<Card[]>) => {
+      return {
+        ...state,
+        cards: payload,
+        players: state.players.map((player) => {
+          return { ...player, vote: "none" }
+        })
+      }
+    },
     changeLocalVote: (state, { payload }: PayloadAction<string>) => {
       console.log(payload)
       return {
@@ -55,3 +70,5 @@ export const updateRoom = roomSlice.actions.updateRoom
 export const changeLocalVote = roomSlice.actions.changeLocalVote
 export const addPlayer = roomSlice.actions.addPlayer
 export const vote = roomSlice.actions.vote
+export const changeAdmin = roomSlice.actions.changeAdmin
+export const changeCards = roomSlice.actions.changeCards

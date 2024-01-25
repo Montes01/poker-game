@@ -22,7 +22,7 @@ export default function Room() {
   const [playerName, setPlayerName] = useState(store.getState().player.name)
   const [playerType, setPlayerType] = useState(store.getState().player.type)
   const [roomName, setRoomName] = useState("")
-  const { useUpdateRoom, useChangeType, useAddPlayer, useVote } = roomActions()
+  const { useUpdateRoom, useChangeType, useAddPlayer, useVote, useChangeAdmin, useChangeCards } = roomActions()
 
   useEffect(() => {
     const roomId = params.id
@@ -40,11 +40,14 @@ export default function Room() {
     // if (!connection.connected) navigator("/home")
     connection.on(ioEvents.addPlayer, (player) => useAddPlayer(player))
     connection.on(ioEvents.vote, (data) => useVote(data.playerId, data.cardContent))
+    connection.on(ioEvents.giveAdmin, (adminId) => useChangeAdmin(adminId))
+    connection.on(ioEvents.changeCards, (cards) => useChangeCards(cards))
   }, [])
 
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
+      console.log(state.room)
       setPlayerType(state.player.type)
       setRoomName(state.room.name)
       setPlayerName(state.player.name)

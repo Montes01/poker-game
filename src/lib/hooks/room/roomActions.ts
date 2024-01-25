@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../store"
-import { updateRoom, addPlayer, vote } from "../../hooks/room/slices/roomSlice"
+import { updateRoom, addPlayer, vote, changeAdmin, changeCards } from "../../hooks/room/slices/roomSlice"
 import { Card, ioEvents, player, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
@@ -8,7 +8,7 @@ import { cards } from "../../constants/constants"
 
 export default function roomActions() {
   const dispatcher = useAppDispatch()
-  const { useSetVote, useSetIsSpectator } = playerActions()
+  const { useSetIsSpectator, useSetVote } = playerActions()
   const useCreateRoom = (name: string) => {
     const initialRoom: room = {
       id: "",
@@ -30,6 +30,13 @@ export default function roomActions() {
     dispatcher(vote({ playerId, cardContent }))
   }
 
+  const useChangeAdmin = (admin: string) => {
+    dispatcher(changeAdmin(admin))
+  }
+  const useChangeCards = (cards: Card[]) => {
+    dispatcher(changeCards(cards))
+    useSetVote("none")
+  }
   const useRevealCards = () => {
     connection.emit(ioEvents.reveal, store.getState().room.id)
   }
@@ -82,5 +89,7 @@ export default function roomActions() {
     useRevealCards,
     useVotePerCard,
     useGiveAdmin,
+    useChangeAdmin,
+    useChangeCards,
   }
 }

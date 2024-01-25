@@ -34,6 +34,8 @@ const rooms = []
 io.on("connection", (socket) => {
   console.log("New client connected")
 
+
+  //CREATE ROOM
   socket.on(ioEvents.CREATE_ROOM, (room) => {
     socket.join(room.id)
     socket.roomId = room.id
@@ -43,7 +45,7 @@ io.on("connection", (socket) => {
   })
 
 
-
+  //JOIN ROOM
   socket.on(ioEvents.JOIN_ROOM, (roomId, callback) => {
     if (!rooms.find((r) => r.id === roomId)) callback(false)
     else {
@@ -63,6 +65,10 @@ io.on("connection", (socket) => {
     let vote = type === "spectator" ? "spectator" : "none"
     const player = { id: crypto.randomUUID(), name, type, vote }
     console.log(player.id)
+    if (rooms.find((room) => room.id === id).players.length === 0) {
+      rooms.find((room) => room.id === id).admin = player.id
+      emitToRoom(id, ioEvents.GIVE_ADMIN, player.id)
+    }
     rooms.find((room) => room.id === id).players.push(player)
     callback(player)
     emitToRoom(id, ioEvents.ADD_PLAYER, player)
@@ -87,7 +93,7 @@ io.on("connection", (socket) => {
       .players.map((player) => {
         return { ...player, vote: "none" }
       })
-    emitToRoom(id)
+    emitToRoom(id, ioEvents.CHANGE_CARDS, cards)
   })
 
   socket.on(ioEvents.CHANGE_TYPE, (data) => {
