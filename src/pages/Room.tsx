@@ -26,6 +26,7 @@ export default function Room() {
   const { useUpdateRoom, useChangeType } = roomActions()
   const { useRemoveVote } = playerActions()
   useEffect(() => {
+    if (!connection.connected) navigator("/home")
     connection.on(ioEvents.updateRoom, (room: room) => useUpdateRoom(room))
     connection.on(ioEvents.reset, () => useRemoveVote())
   }, [])

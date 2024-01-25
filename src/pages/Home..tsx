@@ -45,20 +45,23 @@ export default function Home() {
         <HeadLogo content="Crear partida" />
       </header>
       <form onSubmit={handleSubmit} className="base-form">
-        <Input
-          onChange={handleChange}
-          name="room-name"
-          type="text"
-          placeholder="Sprint 32"
-          label="Nombra la partida"
-        >
-          {!isValid && isValid != null && (
-            <WarningIcon title={errorMessage} width="15" height="15" />
-          )}
-        </Input>
-        <Button disabled={!isValid ?? false} content="Crear partida" submit />
+        {loading ? <h2>Creando partida...</h2> : (
+          <>
+            <Input
+              onChange={handleChange}
+              name="room-name"
+              type="text"
+              placeholder="Sprint 32"
+              label="Nombra la partida"
+            >
+              {!isValid && isValid != null && (
+                <WarningIcon title={errorMessage} width="15" height="15" />
+              )}
+            </Input>
+            <Button disabled={!isValid ?? false} content="Crear partida" submit />
+          </>
+        )}
       </form>
-      {loading && <h2>Creando partida...</h2>}
     </main>
   )
 }
