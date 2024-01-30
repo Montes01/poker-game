@@ -91,17 +91,17 @@ export default function Room() {
             onClick={handleInviteClick}
             content="invitar jugadores"
           />
-          <Button
-            className="invite-button"
-            onClick={handleChangeTypeClick}
-            content={`Cambiar a ${playerType === playType.player ? "espectador" : "jugador"}`}
-          />
         </section>
       </header>
       <main className="game-body">
         <GameTable />
         <Players />
       </main>
+          <Button
+            className="invite-button change-type-button"
+            onClick={handleChangeTypeClick}
+            content={`Cambiar a ${playerType === playType.player ? "espectador" : "jugador"}`}
+          />
       <Footer />
       <InviteDialog inviteRef={inviteRef} />
       <RoomInitialDialog />
