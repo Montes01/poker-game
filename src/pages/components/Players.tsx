@@ -13,9 +13,7 @@ export default function Players() {
     return () => unsuscribe()
   }, [])
 
-  return players.map((player, index) => (
-    <>
-      {player.type === "spectator" ? (
+  return players.map((player, index) => player.type === "spectator" ? (
         <UserAvatar
           key={player.id}
           onTable
@@ -30,7 +28,6 @@ export default function Players() {
           key={player.id}
           className={`user${index}`}
         />
-      )}
-    </>
-  ))
+      )
+  )
 }
