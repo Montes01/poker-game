@@ -8,7 +8,7 @@ import HeadLogo from "../system-design/molecules/HeadLogo"
 import WarningIcon from "../system-design/atoms/WarningIcon"
 import { useNavigate } from "react-router-dom"
 import { connection } from "../App"
-import { room } from "../lib/constants/declarations"
+import { ioEvents, room } from "../lib/constants/declarations"
 export default function Home() {
   const navigator = useNavigate()
   const [isValid, setIsValid] = useState<boolean | null>(null)
@@ -33,7 +33,7 @@ export default function Home() {
     setLoading(true)
   }
   useMemo(() => {
-    connection.on("createRoom", (room: room) => navigator(`/room/${room.id}`))
+    connection.on(ioEvents.createRoom, (room: room) => navigator(`/room/${room.id}`))
   }, [])
 
   return (

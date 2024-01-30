@@ -12,6 +12,7 @@ export default function Players() {
     })
     return () => unsuscribe()
   }, [])
+
   return players.map((player, index) => (
     <>
       {player.type === "spectator" ? (

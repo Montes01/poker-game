@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../store"
-import { updateRoom, addPlayer, vote, changeAdmin, changeCards, reveal, reset } from "../../hooks/room/slices/roomSlice"
+import { updateRoom, addPlayer, vote, changeAdmin, changeCards, reveal, reset, changePlayerType } from "../../hooks/room/slices/roomSlice"
 import { Card, ioEvents, player, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
@@ -62,26 +62,19 @@ export default function roomActions() {
   const useUpdateRoom = (room: room) => {
     dispatcher(updateRoom(room))
   }
+  const useChangePlayerType = (playerId: string, type: keyof typeof playerType) => {
+    console.log({ playerId, type })
+    dispatcher(changePlayerType({ playerId, type }))
+  }
   const useGiveAdmin = (playerId: string) => {
     connection.emit(ioEvents.giveAdmin, {
       roomId: store.getState().room.id,
       admin: playerId,
     })
   }
-  const useChangeType = (playerId: string, type: keyof typeof playerType) => {
-    connection.emit(ioEvents.changeType, {
-      roomId: store.getState().room.id,
-      playerId: playerId,
-      type,
-    })
-    useSetIsSpectator(type === playerType.spectator)
-    // if (type === playerType.spectator)
-    //   useVote("spectator")
-    // else useVote("none")
-  }
+
 
   return {
-    useChangeType,
     useUpdateRoom,
     useCreateRoom,
     useAddPlayer,
@@ -92,5 +85,6 @@ export default function roomActions() {
     useGiveAdmin,
     useChangeAdmin,
     useChangeCards,
+    useChangePlayerType,
   }
 }

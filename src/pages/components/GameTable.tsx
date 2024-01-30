@@ -10,7 +10,6 @@ import { connection } from "../../App"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
-  const { useReset } = roomActions()
   const changeCardsRef = useRef<HTMLDialogElement>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)

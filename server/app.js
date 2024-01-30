@@ -147,7 +147,16 @@ io.on("connection", (socket) => {
     rooms.find((room) => room.id === roomId).isRevealed = false
     emitToRoom(roomId, ioEvents.RESET, null)
   })
-
+  
+  //CHANGE TYPE
+  socket.on(ioEvents.CHANGE_TYPE, (data, callback) => {
+    const roomId = data.roomId
+    const playerId = data.playerId
+    const type = data.type
+    rooms.find((room) => room.id === roomId).players.find((player) => player.id === playerId).type = type
+    // callback(type)
+    emitToRoom(roomId, ioEvents.CHANGE_TYPE, data)
+  })
 
 
   socket.on("disconnect", () => {
