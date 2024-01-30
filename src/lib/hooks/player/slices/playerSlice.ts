@@ -15,7 +15,8 @@ const playerSlice = createSlice({
       return action.payload
     },
     setIsSpectator: (state, action: PayloadAction<boolean>) => {
-      return { ...state, type: action.payload ? "spectator" : "player" }
+      const isSpectator = action.payload
+      return { ...state, type: isSpectator ? "spectator" : "player" }
     },
     setVote: (state, action: PayloadAction<string>) => {
       return { ...state, vote: action.payload }

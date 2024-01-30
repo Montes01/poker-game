@@ -63,7 +63,6 @@ export default function roomActions() {
     dispatcher(updateRoom(room))
   }
   const useChangePlayerType = (playerId: string, type: keyof typeof playerType) => {
-    console.log({ playerId, type })
     dispatcher(changePlayerType({ playerId, type }))
   }
   const useGiveAdmin = (playerId: string) => {

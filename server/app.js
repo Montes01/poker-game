@@ -119,12 +119,14 @@ io.on("connection", (socket) => {
     emitToRoom(id, ioEvents.GIVE_ADMIN, admin)
   })
 
-  socket.on(ioEvents.CHANGE_TYPE, (data) => {
+  socket.on(ioEvents.CHANGE_TYPE, (data, callback) => {
     const roomId = data.roomId
     const playerId = data.playerId
     const type = data.type
     rooms.find((room) => room.id === roomId).players.find((player) => player.id === playerId).type = type
-    emitToRoom(roomId)
+    rooms.find((room) => room.id === roomId).players.find((player) => player.id === playerId).vote = "spectator"
+    callback(data)
+    emitToRoom(roomId, ioEvents.CHANGE_TYPE, data)
   })
 
 
