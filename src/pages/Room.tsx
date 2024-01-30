@@ -83,7 +83,7 @@ export default function Room() {
         <section className="room-logo">
           <HeadLogo />
         </section>
-        <h1>{roomName}</h1>
+        <h1 className="room-name">{roomName}</h1>
         <section className="room-options">
           <UserAvatar name={playerName ?? "NA"} />
           <Button

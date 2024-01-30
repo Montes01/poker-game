@@ -1,12 +1,15 @@
 @import "../colors/colors.scss";
 @import "./user-areas.scss";
 @import "./game-card.scss";
-
+@import "../utils/mixins.scss";
 .room-header {
   display: flex;
   padding: 20px 50px;
   justify-content: space-between;
   align-items: center;
+  @include tablet {
+    padding: 15px 50px;
+  }
 }
 
 .room-logo {
@@ -41,8 +44,8 @@
   padding: 50px;
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-columns: 12vw 22vw 22vw 22vw 12vw ;
+  grid-template-rows: 120px 30vh 120px;
   grid-template-areas:
     ". e b f . "
     "h t t t g "

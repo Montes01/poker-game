@@ -9,3 +9,15 @@
   }
 }
 
+//phone responsive
+@mixin phone {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+//tablet responsive
+@mixin tablet {
+  @media (min-width: 600px) and (max-width: 1200px) {
+    @content;
+  }
+}
