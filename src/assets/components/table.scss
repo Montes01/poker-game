@@ -1,4 +1,5 @@
 @import "../colors/colors.scss";
+@import "../utils/mixins.scss";
 .game-table {
     grid-area: t;
     height: 80%;
@@ -12,10 +13,20 @@
     justify-content: center;
     align-items: center;
     .table-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        //auto generative grid
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        z-index: 2;
+        @include phone {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+            button {
+                padding: 5px;
+                font-size: 10px;
+            }
+        }
+
         gap: 15px;
     }
     &::after {

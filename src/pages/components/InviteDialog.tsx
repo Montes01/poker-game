@@ -34,7 +34,7 @@ export default function InviteDialog({ inviteRef }: Props) {
     setLink(generateLink(""))
   }, [])
   return (
-    <FormDialog dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
+    <FormDialog canClose dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
       <Input name="link" type="text" readonly defaultValue={link} />
       <Button submit content={copyMessage} />
     </FormDialog>

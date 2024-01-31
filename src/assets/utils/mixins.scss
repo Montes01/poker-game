@@ -21,7 +21,11 @@
     @content;
   }
 }
-
+@mixin tiny {
+  @media (max-width: 350px) {
+    @content;
+  }
+}
 //no scrollbar 
 @mixin no-scrollbar {
   scrollbar-width: none;

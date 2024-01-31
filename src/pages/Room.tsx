@@ -15,6 +15,7 @@ import Players from "./components/Players"
 import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 import playerActions from "../lib/hooks/player/playerActions"
+import ResponsiveButtonsDialog from "./components/ResponsiveButtonsDialog"
 
 export default function Room() {
   const { useReset, useUpdateRoom, useChangePlayerType, useAddPlayer, useVote, useChangeAdmin, useChangeCards, useRevealCards } = roomActions()
@@ -75,8 +76,9 @@ export default function Room() {
         }
       }
     )
-
   }
+  const menuRef = useRef<HTMLDialogElement>(null)
+  const handleOpenMenuClick = () => menuRef.current?.showModal()
   return (
     <section className="page-wrapper room-page-wrapper">
       <header className="room-header">
@@ -90,22 +92,22 @@ export default function Room() {
             onClick={handleInviteClick}
             content="invitar jugadores"
           />
-                <Button
+          <Button
             className="invite-button change-type-button"
             onClick={handleChangeTypeClick}
             content={`Cambiar a ${playerType === playType.player ? "espectador" : "jugador"}`}
           />
-          <UserAvatar className="header-avatar" name={playerName ?? "NA"} />
+          <UserAvatar action={handleOpenMenuClick} className="header-avatar" name={playerName ?? "NA"} />
         </section>
       </header>
       <main className="game-body">
-
         <GameTable />
         <Players />
       </main>
       <Footer />
       <InviteDialog inviteRef={inviteRef} />
       <RoomInitialDialog />
+      <ResponsiveButtonsDialog Ref={menuRef} inviteRef={inviteRef} />
     </section>
   )
 }

@@ -21,7 +21,7 @@
   }
 
   @include phone {
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 
@@ -135,6 +135,9 @@
   }
 }
 
+.responsive-option {
+  font-size: 12px;
+}
 
 
 .revealed-table {
