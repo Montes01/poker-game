@@ -85,23 +85,24 @@ export default function Room() {
         </section>
         <h1 className="room-name">{roomName}</h1>
         <section className="room-options">
-          <UserAvatar name={playerName ?? "NA"} />
           <Button
             className="invite-button"
             onClick={handleInviteClick}
             content="invitar jugadores"
           />
-        </section>
-      </header>
-      <main className="game-body">
-        <GameTable />
-        <Players />
-      </main>
-          <Button
+                <Button
             className="invite-button change-type-button"
             onClick={handleChangeTypeClick}
             content={`Cambiar a ${playerType === playType.player ? "espectador" : "jugador"}`}
           />
+          <UserAvatar className="header-avatar" name={playerName ?? "NA"} />
+        </section>
+      </header>
+      <main className="game-body">
+
+        <GameTable />
+        <Players />
+      </main>
       <Footer />
       <InviteDialog inviteRef={inviteRef} />
       <RoomInitialDialog />

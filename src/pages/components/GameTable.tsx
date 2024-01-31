@@ -54,6 +54,7 @@ export default function GameTable() {
 
   return (
     <Table>
+      
       {isAdmin && (
         <section className="table-content">
           {isRevealed ? (

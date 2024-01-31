@@ -1,6 +1,11 @@
 @import "../colors/colors.scss";
+@import "../utils/mixins.scss";
 .user-avatar {
   width: 50px;
+  @include phone {
+    width: 35px;
+    height: 35px;
+  }
   display: flex;
   align-items: center;
   justify-content: center;

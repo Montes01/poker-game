@@ -17,7 +17,16 @@
 }
 //tablet responsive
 @mixin tablet {
-  @media (min-width: 600px) and (max-width: 1200px) {
+  @media (min-width: 600px) and (max-width: 900px) {
     @content;
+  }
+}
+
+//no scrollbar 
+@mixin no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
