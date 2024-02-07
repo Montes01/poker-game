@@ -1,4 +1,4 @@
-import { getFirstUserLetters, validateName, generateLink } from "../lib/constants/utils";
+import { getFirstUserLetters, validateName, generateLink, generateCards } from "../lib/constants/utils";
 
 describe('testing utils', () => {
     //this function must return the first two letters of the username on uppercase
@@ -23,6 +23,40 @@ describe('testing utils', () => {
         const BASE_URL = process.env.BASE_URL ?? 'http://localhost';
         expect(typeof generateLink('1234')).toBe('string');
         expect(generateLink('1234')).toBe(`${BASE_URL}/room/1234`);
+    });
+    //this function must return a list of cards
+    test('generate normal Cards', () => {
+        const cards = generateCards('normal');
+        expect(typeof cards).toBe('object');
+        expect(cards).toHaveLength(12);
+        expect(cards[0].content).toBe('0');
+        expect(cards[9].content).toBe('9');
+        expect(cards[10].content).toBe('☕');
+        expect(cards[11].content).toBe('?');
+
+
+    });
+    //this function must return a list of cards in fibonnacci sequence
+    test('generate fibonacci Cards', () => {
+        const cards = generateCards('fibonacci');
+        expect(typeof cards).toBe('object');
+        expect(cards).toHaveLength(12);
+        let cardSequence = cards.map((card) => !"☕?".includes(card.content) ? card.content : null).filter(el => el !== null).join(',');
+        let sequence = "0,1,2,3,5,8,13,21,34,55"
+        expect(cardSequence).toBe(sequence);
+        expect(cards[10].content).toBe('☕');
+        expect(cards[11].content).toBe('?');
+    });
+    //this function must return a list of cards in tenX sequence
+    test('generate tenX Cards', () => {
+        const cards = generateCards('tenX');
+        expect(typeof cards).toBe('object');
+        expect(cards).toHaveLength(12);
+        let cardSequence = cards.map((card) => !"☕?".includes(card.content) ? card.content : null).filter(el => el !== null).join(',');
+        let sequence = "0,10,20,30,40,50,60,70,80,90"
+        expect(cardSequence).toBe(sequence);
+        expect(cards[10].content).toBe('☕');
+        expect(cards[11].content).toBe('?');
     });
 });
 

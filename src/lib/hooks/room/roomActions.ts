@@ -8,7 +8,7 @@ import { cards } from "../../constants/constants"
 
 export default function roomActions() {
   const dispatcher = useAppDispatch()
-  const { useSetIsSpectator, useSetVote } = playerActions()
+  const { useSetVote } = playerActions()
   const useCreateRoom = (name: string) => {
     const initialRoom: room = {
       id: "",

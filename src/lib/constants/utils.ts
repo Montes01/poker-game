@@ -14,11 +14,11 @@ export const validateName = (value: string) => {
   if (!LENGTH_REGEX.test(value)) {
     throw new Error("Must be between 5-20 characters")
   }
-  if (!NUMBER_REGEX.test(value)) {
-    throw new Error("Must contain less than 3 numbers")
-  }
   if (!ONLY_NUMBER_REGEX.test(value)) {
     throw new Error("Must not contain only numbers")
+  }
+  if (!NUMBER_REGEX.test(value)) {
+    throw new Error("Must contain less than 3 numbers")
   }
   if (!SPECIAL_CHAR_REGEX.test(value)) {
     throw new Error("Must not contain special characters")
@@ -43,7 +43,7 @@ export function generateCards(type: keyof typeof cardTypes) {
     cards.push({ content: "0", voted: false })
     cards.push({ content: "1", voted: false })
     cards.push({ content: "2", voted: false })
-    for (let i = 2; i < 10; i++) {
+    for (let i = 2; i < 9; i++) {
       cards.push({
         content: `${Number(cards[i].content) + Number(cards[i - 1].content)}`,
         voted: false,
