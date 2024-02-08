@@ -5,7 +5,7 @@ import Button from "../../system-design/atoms/Button"
 import RadioButton from "../../system-design/atoms/RadioButton"
 import { connection } from "../../App"
 import { store } from "../../lib/store/store"
-import { generateCards } from "../../lib/constants/constants"
+import { generateCards } from "../../lib/constants/utils"
 interface Props {
   changeCardsRef: React.RefObject<HTMLDialogElement>
 }
