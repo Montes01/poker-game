@@ -12,16 +12,16 @@ const SPECIAL_CHAR_REGEX = /^[a-zA-Z0-9]*$/
 //create the validator
 export const validateName = (value: string) => {
   if (!LENGTH_REGEX.test(value)) {
-    throw new Error("Must be between 5-20 characters")
+    throw new Error("Debe tener entre 5 y 20 caracteres")
   }
   if (!ONLY_NUMBER_REGEX.test(value)) {
-    throw new Error("Must not contain only numbers")
+    throw new Error("No debe contener solo números")
   }
   if (!NUMBER_REGEX.test(value)) {
-    throw new Error("Must contain less than 3 numbers")
+    throw new Error("Debe contener menos de 3 números")
   }
   if (!SPECIAL_CHAR_REGEX.test(value)) {
-    throw new Error("Must not contain special characters")
+    throw new Error("No debe contener caracteres especiales")
   }
 }
 
