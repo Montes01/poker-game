@@ -48,7 +48,6 @@ export default function Home() {
               onChange={handleChange}
               name="room-name"
               type="text"
-              placeholder="Sprint 32"
               label="Nombra la partida"
             >
               {!isValid && isValid != null && (
