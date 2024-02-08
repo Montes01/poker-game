@@ -46,9 +46,15 @@
   justify-content: end;
   gap: 20px;
   flex: 1;
-
+  .change-type-button {
+    margin: 0;
+  }
   @include tablet {
+    .change-type-button {
+      margin: auto;
+    }
     .header-avatar {
+
       width: 30px;
       height: 30px;
     }
