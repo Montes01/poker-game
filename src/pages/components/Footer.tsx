@@ -25,7 +25,7 @@ export default function Footer() {
         }
         return acc
       }, 0)
-      setAverage(average)
+      setAverage(average / store.getState().room.cards.filter(card => !isNaN(Number(card.content))).length)
     }
   }, [isRevealed])
 
