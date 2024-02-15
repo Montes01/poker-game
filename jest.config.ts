@@ -5,4 +5,7 @@ export default {
         "^.+\\.tsx?$": "ts-jest" 
     // process `*.tsx` files with `ts-jest`
     },
+    collectCoverageFrom: [
+        'src/**/*.{js,jsx,ts,tsx}',
+    ],
 }
