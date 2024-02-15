@@ -33,7 +33,13 @@ export const getFirstUserLetters = (name: string) => {
 }
 
 export function generateLink(id:string) {
-  let link = window.location.origin + "/room/" + id
+  //validate if window is not null
+  let link = ""
+  if (typeof window !== "undefined") {
+    link = `${window.location.origin}/room/${id}`
+  } else {
+    link = `http://localhost/room/${id}`
+  }
   return link
 }
 
