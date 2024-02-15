@@ -33,7 +33,6 @@ export const getFirstUserLetters = (name: string) => {
 }
 
 export function generateLink(id:string) {
-  //validate if window is not null
   let link = ""
   if (typeof window !== "undefined") {
     link = `${window.location.origin}/room/${id}`
