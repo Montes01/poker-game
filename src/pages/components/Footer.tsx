@@ -43,14 +43,15 @@ export default function Footer() {
 
   return (
     <footer
-      className={`game-cards ${player.type === "spectator" && "spectator-footer"
-        }`}
+      className={`game-cards`}
     >
       {!isRevealed ? (
-        <Foot vote={handleVoteClick} />
+        <>
+          {player.type === "player" && (<Foot vote={handleVoteClick} />)}
+        </>
       ) : (
         <section className="average">
-          <Foot revealed vote={() => { }} />
+          {player.type === "player" && (<Foot revealed vote={() => { }} />)}
           <article className="average-text">
             <strong>Promedio:</strong>
             <h2>{average}</h2>
