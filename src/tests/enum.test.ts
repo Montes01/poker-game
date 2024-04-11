@@ -7,9 +7,3 @@ describe("enum", () => {
     expect(ioEvents).toMatchSnapshot()
   })
 })
-
-const inputTypesT = {
-
-
-
-}

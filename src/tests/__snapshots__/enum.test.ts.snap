@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`enum should match the snapshot 1`] = `
+{
+  "player": "player",
+  "spectator": "spectator",
+}
+`;
+
+exports[`enum should match the snapshot 2`] = `
+{
+  "checkbox": "checkbox",
+  "color": "color",
+  "date": "date",
+  "email": "email",
+  "file": "file",
+  "month": "month",
+  "number": "number",
+  "password": "password",
+  "radio": "radio",
+  "range": "range",
+  "search": "search",
+  "tel": "tel",
+  "text": "text",
+  "time": "time",
+  "url": "url",
+  "week": "week",
+}
+`;
+
+exports[`enum should match the snapshot 3`] = `
+{
+  "addPlayer": "addPlayer",
+  "changeCards": "changeCards",
+  "changeType": "changeType",
+  "connect": "connect",
+  "createRoom": "createRoom",
+  "giveAdmin": "giveAdmin",
+  "joinRoom": "joinRoom",
+  "reset": "reset",
+  "reveal": "reveal",
+  "updateRoom": "updateRoom",
+  "vote": "vote",
+}
+`;
