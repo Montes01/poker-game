@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "server": "nodemon server/app.js",
-    "test": "jest --watchAll=false --coverage --CI=true"
+    "test": "jest --watchAll=false --coverage --CI=true",
+    "testN": "jest --watchAll=false --CI=true"
   },
   "dependencies": {
     "@babel/core": "^7.24.4",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1712859911626" clover="3.2.0">
-  <project timestamp="1712859911628" name="All files">
-    <metrics statements="557" coveredstatements="122" conditionals="112" coveredconditionals="28" methods="142" coveredmethods="25" elements="811" coveredelements="175" complexity="0" loc="557" ncloc="557" packages="14" files="34" classes="34"/>
+<coverage generated="1712860591110" clover="3.2.0">
+  <project timestamp="1712860591110" name="All files">
+    <metrics statements="557" coveredstatements="127" conditionals="112" coveredconditionals="35" methods="142" coveredmethods="27" elements="811" coveredelements="189" complexity="0" loc="557" ncloc="557" packages="14" files="34" classes="34"/>
     <package name="src">
       <metrics statements="15" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="App.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\App.tsx">
@@ -563,7 +563,7 @@
       </file>
     </package>
     <package name="src.system-design.atoms">
-      <metrics statements="22" coveredstatements="3" conditionals="22" coveredconditionals="3" methods="8" coveredmethods="1"/>
+      <metrics statements="22" coveredstatements="8" conditionals="22" coveredconditionals="10" methods="8" coveredmethods="3"/>
       <file name="Button.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Button.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -571,15 +571,15 @@
         <line num="16" count="1" type="stmt"/>
       </file>
       <file name="Card.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Card.tsx">
-        <metrics statements="2" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="8" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
       </file>
       <file name="Input.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Input.tsx">
-        <metrics statements="3" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
       </file>
       <file name="Logo.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Logo.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
