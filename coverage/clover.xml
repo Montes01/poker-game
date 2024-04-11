@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1708036626590" clover="3.2.0">
-  <project timestamp="1708036626590" name="All files">
-    <metrics statements="485" coveredstatements="86" conditionals="96" coveredconditionals="19" methods="123" coveredmethods="21" elements="704" coveredelements="126" complexity="0" loc="485" ncloc="485" packages="15" files="33" classes="33"/>
+<coverage generated="1712859250235" clover="3.2.0">
+  <project timestamp="1712859250235" name="All files">
+    <metrics statements="483" coveredstatements="122" conditionals="98" coveredconditionals="28" methods="123" coveredmethods="25" elements="704" coveredelements="175" complexity="0" loc="483" ncloc="483" packages="14" files="32" classes="32"/>
     <package name="src">
       <metrics statements="15" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="App.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\App.tsx">
+      <file name="App.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\App.tsx">
         <metrics statements="8" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -15,7 +15,7 @@
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
       </file>
-      <file name="main.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\main.tsx">
+      <file name="main.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\main.tsx">
         <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -25,56 +25,56 @@
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
       </file>
-      <file name="vite-env.d.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\vite-env.d.ts">
+      <file name="vite-env.d.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\vite-env.d.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.lib.constants">
-      <metrics statements="78" coveredstatements="44" conditionals="20" coveredconditionals="13" methods="7" coveredmethods="4"/>
-      <file name="constants.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\constants\constants.ts">
+      <metrics statements="78" coveredstatements="77" conditionals="20" coveredconditionals="19" methods="7" coveredmethods="7"/>
+      <file name="constants.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\constants\constants.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
       </file>
-      <file name="declarations.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\constants\declarations.ts">
-        <metrics statements="33" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="48" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
+      <file name="declarations.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\constants\declarations.ts">
+        <metrics statements="33" coveredstatements="33" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
+        <line num="1" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="34" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="48" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
       </file>
-      <file name="utils.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\constants\utils.ts">
+      <file name="utils.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\constants\utils.ts">
         <metrics statements="41" coveredstatements="40" conditionals="14" coveredconditionals="13" methods="4" coveredmethods="4"/>
         <line num="4" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
@@ -121,7 +121,7 @@
     </package>
     <package name="src.lib.hooks">
       <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="store.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\hooks\store.ts">
+      <file name="store.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\hooks\store.ts">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -130,7 +130,7 @@
     </package>
     <package name="src.lib.hooks.player">
       <metrics statements="13" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="playerActions.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\hooks\player\playerActions.ts">
+      <file name="playerActions.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\hooks\player\playerActions.ts">
         <metrics statements="13" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -149,7 +149,7 @@
     </package>
     <package name="src.lib.hooks.player.slices">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-      <file name="playerSlice.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\hooks\player\slices\playerSlice.ts">
+      <file name="playerSlice.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\hooks\player\slices\playerSlice.ts">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -166,7 +166,7 @@
     </package>
     <package name="src.lib.hooks.room">
       <metrics statements="44" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="15" coveredmethods="0"/>
-      <file name="roomActions.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\hooks\room\roomActions.ts">
+      <file name="roomActions.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\hooks\room\roomActions.ts">
         <metrics statements="44" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="15" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -216,7 +216,7 @@
     </package>
     <package name="src.lib.hooks.room.slices">
       <metrics statements="33" coveredstatements="31" conditionals="4" coveredconditionals="4" methods="14" coveredmethods="14"/>
-      <file name="roomSlice.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\hooks\room\slices\roomSlice.ts">
+      <file name="roomSlice.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\hooks\room\slices\roomSlice.ts">
         <metrics statements="33" coveredstatements="31" conditionals="4" coveredconditionals="4" methods="14" coveredmethods="14"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -253,17 +253,9 @@
         <line num="102" count="1" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
-    <package name="src.lib.mock">
-      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="room.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\mock\room.ts">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
-      </file>
-    </package>
     <package name="src.lib.store">
       <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="store.ts" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\lib\store\store.ts">
+      <file name="store.ts" path="C:\Users\monte\Documents\Pragma\poker-game\src\lib\store\store.ts">
         <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -274,7 +266,7 @@
     </package>
     <package name="src.pages">
       <metrics statements="103" coveredstatements="0" conditionals="17" coveredconditionals="0" methods="26" coveredmethods="0"/>
-      <file name="Home..tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\Home..tsx">
+      <file name="Home..tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\Home..tsx">
         <metrics statements="33" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -310,7 +302,7 @@
         <line num="36" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
       </file>
-      <file name="Room.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\Room.tsx">
+      <file name="Room.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\Room.tsx">
         <metrics statements="60" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="18" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -373,7 +365,7 @@
         <line num="81" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
       </file>
-      <file name="Splash.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\Splash.tsx">
+      <file name="Splash.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\Splash.tsx">
         <metrics statements="10" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -388,8 +380,8 @@
       </file>
     </package>
     <package name="src.pages.components">
-      <metrics statements="88" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="25" coveredmethods="0"/>
-      <file name="ChangeCardsDialog.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\components\ChangeCardsDialog.tsx">
+      <metrics statements="88" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="26" coveredmethods="0"/>
+      <file name="ChangeCardsDialog.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\components\ChangeCardsDialog.tsx">
         <metrics statements="21" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -413,8 +405,8 @@
         <line num="29" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
       </file>
-      <file name="Footer.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\components\Footer.tsx">
-        <metrics statements="30" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="9" coveredmethods="0"/>
+      <file name="Footer.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\components\Footer.tsx">
+        <metrics statements="30" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -446,7 +438,7 @@
         <line num="39" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
       </file>
-      <file name="InviteDialog.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\components\InviteDialog.tsx">
+      <file name="InviteDialog.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\components\InviteDialog.tsx">
         <metrics statements="25" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -474,7 +466,7 @@
         <line num="34" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
       </file>
-      <file name="Players.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\pages\components\Players.tsx">
+      <file name="Players.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\pages\components\Players.tsx">
         <metrics statements="12" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -491,49 +483,49 @@
       </file>
     </package>
     <package name="src.system-design.atoms">
-      <metrics statements="22" coveredstatements="0" conditionals="22" coveredconditionals="0" methods="8" coveredmethods="0"/>
-      <file name="Button.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\Button.tsx">
-        <metrics statements="3" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
+      <metrics statements="22" coveredstatements="3" conditionals="22" coveredconditionals="3" methods="8" coveredmethods="1"/>
+      <file name="Button.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Button.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
       </file>
-      <file name="Card.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\Card.tsx">
+      <file name="Card.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Card.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="9" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
       </file>
-      <file name="Input.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\Input.tsx">
+      <file name="Input.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Input.tsx">
         <metrics statements="3" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
       </file>
-      <file name="Logo.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\Logo.tsx">
+      <file name="Logo.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Logo.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
       </file>
-      <file name="RadioButton.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\RadioButton.tsx">
+      <file name="RadioButton.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\RadioButton.tsx">
         <metrics statements="3" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
       </file>
-      <file name="Table.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\Table.tsx">
+      <file name="Table.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\Table.tsx">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
       </file>
-      <file name="UserAvatar.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\UserAvatar.tsx">
+      <file name="UserAvatar.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\UserAvatar.tsx">
         <metrics statements="4" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
       </file>
-      <file name="WarningIcon.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\atoms\WarningIcon.tsx">
+      <file name="WarningIcon.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\atoms\WarningIcon.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -541,7 +533,7 @@
     </package>
     <package name="src.system-design.molecules">
       <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="HeadLogo.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\molecules\HeadLogo.tsx">
+      <file name="HeadLogo.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\molecules\HeadLogo.tsx">
         <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -552,7 +544,7 @@
     </package>
     <package name="src.system-design.organisms">
       <metrics statements="41" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="12" coveredmethods="0"/>
-      <file name="Footer.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\organisms\Footer.tsx">
+      <file name="Footer.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\organisms\Footer.tsx">
         <metrics statements="20" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -575,7 +567,7 @@
         <line num="33" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
       </file>
-      <file name="RoomInitialDialog.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\organisms\RoomInitialDialog.tsx">
+      <file name="RoomInitialDialog.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\organisms\RoomInitialDialog.tsx">
         <metrics statements="21" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -602,14 +594,14 @@
     </package>
     <package name="src.system-design.templates">
       <metrics statements="22" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="4" coveredmethods="0"/>
-      <file name="FormDialog.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\templates\FormDialog.tsx">
+      <file name="FormDialog.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\templates\FormDialog.tsx">
         <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="7" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
-      <file name="PlayerNameForm.tsx" path="C:\Users\monte\Documents\Pragma\Planning poker\poker-game\src\system-design\templates\PlayerNameForm.tsx">
+      <file name="PlayerNameForm.tsx" path="C:\Users\monte\Documents\Pragma\poker-game\src\system-design\templates\PlayerNameForm.tsx">
         <metrics statements="18" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>

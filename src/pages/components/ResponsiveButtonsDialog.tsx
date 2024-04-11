@@ -1,5 +1,5 @@
 
-import { useRef, useState, useEffect } from "react"
+import {  useState, useEffect } from "react"
 import { connection } from "../../App"
 import { ioEvents, playerType as playType } from "../../lib/constants/declarations"
 import playerActions from "../../lib/hooks/player/playerActions"
