@@ -10,6 +10,7 @@ export default function UserAvatar({ name, className, onTable, action }: Props) 
   return (
     <button
       onClick={action}
+      role="avatar"
       className={`user-avatar ${className} ${onTable ? "table-card" : ""}`}
     >
       <h3 className="user-avatar-name">{getFirstUserLetters(name)}</h3>

@@ -9,7 +9,8 @@ export default function RoomInitialDialog() {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const { useSetPlayer } = playerActions()
   useEffect(() => {
-    dialogRef.current?.showModal()
+    if (!dialogRef.current) return
+    dialogRef.current.showModal()
   }, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

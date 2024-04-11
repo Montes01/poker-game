@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>9/22</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">42.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>9/21</span>
             </div>
         
             
@@ -102,8 +102,18 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -113,16 +123,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -141,18 +141,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import FormDialog from "../../system-design/templates/FormDialog"</span>
-<span class="cstat-no" title="statement not covered" >import { cardTypes, ioEvents } from "../../lib/constants/declarations"</span>
-<span class="cstat-no" title="statement not covered" >import { useEffect, useState } from "react"</span>
-<span class="cstat-no" title="statement not covered" >import Button from "../../system-design/atoms/Button"</span>
-<span class="cstat-no" title="statement not covered" >import RadioButton from "../../system-design/atoms/RadioButton"</span>
-<span class="cstat-no" title="statement not covered" >import { connection } from "../../App"</span>
-<span class="cstat-no" title="statement not covered" >import { store } from "../../lib/store/store"</span>
-<span class="cstat-no" title="statement not covered" >import { generateCards } from "../../lib/constants/utils"</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import FormDialog from "../../system-design/templates/FormDialog"
+import { cardTypes, ioEvents } from "../../lib/constants/declarations"
+import { useEffect, useState } from "react"
+import Button from "../../system-design/atoms/Button"
+import RadioButton from "../../system-design/atoms/RadioButton"
+import { connection } from "../../App"
+import { store } from "../../lib/store/store"
+import { generateCards } from "../../lib/constants/utils"
 interface Props {
   changeCardsRef: React.RefObject&lt;HTMLDialogElement&gt;
 }
-<span class="cstat-no" title="statement not covered" >export default function <span class="fstat-no" title="function not covered" >C</span>hangeCardsDialog(</span>{ changeCardsRef }: Props) {
+export default function <span class="fstat-no" title="function not covered" >ChangeCardsDialog(</span>{ changeCardsRef }: Props) {
   const [cards, setCards] = <span class="cstat-no" title="statement not covered" >useState&lt;string[]&gt;([])</span>
   const handleSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    e.preventDefault()</span>
@@ -187,7 +187,7 @@ interface Props {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-11T19:09:28.729Z
+                at 2024-04-11T20:37:25.897Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
