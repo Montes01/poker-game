@@ -1,6 +1,6 @@
 
 import {  useState, useEffect } from "react"
-import { connection } from "../../App"
+import { connection } from "../../lib/constants/constants"
 import { ioEvents, playerType as playType } from "../../lib/constants/declarations"
 import playerActions from "../../lib/hooks/player/playerActions"
 import roomActions from "../../lib/hooks/room/roomActions"

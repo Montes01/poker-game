@@ -1,5 +1,5 @@
-import Players from "../pages/components/Players";
-import { store } from "../lib/store/store";
+import Players from "../../pages/components/Players";
+import { store } from "../../lib/store/store";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 import { toBeInTheDocument } from "@testing-library/jest-dom/matchers";

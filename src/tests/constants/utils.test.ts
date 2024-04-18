@@ -1,4 +1,4 @@
-import { getFirstUserLetters, validateName, generateLink, generateCards } from "../lib/constants/utils";
+import { getFirstUserLetters, validateName, generateLink, generateCards } from "../../lib/constants/utils";
 
 describe('testing utils', () => {
     //this function must return the first two letters of the username on uppercase

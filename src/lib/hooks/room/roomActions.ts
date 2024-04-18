@@ -3,9 +3,9 @@ import { updateRoom, addPlayer, vote, changeAdmin, changeCards, reveal, reset, c
 import { Card, ioEvents, player, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
 import playerActions from "../player/playerActions"
-import { connection } from "../../../App"
+import { connection } from "../../../lib/constants/constants"
 import { cards } from "../../constants/constants"
-
+import { v4 } from 'uuid'
 export default function roomActions() {
   const dispatcher = useAppDispatch()
   const { useSetVote } = playerActions()
@@ -19,7 +19,7 @@ export default function roomActions() {
       cards: cards,
     }
 
-    const room = { ...initialRoom, id: crypto.randomUUID(), name }
+    const room = { ...initialRoom, id: v4(), name }
     connection.emit(ioEvents.createRoom, room)
   }
   const useAddPlayer = (player: player) => {

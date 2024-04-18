@@ -5,7 +5,7 @@ import Table from "../../system-design/atoms/Table"
 import FormDialog from "../../system-design/templates/FormDialog"
 import RadioButton from "../../system-design/atoms/RadioButton"
 import "../../assets/components/game-table.scss"
-import { connection } from "../../App"
+import { connection } from "../../lib/constants/constants"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
