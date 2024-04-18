@@ -9,8 +9,8 @@ export default function RoomInitialDialog() {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const { useSetPlayer } = playerActions()
   useEffect(() => {
-    if (!dialogRef.current) return
-    dialogRef.current.showModal()
+    // if (!dialogRef.current) return
+    // dialogRef.current.showModal()
   }, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +31,7 @@ export default function RoomInitialDialog() {
 
   }
   return (
-    <FormDialog dialogRef={dialogRef} handleSubmit={handleSubmit}>
+    <FormDialog open dialogRef={dialogRef} handleSubmit={handleSubmit}>
       <PlayerNameForm />
     </FormDialog>
   )

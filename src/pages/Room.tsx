@@ -80,7 +80,7 @@ export default function Room() {
   const menuRef = useRef<HTMLDialogElement>(null)
   const handleOpenMenuClick = () => menuRef.current?.showModal()
   return (
-    <section className="page-wrapper room-page-wrapper">
+    <section role="room" className="page-wrapper room-page-wrapper">
       <header className="room-header">
         <section className="room-logo">
           <HeadLogo />

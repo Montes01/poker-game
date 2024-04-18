@@ -11,7 +11,7 @@ export default function Splash() {
     }, 2500)
   }, [navigate])
   return (
-    <main className="page-wrapper splash-page-wrapper">
+    <main role='splash' className="page-wrapper splash-page-wrapper">
       <Logo width="80" height="80" />
       <h1 className="splash-title">{COMPANY_NAME}</h1>
     </main>
