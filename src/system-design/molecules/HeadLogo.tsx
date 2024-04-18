@@ -7,7 +7,7 @@ interface Props {
 }
 export default function HeadLogo({ content, className }: Props) {
   return (
-    <NavLink to="/home" className={`head-logo ${className}`}>
+    <NavLink role='head-logo' to="/home" className={`head-logo ${className}`}>
       <Logo width="65" height="65" />
       {content && <h1 className="head-title">{content}</h1>}
     </NavLink>

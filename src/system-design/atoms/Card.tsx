@@ -17,6 +17,7 @@ export default function Card({
   return (
     <button
       onClick={onClick}
+      role="game-card"
       className={`game-card ${className}
        ${onTable ? "table-card" : ""} ${
         vote && vote !== "none" ? "voted" : ""
