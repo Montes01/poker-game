@@ -3,20 +3,22 @@ interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   children?: React.ReactNode
   canClose?: boolean
+  open?: boolean
 }
 export default function PlayerNameDialog({
   dialogRef,
   handleSubmit,
   children,
   canClose,
+  open
 }: Props) {
   const handleClose = () => {
     dialogRef.current?.close()
   }
   return (
-    <dialog ref={dialogRef} className="user-form-dialog">
+    <dialog open={open} role="dialog" ref={dialogRef} className="user-form-dialog">
       <form onSubmit={handleSubmit} className="user-form">
-        {canClose && <button onClick={handleClose} className="close-dialog-button">x</button>}
+        {canClose && <button onClick={handleClose} role="close-dialog" className="close-dialog-button">x</button>}
         {children}
       </form>
     </dialog>
