@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react"
 import { ioEvents, player, playerType } from "../../lib/constants/declarations"
 import FormDialog from "../templates/FormDialog"
 import PlayerNameForm from "../templates/PlayerNameForm"
@@ -6,7 +5,6 @@ import { connection } from "../../lib/constants/constants"
 import { store } from "../../lib/store/store"
 import playerActions from "../../lib/hooks/player/playerActions"
 export default function RoomInitialDialog() {
-  const dialogRef = useRef<HTMLDialogElement>(null)
   const { useSetPlayer } = playerActions()
 
 
@@ -24,7 +22,7 @@ export default function RoomInitialDialog() {
     )
   }
   return (
-    <FormDialog open dialogRef={dialogRef} handleSubmit={handleSubmit}>
+    <FormDialog open handleSubmit={handleSubmit}>
       <PlayerNameForm />
     </FormDialog>
   )
