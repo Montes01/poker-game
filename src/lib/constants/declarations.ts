@@ -44,3 +44,22 @@ export enum ioEvents {
   giveAdmin = "giveAdmin",
   changeCards = "changeCards",
 }
+
+export enum inputTypes {
+  text = "text",
+  password = "password",
+  email = "email",
+  number = "number",
+  date = "date",
+  time = "time",
+  file = "file",
+  checkbox = "checkbox",
+  radio = "radio",
+  color = "color",
+  range = "range",
+  search = "search",
+  tel = "tel",
+  url = "url",
+  week = "week",
+  month = "month",
+}

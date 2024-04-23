@@ -1,23 +1,8 @@
 import "../../assets/components/Input.scss"
+import { inputTypes } from "../../lib/constants/declarations"
 interface Props {
   label?: string
-  type:
-    | "text"
-    | "password"
-    | "email"
-    | "number"
-    | "date"
-    | "time"
-    | "file"
-    | "checkbox"
-    | "radio"
-    | "color"
-    | "range"
-    | "search"
-    | "tel"
-    | "url"
-    | "week"
-    | "month"
+  type: keyof typeof inputTypes
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   name: string

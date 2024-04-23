@@ -9,3 +9,28 @@
   }
 }
 
+//phone responsive
+@mixin phone {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+//tablet responsive
+@mixin tablet {
+  @media (min-width: 600px) and (max-width: 900px) {
+    @content;
+  }
+}
+@mixin tiny {
+  @media (max-width: 350px) {
+    @content;
+  }
+}
+//no scrollbar 
+@mixin no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

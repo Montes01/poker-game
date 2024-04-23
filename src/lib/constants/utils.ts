@@ -1,4 +1,4 @@
-import { store } from "../store/store"
+import { cardTypes, Card } from "./declarations"
 
 //must be between 5-20 characters
 const LENGTH_REGEX = /^.{5,20}$/
@@ -12,16 +12,16 @@ const SPECIAL_CHAR_REGEX = /^[a-zA-Z0-9]*$/
 //create the validator
 export const validateName = (value: string) => {
   if (!LENGTH_REGEX.test(value)) {
-    throw new Error("Must be between 5-20 characters")
-  }
-  if (!NUMBER_REGEX.test(value)) {
-    throw new Error("Must contain less than 3 numbers")
+    throw new Error("Debe tener entre 5 y 20 caracteres")
   }
   if (!ONLY_NUMBER_REGEX.test(value)) {
-    throw new Error("Must not contain only numbers")
+    throw new Error("No debe contener solo números")
+  }
+  if (!NUMBER_REGEX.test(value)) {
+    throw new Error("Debe contener menos de 3 números")
   }
   if (!SPECIAL_CHAR_REGEX.test(value)) {
-    throw new Error("Must not contain special characters")
+    throw new Error("No debe contener caracteres especiales")
   }
 }
 
@@ -33,6 +33,37 @@ export const getFirstUserLetters = (name: string) => {
 }
 
 export function generateLink(id:string) {
-  let link = window.location.origin + "/room/" + id
+  let link = ""
+  if (typeof window !== "undefined") {
+    link = `${window.location.origin}/room/${id}`
+  } else {
+    link = `http://localhost/room/${id}`
+  }
   return link
+}
+
+export function generateCards(type: keyof typeof cardTypes) {
+  const cards: Card[] = []
+  if (type === "fibonacci") {
+    cards.push({ content: "0", voted: false })
+    cards.push({ content: "1", voted: false })
+    cards.push({ content: "2", voted: false })
+    for (let i = 2; i < 9; i++) {
+      cards.push({
+        content: `${Number(cards[i].content) + Number(cards[i - 1].content)}`,
+        voted: false,
+      })
+    }
+  } else if (type === "normal") {
+    for (let i = 0; i < 10; i++) {
+      cards.push({ content: `${i}`, voted: false })
+    }
+  } else if (type === "tenX") {
+    for (let i = 0; i < 10; i++) {
+      cards.push({ content: `${i * 10}`, voted: false })
+    }
+  }
+  cards.push({ content: "☕", voted: false })
+  cards.push({ content: "?", voted: false })
+  return cards
 }

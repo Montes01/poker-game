@@ -7,8 +7,8 @@ import Input from "../system-design/atoms/Input"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import WarningIcon from "../system-design/atoms/WarningIcon"
 import { useNavigate } from "react-router-dom"
-import { connection } from "../App"
-import { room } from "../lib/constants/declarations"
+import { connection } from "../lib/constants/constants"
+import { ioEvents, room } from "../lib/constants/declarations"
 export default function Home() {
   const navigator = useNavigate()
   const [isValid, setIsValid] = useState<boolean | null>(null)
@@ -33,10 +33,7 @@ export default function Home() {
     setLoading(true)
   }
   useMemo(() => {
-    console.log("this is created")
-    connection.on("updateRoom", (room: room) => {
-      navigator(`/room/${room.id}`)
-    })
+    connection.on(ioEvents.createRoom, (room: room) => navigator(`/room/${room.id}`))
   }, [])
 
   return (
@@ -45,20 +42,22 @@ export default function Home() {
         <HeadLogo content="Crear partida" />
       </header>
       <form onSubmit={handleSubmit} className="base-form">
-        <Input
-          onChange={handleChange}
-          name="room-name"
-          type="text"
-          placeholder="Sprint 32"
-          label="Nombra la partida"
-        >
-          {!isValid && isValid != null && (
-            <WarningIcon title={errorMessage} width="15" height="15" />
-          )}
-        </Input>
-        <Button disabled={!isValid ?? false} content="Crear partida" submit />
+        {loading ? <h2>Creando partida...</h2> : (
+          <>
+            <Input
+              onChange={handleChange}
+              name="room-name"
+              type="text"
+              label="Nombra la partida"
+            >
+              {!isValid && isValid != null && (
+                <WarningIcon title={errorMessage} width="15" height="15" />
+              )}
+            </Input>
+            <Button disabled={!isValid ?? false} content="Crear partida" submit />
+          </>
+        )}
       </form>
-      {loading && <h2>Creando partida...</h2>}
     </main>
   )
 }

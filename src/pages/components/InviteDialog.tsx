@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { generateLink } from "../../lib/constants/utils"
 import Button from "../../system-design/atoms/Button"
 import Input from "../../system-design/atoms/Input"
@@ -34,7 +34,7 @@ export default function InviteDialog({ inviteRef }: Props) {
     setLink(generateLink(""))
   }, [])
   return (
-    <FormDialog dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
+    <FormDialog canClose dialogRef={inviteRef} handleSubmit={handleCopySubmit}>
       <Input name="link" type="text" readonly defaultValue={link} />
       <Button submit content={copyMessage} />
     </FormDialog>

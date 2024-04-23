@@ -17,13 +17,15 @@ export default function Card({
   return (
     <button
       onClick={onClick}
+      role="game-card"
       className={`game-card ${className}
        ${onTable ? "table-card" : ""} ${
         vote && vote !== "none" ? "voted" : ""
       }`}
     >
       <strong className="card-content">{content}</strong>
-     {voteCount &&  <strong className="vote-count">Votos: {voteCount}</strong>}
+      
+     {voteCount ?  <strong className="vote-count"> Votos:  {voteCount}</strong>: null}
     </button>
   )
 }

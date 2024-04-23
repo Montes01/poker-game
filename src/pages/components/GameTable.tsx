@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from "react"
-import roomActions from "../../lib/hooks/room/roomActions"
 import { store } from "../../lib/store/store"
 import Button from "../../system-design/atoms/Button"
 import Table from "../../system-design/atoms/Table"
 import FormDialog from "../../system-design/templates/FormDialog"
 import RadioButton from "../../system-design/atoms/RadioButton"
 import "../../assets/components/game-table.scss"
-import { connection } from "../../App"
+import { connection } from "../../lib/constants/constants"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
-  const { useReset, useRevealCards } = roomActions()
-  const changeCardsRef = useRef<HTMLDialogElement>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
   const [players, setPlayers] = useState(store.getState().room.players)
+  const [modalStates, setModalStates] = useState({
+    changeAdmin: false,
+    changeCards: false,
+  })
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
@@ -30,10 +31,10 @@ export default function GameTable() {
     return () => unsuscribe()
   }, [])
   const handleRevealClick = () => {
-    useRevealCards()
+    connection.emit(ioEvents.reveal, store.getState().room.id)
   }
   const handleResetClick = () => {
-    useReset()
+    connection.emit(ioEvents.reset, store.getState().room.id)
   }
   const handleChangeAdminSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,32 +44,34 @@ export default function GameTable() {
       roomId: store.getState().room.id,
       admin: adminId,
     })
-    changeAdminRef.current?.close()
+    setModalStates({ ...modalStates, changeAdmin: false })
   }
   const handleGiveAdminClick = () => {
-    changeAdminRef.current?.showModal()
+    setModalStates({ ...modalStates, changeAdmin: new Boolean(true) } as any)
+    alert("you can change into admin")
   }
-  const changeAdminRef = useRef<HTMLDialogElement>(null)
   const handleChangeCardsClick = () => {
-    changeCardsRef.current?.showModal()
+    setModalStates({ ...modalStates, changeCards: new Boolean(true) } as any)
   }
 
   return (
     <Table>
+
       {isAdmin && (
         <section className="table-content">
-          <Button
-            onClick={isRevealed ? handleResetClick : handleRevealClick}
-            disabled={!isComplete}
-            content={isRevealed ? "Nueva partida" : "Revelar cartas"}
-          />
-          {!isRevealed && <Button content="Cambiar admin" onClick={handleGiveAdminClick} />}
-          <Button content="Cambiar admin" onClick={handleGiveAdminClick} />
-          <Button content="Cambiar cartas" onClick={handleChangeCardsClick} />
+          {isRevealed && <Button onClick={handleResetClick} content="Nueva partida" />}
+          {!isRevealed && (
+            <>
+              <Button onClick={handleRevealClick} disabled={!isComplete} content="Revelar cartas" />
+              <Button content="Cambiar admin" onClick={handleGiveAdminClick} />
+              <Button content="Cambiar cartas" onClick={handleChangeCardsClick} />
+            </>
+          )
+          }
         </section>
       )}
       <FormDialog
-        dialogRef={changeAdminRef}
+        open={modalStates.changeAdmin}
         handleSubmit={handleChangeAdminSubmit}
       >
         you can change into admin
@@ -87,7 +90,7 @@ export default function GameTable() {
         </section>
         <Button content="confirm" submit />
       </FormDialog>
-      <ChangeCardsDialog changeCardsRef={changeCardsRef} />
+      <ChangeCardsDialog isOpen={modalStates.changeCards} />
     </Table>
   )
 }
