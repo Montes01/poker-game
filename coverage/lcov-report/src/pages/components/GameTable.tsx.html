@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.36% </span>
+                <span class="strong">59.09% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/44</span>
+                <span class='fraction'>26/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.46% </span>
+                <span class="strong">58.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/43</span>
+                <span class='fraction'>25/43</span>
             </div>
         
             
@@ -155,7 +155,11 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -171,6 +175,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -202,8 +209,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,6 +237,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,7 +255,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useRef, useState } from "react"
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect,  useState } from "react"
 import { store } from "../../lib/store/store"
 import Button from "../../system-design/atoms/Button"
 import Table from "../../system-design/atoms/Table"
@@ -258,11 +266,14 @@ import { connection } from "../../lib/constants/constants"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
-  const changeCardsRef = useRef&lt;HTMLDialogElement&gt;(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
   const [players, setPlayers] = useState(store.getState().room.players)
+  const [modalStates, setModalStates] = useState({
+    changeAdmin: false,
+    changeCards: false,
+  })
   useEffect(() =&gt; {
     const unsuscribe = store.subscribe(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
       const state = <span class="cstat-no" title="statement not covered" >store.getState()</span>
@@ -290,33 +301,34 @@ export default function GameTable() {
       roomId: store.getState().room.id,
       admin: adminId,
     })
-<span class="cstat-no" title="statement not covered" >    changeAdminRef.current?.close()</span>
+<span class="cstat-no" title="statement not covered" >    setModalStates({ ...modalStates, changeAdmin: false })</span>
   }
   const handleGiveAdminClick = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    changeAdminRef.current?.showModal()</span>
+<span class="cstat-no" title="statement not covered" >    setModalStates({ ...modalStates, changeAdmin: new Boolean(true) } as any)</span>
+<span class="cstat-no" title="statement not covered" >    alert("you can change into admin")</span>
   }
-  const changeAdminRef = useRef&lt;HTMLDialogElement&gt;(null)
   const handleChangeCardsClick = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    changeCardsRef.current?.showModal()</span>
+<span class="cstat-no" title="statement not covered" >    setModalStates({ ...modalStates, changeCards: new Boolean(true) } as any)</span>
   }
 &nbsp;
   return (
     &lt;Table&gt;
-      
+&nbsp;
       {isAdmin &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;section className="table-content"&gt;</span>
-          {isRevealed ? (
-            &lt;Button onClick={handleResetClick} content="Nueva partida" /&gt;
-          ) : (
-            &lt;Button onClick={handleRevealClick} disabled={!isComplete} content="Revelar cartas" /&gt;
-          )}
-          {!isRevealed &amp;&amp; &lt;Button content="Cambiar admin" onClick={handleGiveAdminClick} /&gt;}
-          {!isRevealed &amp;&amp; &lt;Button content="Cambiar cartas" onClick={handleChangeCardsClick} /&gt;}
-          &lt;Button content="Cambiar admin" onClick={handleGiveAdminClick} /&gt;
+          {isRevealed &amp;&amp; &lt;Button onClick={handleResetClick} content="Nueva partida" /&gt;}
+          {!isRevealed &amp;&amp; (
+            &lt;&gt;
+              &lt;Button onClick={handleRevealClick} disabled={!isComplete} content="Revelar cartas" /&gt;
+              &lt;Button content="Cambiar admin" onClick={handleGiveAdminClick} /&gt;
+              &lt;Button content="Cambiar cartas" onClick={handleChangeCardsClick} /&gt;
+            &lt;/&gt;
+          )
+          }
         &lt;/section&gt;
       )}
       &lt;FormDialog
-        dialogRef={changeAdminRef}
+        open={modalStates.changeAdmin}
         handleSubmit={handleChangeAdminSubmit}
       &gt;
         you can change into admin
@@ -335,7 +347,7 @@ export default function GameTable() {
         &lt;/section&gt;
         &lt;Button content="confirm" submit /&gt;
       &lt;/FormDialog&gt;
-      &lt;ChangeCardsDialog changeCardsRef={changeCardsRef} /&gt;
+      &lt;ChangeCardsDialog isOpen={modalStates.changeCards} /&gt;
     &lt;/Table&gt;
   )
 }
@@ -346,7 +358,7 @@ export default function GameTable() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-18T20:53:07.813Z
+                at 2024-04-23T02:20:38.113Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

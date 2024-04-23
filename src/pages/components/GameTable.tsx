@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect,  useState } from "react"
 import { store } from "../../lib/store/store"
 import Button from "../../system-design/atoms/Button"
 import Table from "../../system-design/atoms/Table"
