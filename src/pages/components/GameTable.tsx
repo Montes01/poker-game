@@ -9,7 +9,6 @@ import { connection } from "../../lib/constants/constants"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
 export default function GameTable() {
-  const changeCardsRef = useRef<HTMLDialogElement>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
@@ -52,7 +51,7 @@ export default function GameTable() {
     alert("you can change into admin")
   }
   const handleChangeCardsClick = () => {
-    setModalStates({ ...modalStates, changeCards: true })
+    setModalStates({ ...modalStates, changeCards: new Boolean(true) } as any)
   }
 
   return (
@@ -91,7 +90,7 @@ export default function GameTable() {
         </section>
         <Button content="confirm" submit />
       </FormDialog>
-      <ChangeCardsDialog isOpen={modalStates.changeCards} changeCardsRef={changeCardsRef} />
+      <ChangeCardsDialog isOpen={modalStates.changeCards} />
     </Table>
   )
 }
