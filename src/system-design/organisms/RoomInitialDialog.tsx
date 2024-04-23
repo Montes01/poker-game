@@ -8,10 +8,7 @@ import playerActions from "../../lib/hooks/player/playerActions"
 export default function RoomInitialDialog() {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const { useSetPlayer } = playerActions()
-  useEffect(() => {
-    // if (!dialogRef.current) return
-    // dialogRef.current.showModal()
-  }, [])
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -25,10 +22,6 @@ export default function RoomInitialDialog() {
         useSetPlayer(player)
       }
     )
-
-    dialogRef.current?.close()
-
-
   }
   return (
     <FormDialog open dialogRef={dialogRef} handleSubmit={handleSubmit}>

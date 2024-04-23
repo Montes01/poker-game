@@ -8,8 +8,9 @@ import { store } from "../../lib/store/store"
 import { generateCards } from "../../lib/constants/utils"
 interface Props {
   changeCardsRef: React.RefObject<HTMLDialogElement>
+  isOpen: boolean
 }
-export default function ChangeCardsDialog({ changeCardsRef }: Props) {
+export default function ChangeCardsDialog({ changeCardsRef, isOpen }: Props) {
   const [cards, setCards] = useState<string[]>([])
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -27,7 +28,7 @@ export default function ChangeCardsDialog({ changeCardsRef }: Props) {
     }
   }, [])
   return (
-    <FormDialog dialogRef={changeCardsRef} handleSubmit={handleSubmit}>
+    <FormDialog open={isOpen} dialogRef={changeCardsRef} handleSubmit={handleSubmit}>
       <section className="card-types-radio-buttons">
         {cards.map((card) => (
           <RadioButton label={card} name="cardsType" value={card} key={card} />

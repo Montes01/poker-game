@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface Props {
-  dialogRef: React.RefObject<HTMLDialogElement>
+  dialogRef?: React.RefObject<HTMLDialogElement>
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   children?: React.ReactNode
   canClose?: boolean
@@ -15,6 +15,12 @@ export default function PlayerNameDialog({
   open
 }: Props) {
   const [isOpen, setIsOpen] = useState(open)
+
+  useEffect(() => {
+    console.log(open);
+
+    setIsOpen(open)
+  }, [open])
 
   const [dialogStyles, setDialogStyles] = useState({
     display: isOpen ? "flex" : "none",
@@ -34,9 +40,22 @@ export default function PlayerNameDialog({
     setIsOpen(false)
     setDialogStyles({ ...dialogStyles, display: "none" })
   }
+
+  useEffect(() => {
+    if (isOpen) {
+      setDialogStyles({ ...dialogStyles, display: "flex" })
+    } else {
+      setDialogStyles({ ...dialogStyles, display: "none" })
+    }
+  }, [isOpen])
+
+  const onSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(e)
+    handleClose()
+  }
   return (
     <dialog open={isOpen} style={dialogStyles} role="dialog" ref={dialogRef} className="user-form-dialog">
-      <form onSubmit={handleSubmit} className="user-form">
+      <form onSubmit={onSubmitted} className="user-form">
         {canClose && <button onClick={handleClose} role="close-dialog" className="close-dialog-button">x</button>}
         {children}
       </form>
