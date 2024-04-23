@@ -5,7 +5,7 @@ import { connection } from "../../lib/constants/constants"
 import { store } from "../../lib/store/store"
 import playerActions from "../../lib/hooks/player/playerActions"
 export default function RoomInitialDialog() {
-  const { useSetPlayer } = playerActions()
+  const { UseSetPlayer } = playerActions()
 
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,7 +17,7 @@ export default function RoomInitialDialog() {
       ioEvents.addPlayer,
       { roomId: store.getState().room.id, name: username, type: userType },
       (player: player) => {
-        useSetPlayer(player)
+        UseSetPlayer(player)
       }
     )
   }

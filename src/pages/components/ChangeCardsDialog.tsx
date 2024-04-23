@@ -22,7 +22,7 @@ export default function ChangeCardsDialog({ isOpen }: Props) {
   }
   useEffect(() => {
     setCards([])
-    for (let card in cardTypes) {
+    for (const card in cardTypes) {
       setCards((prev) => [...prev, card])
     }
   }, [])

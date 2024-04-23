@@ -21,84 +21,84 @@ describe("Room Test", () => {
     });
 
 
-    it("testing useCreateRoom hook", () => {
-        expect(result?.useCreateRoom).toBeTruthy();
-        const spy = jest.spyOn(result!, "useCreateRoom");
-        result?.useCreateRoom("test");
+    it("testing UseCreateRoom hook", () => {
+        expect(result?.UseCreateRoom).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseCreateRoom");
+        result?.UseCreateRoom("test");
         expect(spy).toHaveBeenCalledWith("test");
     });
 
-    it("testing useAddPlayer hook", () => {
-        expect(result?.useAddPlayer).toBeTruthy();
-        const spy = jest.spyOn(result!, "useAddPlayer");
+    it("testing UseAddPlayer hook", () => {
+        expect(result?.UseAddPlayer).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseAddPlayer");
         const player = { id: "test", name: "test", type: "player", vote: "none" } as player;
-        result?.useAddPlayer(player);
+        result?.UseAddPlayer(player);
         expect(spy).toHaveBeenCalledWith(player);
     });
 
-    it("testing useVote hook", () => {
-        expect(result?.useVote).toBeTruthy();
-        const spy = jest.spyOn(result!, "useVote");
-        result?.useVote("test", "test");
+    it("testing UseVote hook", () => {
+        expect(result?.UseVote).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseVote");
+        result?.UseVote("test", "test");
         expect(spy).toHaveBeenCalledWith("test", "test");
     });
 
-    it("testing useChangeAdmin hook", () => {
-        expect(result?.useChangeAdmin).toBeTruthy();
-        const spy = jest.spyOn(result!, "useChangeAdmin");
-        result?.useChangeAdmin("test");
+    it("testing UseChangeAdmin hook", () => {
+        expect(result?.UseChangeAdmin).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseChangeAdmin");
+        result?.UseChangeAdmin("test");
         expect(spy).toHaveBeenCalledWith("test");
     });
 
-    it("testing useChangeCards hook", () => {
-        expect(result?.useChangeCards).toBeTruthy();
-        const spy = jest.spyOn(result!, "useChangeCards");
+    it("testing UseChangeCards hook", () => {
+        expect(result?.UseChangeCards).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseChangeCards");
         const cards = [{ content: "1", count: 0, voted: false }];
-        result?.useChangeCards(cards);
+        result?.UseChangeCards(cards);
         expect(spy).toHaveBeenCalledWith(cards);
     });
 
-    it("testing useRevealCards hook", () => {
-        expect(result?.useRevealCards).toBeTruthy();
-        const spy = jest.spyOn(result!, "useRevealCards");
+    it("testing UseRevealCards hook", () => {
+        expect(result?.UseRevealCards).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseRevealCards");
         const cards = [{ content: "1", count: 0, voted: false }];
-        result?.useRevealCards(cards);
+        result?.UseRevealCards(cards);
         expect(spy).toHaveBeenCalledWith(cards);
     });
 
-    it("testing useVotePerCard hook", () => {
-        expect(result?.useVotePerCard).toBeTruthy();
-        const spy = jest.spyOn(result!, "useVotePerCard");
-        result?.useVotePerCard();
+    it("testing UseVotePerCard hook", () => {
+        expect(result?.UseVotePerCard).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseVotePerCard");
+        result?.UseVotePerCard();
         expect(spy).toHaveBeenCalled();
     });
 
-    it("testing useReset hook", () => {
-        expect(result?.useReset).toBeTruthy();
-        const spy = jest.spyOn(result!, "useReset");
-        result?.useReset();
+    it("testing UseReset hook", () => {
+        expect(result?.UseReset).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseReset");
+        result?.UseReset();
         expect(spy).toHaveBeenCalled();
     });
 
-    it("testing useUpdateRoom hook", () => {
-        expect(result?.useUpdateRoom).toBeTruthy();
-        const spy = jest.spyOn(result!, "useUpdateRoom");
+    it("testing UseUpdateRoom hook", () => {
+        expect(result?.UseUpdateRoom).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseUpdateRoom");
         const room = { id: "NA", name: "test", admin: "test", players: [], isRevealed: false, cards: [] };
-        result?.useUpdateRoom(room);
+        result?.UseUpdateRoom(room);
         expect(spy).toHaveBeenCalledWith(room);
     });
 
-    it("testing useChangePlayerType hook", () => {
-        expect(result?.useChangePlayerType).toBeTruthy();
-        const spy = jest.spyOn(result!, "useChangePlayerType");
-        result?.useChangePlayerType("test", "player");
+    it("testing UseChangePlayerType hook", () => {
+        expect(result?.UseChangePlayerType).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseChangePlayerType");
+        result?.UseChangePlayerType("test", "player");
         expect(spy).toHaveBeenCalledWith("test", "player");
     });
 
-    it("testing useGiveAdmin hook", () => {
-        expect(result?.useGiveAdmin).toBeTruthy();
-        const spy = jest.spyOn(result!, "useGiveAdmin");
-        result?.useGiveAdmin("test");
+    it("testing UseGiveAdmin hook", () => {
+        expect(result?.UseGiveAdmin).toBeTruthy();
+        const spy = jest.spyOn(result!, "UseGiveAdmin");
+        result?.UseGiveAdmin("test");
         expect(spy).toHaveBeenCalledWith("test");
     })
 

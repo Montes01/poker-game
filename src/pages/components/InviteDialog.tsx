@@ -14,7 +14,7 @@ export default function InviteDialog({ inviteRef }: Props) {
   const handleCopySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
-    let link = data.get("link") as string
+    const link = data.get("link") as string
 
     try {
       window.navigator.clipboard.writeText(link)

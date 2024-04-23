@@ -32,7 +32,7 @@ describe("testing the player name dialog template", () => {
 
 })
 
-function Component({ submit }: { submit: Function }) {
+function Component({ submit }: { submit: () => void }) {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

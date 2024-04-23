@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../store"
+import { UseAppDispatch } from "../store"
 import { updateRoom, addPlayer, vote, changeAdmin, changeCards, reveal, reset, changePlayerType } from "../../hooks/room/slices/roomSlice"
 import { Card, ioEvents, player, playerType, room } from "../../constants/declarations"
 import { store } from "../../store/store"
@@ -7,9 +7,9 @@ import { connection } from "../../../lib/constants/constants"
 import { cards } from "../../constants/constants"
 import { v4 } from 'uuid'
 export default function roomActions() {
-  const dispatcher = useAppDispatch()
-  const { useSetVote } = playerActions()
-  const useCreateRoom = (name: string) => {
+  const dispatcher = UseAppDispatch()
+  const { UseSetVote } = playerActions()
+  const UseCreateRoom = (name: string) => {
     const initialRoom: room = {
       id: "",
       name: "",
@@ -22,27 +22,27 @@ export default function roomActions() {
     const room = { ...initialRoom, id: v4(), name }
     connection.emit(ioEvents.createRoom, room)
   }
-  const useAddPlayer = (player: player) => {
+  const UseAddPlayer = (player: player) => {
     dispatcher(addPlayer(player))
   }
 
-  const useVote = (playerId: string, cardContent: string) => {
+  const UseVote = (playerId: string, cardContent: string) => {
     dispatcher(vote({ playerId, cardContent }))
   }
 
-  const useChangeAdmin = (admin: string) => {
+  const UseChangeAdmin = (admin: string) => {
     dispatcher(changeAdmin(admin))
   }
-  const useChangeCards = (cards: Card[]) => {
+  const UseChangeCards = (cards: Card[]) => {
     dispatcher(changeCards(cards))
-    useSetVote("none")
+    UseSetVote("none")
   }
-  const useRevealCards = (cards: Card[]) => {
-    useChangeCards(cards)
+  const UseRevealCards = (cards: Card[]) => {
+    UseChangeCards(cards)
     dispatcher(reveal())
   }
 
-  const useVotePerCard = (): Card[] => {
+  const UseVotePerCard = (): Card[] => {
     const players = store
       .getState()
       .room.players.filter((player) => player.type === playerType.player)
@@ -56,16 +56,16 @@ export default function roomActions() {
     }
     return cards
   }
-  const useReset = () => {
+  const UseReset = () => {
     dispatcher(reset())
   }
-  const useUpdateRoom = (room: room) => {
+  const UseUpdateRoom = (room: room) => {
     dispatcher(updateRoom(room))
   }
-  const useChangePlayerType = (playerId: string, type: keyof typeof playerType) => {
+  const UseChangePlayerType = (playerId: string, type: keyof typeof playerType) => {
     dispatcher(changePlayerType({ playerId, type }))
   }
-  const useGiveAdmin = (playerId: string) => {
+  const UseGiveAdmin = (playerId: string) => {
     connection.emit(ioEvents.giveAdmin, {
       roomId: store.getState().room.id,
       admin: playerId,
@@ -74,16 +74,16 @@ export default function roomActions() {
 
 
   return {
-    useUpdateRoom,
-    useCreateRoom,
-    useAddPlayer,
-    useVote,
-    useReset,
-    useRevealCards,
-    useVotePerCard,
-    useGiveAdmin,
-    useChangeAdmin,
-    useChangeCards,
-    useChangePlayerType,
+    UseUpdateRoom,
+    UseCreateRoom,
+    UseAddPlayer,
+    UseVote,
+    UseReset,
+    UseRevealCards,
+    UseVotePerCard,
+    UseGiveAdmin,
+    UseChangeAdmin,
+    UseChangeCards,
+    UseChangePlayerType,
   }
 }

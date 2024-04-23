@@ -47,7 +47,7 @@ export default function PlayerNameDialog({
     } else {
       setDialogStyles({ ...dialogStyles, display: "none" })
     }
-  }, [isOpen])
+  }, [isOpen, dialogStyles])
 
   const onSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e)

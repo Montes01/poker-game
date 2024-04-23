@@ -8,7 +8,7 @@ export default function Footer() {
   const [player, setPlayer] = useState(store.getState().player)
   const [isRevealed, setIsRevealed] = useState(false)
   const [average, setAverage] = useState(0)
-  const { useSetVote } = playerActions()
+  const { UseSetVote } = playerActions()
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
       const state = store.getState()
@@ -36,7 +36,7 @@ export default function Footer() {
       ioEvents.vote,
       { roomId: store.getState().room.id, playerId, cardContent: card },
       (cardContent: string) => {
-        useSetVote(cardContent)
+        UseSetVote(cardContent)
       }
     )
   }
