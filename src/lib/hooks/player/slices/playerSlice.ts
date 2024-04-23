@@ -31,3 +31,5 @@ export const slice = playerSlice.reducer
 export const setPlayer = playerSlice.actions.setPlayer
 export const setIsSpectator = playerSlice.actions.setIsSpectator
 export const setVote = playerSlice.actions.setVote
+
+export default playerSlice.actions

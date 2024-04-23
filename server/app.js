@@ -1,10 +1,9 @@
-import { createReducer } from "@reduxjs/toolkit"
-import express from "express"
-import { createServer } from "http"
-import { Server } from "socket.io"
+const express = require("express");
+const { Server } = require("socket.io");
+const { createServer } = require("http");
 const app = express()
 const server = createServer(app)
-const PORT = 3000
+const PORT = 5000
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -149,7 +148,7 @@ io.on("connection", (socket) => {
     rooms.find((room) => room.id === roomId).isRevealed = false
     emitToRoom(roomId, ioEvents.RESET, null)
   })
-  
+
   //CHANGE TYPE
   socket.on(ioEvents.CHANGE_TYPE, (data, callback) => {
     const roomId = data.roomId

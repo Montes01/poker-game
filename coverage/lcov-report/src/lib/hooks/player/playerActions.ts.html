@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">92.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,23 +88,23 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,23 +112,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { player } from "../../constants/declarations"
-<span class="cstat-no" title="statement not covered" >import { useAppDispatch } from "../store"</span>
-<span class="cstat-no" title="statement not covered" >import { setPlayer, setIsSpectator, setVote } from "./slices/playerSlice"</span>
-<span class="cstat-no" title="statement not covered" >export default function <span class="fstat-no" title="function not covered" >p</span>layerActions(</span>) {
-  const dispatcher = <span class="cstat-no" title="statement not covered" >useAppDispatch()</span>
-  const useSetPlayer = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>layer: player) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    dispatcher(setPlayer(player))</span>
+import { useAppDispatch } from "../store"
+import { setPlayer, setIsSpectator, setVote } from "./slices/playerSlice"
+export default function playerActions() {
+  const dispatcher = useAppDispatch()
+  const useSetPlayer = (player: player) =&gt; {
+    dispatcher(setPlayer(player))
   }
-  const useSetIsSpectator = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>sSpectator: boolean) =&gt; {</span>
+  const useSetIsSpectator = <span class="fstat-no" title="function not covered" >(i</span>sSpectator: boolean) =&gt; {
 <span class="cstat-no" title="statement not covered" >    dispatcher(setIsSpectator(isSpectator))</span>
   }
-  const useSetVote = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>ote: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    dispatcher(setVote(vote))</span>
+  const useSetVote = (vote: string) =&gt; {
+    dispatcher(setVote(vote))
   }
-  const useRemoveVote = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    dispatcher(setVote("none"))</span>
+  const useRemoveVote = () =&gt; {
+    dispatcher(setVote("none"))
   }
-<span class="cstat-no" title="statement not covered" >  return {</span>
+  return {
     useSetPlayer,
     useSetVote,
     useSetIsSpectator,
@@ -142,7 +142,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-15T22:37:06.259Z
+                at 2024-04-18T20:53:07.813Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

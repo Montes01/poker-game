@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">71.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>15/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>14/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,38 +107,38 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,39 +150,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Card as CardType } from "../../lib/constants/declarations"
-<span class="cstat-no" title="statement not covered" >import { store } from "../../lib/store/store"</span>
-<span class="cstat-no" title="statement not covered" >import Card from "../atoms/Card"</span>
-<span class="cstat-no" title="statement not covered" >import { useEffect, useState } from "react"</span>
+import { store } from "../../lib/store/store"
+import Card from "../atoms/Card"
+import { useEffect, useState } from "react"
 &nbsp;
 interface Props {
   vote: (card: string) =&gt; void
   revealed?: boolean
 }
-<span class="cstat-no" title="statement not covered" >export default function <span class="fstat-no" title="function not covered" >F</span>ooter(</span>{ vote, revealed }: Props) {
-  const [playerVote, setPlayerVote] = <span class="cstat-no" title="statement not covered" >useState(store.getState().player.vote)</span>
-  const [cards, setCards] = <span class="cstat-no" title="statement not covered" >useState&lt;CardType[]&gt;(store.getState().room.cards)</span>
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-    const unsuscribe = <span class="cstat-no" title="statement not covered" >store.subscribe(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+export default function Footer({ vote, revealed }: Props) {
+  const [playerVote, setPlayerVote] = useState(store.getState().player.vote)
+  const [cards, setCards] = useState&lt;CardType[]&gt;(store.getState().room.cards)
+  useEffect(() =&gt; {
+    const unsuscribe = store.subscribe(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
       const state = <span class="cstat-no" title="statement not covered" >store.getState()</span>
 <span class="cstat-no" title="statement not covered" >      setPlayerVote(state.player.vote)</span>
 <span class="cstat-no" title="statement not covered" >      setCards([...state.room.cards])</span>
     })
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >unsuscribe()</span></span>
+    return () =&gt; unsuscribe()
   }, [])
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (revealed) {</span>
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (revealed) {
 <span class="cstat-no" title="statement not covered" >      setCards(</span>
         store.getState().room.cards.filter(<span class="fstat-no" title="function not covered" >(c</span>ard) =&gt; <span class="cstat-no" title="statement not covered" >card.count !== undefined &amp;&amp; card.count &gt; 0)</span>
       )
     } else {
-<span class="cstat-no" title="statement not covered" >      setCards(store.getState().room.cards)</span>
+      setCards(store.getState().room.cards)
     }
   }, [revealed])
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;&gt;
-      {cards.map(<span class="fstat-no" title="function not covered" >(c</span>ard) =&gt; (
-<span class="cstat-no" title="statement not covered" >        &lt;Card</span>
-          vote={!revealed &amp;&amp; playerVote === card.content ? "1" : "none"}
+      {cards.map((card) =&gt; (
+        &lt;Card
+          vote={!revealed &amp;&amp; playerVote === card.content ? <span class="branch-0 cbranch-no" title="branch not covered" >"1" </span>: "none"}
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >vote(card.content)}</span>
           content={card.content}
           key={card.content}
@@ -199,7 +199,7 @@ interface Props {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-15T22:37:06.259Z
+                at 2024-04-18T20:53:07.813Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

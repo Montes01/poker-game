@@ -1,4 +1,4 @@
-import {playerType, inputTypes, ioEvents, } from "../lib/constants/declarations"
+import {playerType, inputTypes, ioEvents, } from "../../lib/constants/declarations"
 
 describe("enum", () => {
   it("should match the snapshot", () => {

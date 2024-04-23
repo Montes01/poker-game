@@ -1,7 +1,7 @@
 import Foot from "../../system-design/organisms/Footer"
 import { useEffect, useState } from "react"
 import { store } from "../../lib/store/store"
-import { connection } from "../../App"
+import { connection } from "../../lib/constants/constants"
 import { ioEvents } from "../../lib/constants/declarations"
 import playerActions from "../../lib/hooks/player/playerActions"
 export default function Footer() {

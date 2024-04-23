@@ -10,7 +10,7 @@ import { ioEvents, room, playerType as playType } from "../lib/constants/declara
 import { useNavigate, useParams } from "react-router-dom"
 import Footer from "./components/Footer"
 import RoomInitialDialog from "../system-design/organisms/RoomInitialDialog"
-import { connection } from "../App"
+import { connection } from "../lib/constants/constants"
 import Players from "./components/Players"
 import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
@@ -80,7 +80,7 @@ export default function Room() {
   const menuRef = useRef<HTMLDialogElement>(null)
   const handleOpenMenuClick = () => menuRef.current?.showModal()
   return (
-    <section className="page-wrapper room-page-wrapper">
+    <section role="room" className="page-wrapper room-page-wrapper">
       <header className="room-header">
         <section className="room-logo">
           <HeadLogo />

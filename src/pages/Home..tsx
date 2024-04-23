@@ -7,7 +7,7 @@ import Input from "../system-design/atoms/Input"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import WarningIcon from "../system-design/atoms/WarningIcon"
 import { useNavigate } from "react-router-dom"
-import { connection } from "../App"
+import { connection } from "../lib/constants/constants"
 import { ioEvents, room } from "../lib/constants/declarations"
 export default function Home() {
   const navigator = useNavigate()

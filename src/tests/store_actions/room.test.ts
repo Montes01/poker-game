@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { type room, type player } from "../lib/constants/declarations";
-import { slice, addPlayer, changeAdmin, updateRoom, changeCards, changePlayerType, reset, reveal, vote } from "../lib/hooks/room/slices/roomSlice";
+import { type room, type player } from "../../lib/constants/declarations";
+import { slice, addPlayer, changeAdmin, updateRoom, changeCards, changePlayerType, reset, reveal, vote } from "../../lib/hooks/room/slices/roomSlice";
 
 
 describe("testing room store actions", () => {
