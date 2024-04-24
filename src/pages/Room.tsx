@@ -16,8 +16,8 @@ import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 import playerActions from "../lib/hooks/player/playerActions"
 import ResponsiveButtonsDialog from "./components/ResponsiveButtonsDialog"
-
-export default function Room() {
+import { withAuthenticator } from "@aws-amplify/ui-react"
+function Room() {
   const { UseReset, UseUpdateRoom, UseChangePlayerType, UseAddPlayer, UseVote, UseChangeAdmin, UseChangeCards, UseRevealCards } = roomActions()
   const { UseSetIsSpectator, UseSetVote } = playerActions()
   const navigator = useNavigate()
@@ -111,3 +111,6 @@ export default function Room() {
     </section>
   )
 }
+
+
+export default withAuthenticator(Room)
