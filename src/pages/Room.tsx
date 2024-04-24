@@ -16,8 +16,9 @@ import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 import playerActions from "../lib/hooks/player/playerActions"
 import ResponsiveButtonsDialog from "./components/ResponsiveButtonsDialog"
-import { withAuthenticator } from "@aws-amplify/ui-react"
-function Room() {
+import { withAuthenticator, } from "@aws-amplify/ui-react"
+import "@aws-amplify/ui-react/styles.css"
+function Room({ signOut }: { signOut: () => void }) {
   const { UseReset, UseUpdateRoom, UseChangePlayerType, UseAddPlayer, UseVote, UseChangeAdmin, UseChangeCards, UseRevealCards } = roomActions()
   const { UseSetIsSpectator, UseSetVote } = playerActions()
   const navigator = useNavigate()
@@ -38,7 +39,7 @@ function Room() {
           UseUpdateRoom(room!)
         }
       })
-  }, [ params.id, navigator, UseUpdateRoom])
+  }, [params.id, navigator, UseUpdateRoom])
   useEffect(() => {
     connection.on(ioEvents.addPlayer, (player) => UseAddPlayer(player))
     connection.on(ioEvents.vote, (data) => UseVote(data.playerId, data.cardContent))
@@ -47,7 +48,7 @@ function Room() {
     connection.on(ioEvents.changeCards, (cards) => UseChangeCards(cards))
     connection.on(ioEvents.reveal, ({ cards }) => UseRevealCards(cards))
     connection.on(ioEvents.reset, () => UseReset())
-  }, [ UseAddPlayer, UseChangeAdmin, UseChangeCards, UseChangePlayerType, UseRevealCards, UseReset, UseVote])
+  }, [UseAddPlayer, UseChangeAdmin, UseChangeCards, UseChangePlayerType, UseRevealCards, UseReset, UseVote])
 
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
@@ -82,7 +83,7 @@ function Room() {
   return (
     <section role="room" className="page-wrapper room-page-wrapper">
       <header className="room-header">
-        <section className="room-logo">
+        <section onClick={signOut} className="room-logo">
           <HeadLogo />
         </section>
         <h1 className="room-name">{roomName}</h1>
