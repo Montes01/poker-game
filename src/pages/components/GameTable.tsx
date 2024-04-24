@@ -11,9 +11,9 @@ import ChangeCardsDialog from "./ChangeCardsDialog"
 import { UseAppSelector } from "../../lib/hooks/store"
 export default function GameTable() {
   const isAdmin = UseAppSelector((state) => state.room.admin === state.player.id)
-  const isComplete = UseAppSelector((state) => state.room.players.every((player) => player.vote !== "none"))
-  const isRevealed = UseAppSelector((state) => state.room.isRevealed)
-  const players = UseAppSelector((state) => state.room.players)
+  const { isRevealed, players } = UseAppSelector((state) => state.room)
+  const isComplete = players.every(player => player.vote !== "none")
+
 
   const [modalStates, setModalStates] = useState({
     changeAdmin: false,
