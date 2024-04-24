@@ -16,19 +16,20 @@ import InviteDialog from "./components/InviteDialog"
 import GameTable from "./components/GameTable"
 import playerActions from "../lib/hooks/player/playerActions"
 import ResponsiveButtonsDialog from "./components/ResponsiveButtonsDialog"
-import { withAuthenticator, } from "@aws-amplify/ui-react"
+import { withAuthenticator } from "@aws-amplify/ui-react"
 import "@aws-amplify/ui-react/styles.css"
-function Room({ signOut }: { signOut: () => void }) {
+import { UseAppSelector } from "../lib/hooks/store"
+function Room() {
   const { UseReset, UseUpdateRoom, UseChangePlayerType, UseAddPlayer, UseVote, UseChangeAdmin, UseChangeCards, UseRevealCards } = roomActions()
   const { UseSetIsSpectator, UseSetVote } = playerActions()
   const navigator = useNavigate()
   const params = useParams()
   const inviteRef = useRef<HTMLDialogElement>(null)
-  const [playerName, setPlayerName] = useState(store.getState().player.name)
-  const [playerType, setPlayerType] = useState(store.getState().player.type)
-  const [roomName, setRoomName] = useState("")
 
+  const { type: playerType, name: playerName } = UseAppSelector((state) => state.player)
+  const { name } = UseAppSelector((state) => state.room)
   useEffect(() => {
+    if (name) return
     const roomId = params.id
     connection.emit(
       ioEvents.joinRoom,
@@ -40,25 +41,13 @@ function Room({ signOut }: { signOut: () => void }) {
         }
       })
   }, [params.id, navigator, UseUpdateRoom])
-  useEffect(() => {
-    connection.on(ioEvents.addPlayer, (player) => UseAddPlayer(player))
-    connection.on(ioEvents.vote, (data) => UseVote(data.playerId, data.cardContent))
-    connection.on(ioEvents.giveAdmin, (adminId) => UseChangeAdmin(adminId))
-    connection.on(ioEvents.changeType, (player) => UseChangePlayerType(player.playerId, player.type))
-    connection.on(ioEvents.changeCards, (cards) => UseChangeCards(cards))
-    connection.on(ioEvents.reveal, ({ cards }) => UseRevealCards(cards))
-    connection.on(ioEvents.reset, () => UseReset())
-  }, [UseAddPlayer, UseChangeAdmin, UseChangeCards, UseChangePlayerType, UseRevealCards, UseReset, UseVote])
+  connection.on(ioEvents.vote, (data) => UseVote(data.playerId, data.cardContent))
+  connection.on(ioEvents.giveAdmin, (adminId) => UseChangeAdmin(adminId))
+  connection.on(ioEvents.changeType, (player) => UseChangePlayerType(player.playerId, player.type))
+  connection.on(ioEvents.changeCards, (cards) => UseChangeCards(cards))
+  connection.on(ioEvents.reveal, ({ cards }) => UseRevealCards(cards))
+  connection.on(ioEvents.reset, () => UseReset())
 
-  useEffect(() => {
-    const unsuscribe = store.subscribe(() => {
-      const state = store.getState()
-      setPlayerType(state.player.type)
-      setRoomName(state.room.name)
-      setPlayerName(state.player.name)
-    })
-    return () => unsuscribe()
-  }, [])
 
   const handleInviteClick = () => inviteRef.current?.showModal()
   const handleChangeTypeClick = () => {
@@ -83,10 +72,10 @@ function Room({ signOut }: { signOut: () => void }) {
   return (
     <section role="room" className="page-wrapper room-page-wrapper">
       <header className="room-header">
-        <section onClick={signOut} className="room-logo">
+        <section className="room-logo">
           <HeadLogo />
         </section>
-        <h1 className="room-name">{roomName}</h1>
+        <h1 className="room-name">{name}</h1>
         <section className="room-options">
           <Button
             className="invite-button"
