@@ -19,8 +19,8 @@ export default function ResponsiveButtonsDialog({ Ref, inviteRef}: Props) {
     }
 
 
-    const {useVote } = roomActions()
-    const { useSetIsSpectator, useSetVote } = playerActions()
+    const {UseVote } = roomActions()
+    const { UseSetIsSpectator, UseSetVote } = playerActions()
 
     const [playerType, setPlayerType] = useState(store.getState().player.type)
 
@@ -39,13 +39,13 @@ export default function ResponsiveButtonsDialog({ Ref, inviteRef}: Props) {
         ioEvents.changeType,
         { roomId: store.getState().room.id, playerId: store.getState().player.id, type: newType },
         (data: { type: keyof typeof playType, playerId: string }) => {
-          useSetIsSpectator(data.type === "spectator")
+          UseSetIsSpectator(data.type === "spectator")
           if (data.type === "spectator") {
-            useSetVote("spectator")
-            useVote(data.playerId, "spectator")
+            UseSetVote("spectator")
+            UseVote(data.playerId, "spectator")
           } else {
-            useSetVote("none")
-            useVote(data.playerId, "none")
+            UseSetVote("none")
+            UseVote(data.playerId, "none")
           }
         }
       )

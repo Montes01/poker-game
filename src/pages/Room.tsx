@@ -18,8 +18,8 @@ import playerActions from "../lib/hooks/player/playerActions"
 import ResponsiveButtonsDialog from "./components/ResponsiveButtonsDialog"
 
 export default function Room() {
-  const { useReset, useUpdateRoom, useChangePlayerType, useAddPlayer, useVote, useChangeAdmin, useChangeCards, useRevealCards } = roomActions()
-  const { useSetIsSpectator, useSetVote } = playerActions()
+  const { UseReset, UseUpdateRoom, UseChangePlayerType, UseAddPlayer, UseVote, UseChangeAdmin, UseChangeCards, UseRevealCards } = roomActions()
+  const { UseSetIsSpectator, UseSetVote } = playerActions()
   const navigator = useNavigate()
   const params = useParams()
   const inviteRef = useRef<HTMLDialogElement>(null)
@@ -35,19 +35,19 @@ export default function Room() {
       (exists: boolean, room?: room) => {
         if (!exists) navigator("/home")
         else {
-          useUpdateRoom(room!)
+          UseUpdateRoom(room!)
         }
       })
-  }, [])
+  }, [ params.id, navigator, UseUpdateRoom])
   useEffect(() => {
-    connection.on(ioEvents.addPlayer, (player) => useAddPlayer(player))
-    connection.on(ioEvents.vote, (data) => useVote(data.playerId, data.cardContent))
-    connection.on(ioEvents.giveAdmin, (adminId) => useChangeAdmin(adminId))
-    connection.on(ioEvents.changeType, (player) => useChangePlayerType(player.playerId, player.type))
-    connection.on(ioEvents.changeCards, (cards) => useChangeCards(cards))
-    connection.on(ioEvents.reveal, ({ cards }) => useRevealCards(cards))
-    connection.on(ioEvents.reset, () => useReset())
-  }, [])
+    connection.on(ioEvents.addPlayer, (player) => UseAddPlayer(player))
+    connection.on(ioEvents.vote, (data) => UseVote(data.playerId, data.cardContent))
+    connection.on(ioEvents.giveAdmin, (adminId) => UseChangeAdmin(adminId))
+    connection.on(ioEvents.changeType, (player) => UseChangePlayerType(player.playerId, player.type))
+    connection.on(ioEvents.changeCards, (cards) => UseChangeCards(cards))
+    connection.on(ioEvents.reveal, ({ cards }) => UseRevealCards(cards))
+    connection.on(ioEvents.reset, () => UseReset())
+  }, [ UseAddPlayer, UseChangeAdmin, UseChangeCards, UseChangePlayerType, UseRevealCards, UseReset, UseVote])
 
   useEffect(() => {
     const unsuscribe = store.subscribe(() => {
@@ -66,13 +66,13 @@ export default function Room() {
       ioEvents.changeType,
       { roomId: store.getState().room.id, playerId: store.getState().player.id, type: newType },
       (data: { type: keyof typeof playType, playerId: string }) => {
-        useSetIsSpectator(data.type === "spectator")
+        UseSetIsSpectator(data.type === "spectator")
         if (data.type === "spectator") {
-          useSetVote("spectator")
-          useVote(data.playerId, "spectator")
+          UseSetVote("spectator")
+          UseVote(data.playerId, "spectator")
         } else {
-          useSetVote("none")
-          useVote(data.playerId, "none")
+          UseSetVote("none")
+          UseVote(data.playerId, "none")
         }
       }
     )

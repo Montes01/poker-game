@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { type player } from "../../lib/constants/declarations";
 import { slice, setIsSpectator, setPlayer, setVote } from "../../lib/hooks/player/slices/playerSlice";
 describe("testing player store actions", () => {
-    let store = configureStore({
+    const store = configureStore({
         reducer: {
             player: slice
         }

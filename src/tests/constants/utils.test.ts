@@ -41,8 +41,8 @@ describe('testing utils', () => {
         const cards = generateCards('fibonacci');
         expect(typeof cards).toBe('object');
         expect(cards).toHaveLength(12);
-        let cardSequence = cards.map((card) => !"☕?".includes(card.content) ? card.content : null).filter(el => el !== null).join(',');
-        let sequence = "0,1,2,3,5,8,13,21,34,55"
+        const cardSequence = cards.map((card) => !"☕?".includes(card.content) ? card.content : null).filter(el => el !== null).join(',');
+        const sequence = "0,1,2,3,5,8,13,21,34,55"
         expect(cardSequence).toBe(sequence);
         expect(cards[10].content).toBe('☕');
         expect(cards[11].content).toBe('?');
@@ -52,8 +52,8 @@ describe('testing utils', () => {
         const cards = generateCards('tenX');
         expect(typeof cards).toBe('object');
         expect(cards).toHaveLength(12);
-        let cardSequence = cards.map((card) => !"☕?".includes(card.content) ? card.content : null).filter(el => el !== null).join(',');
-        let sequence = "0,10,20,30,40,50,60,70,80,90"
+        const cardSequence = cards.map((card) => !"☕?".includes(card.content) ? card.content : null).filter(el => el !== null).join(',');
+        const sequence = "0,10,20,30,40,50,60,70,80,90"
         expect(cardSequence).toBe(sequence);
         expect(cards[10].content).toBe('☕');
         expect(cards[11].content).toBe('?');

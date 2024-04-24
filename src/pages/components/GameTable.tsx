@@ -47,11 +47,11 @@ export default function GameTable() {
     setModalStates({ ...modalStates, changeAdmin: false })
   }
   const handleGiveAdminClick = () => {
-    setModalStates({ ...modalStates, changeAdmin: new Boolean(true) } as any)
+    setModalStates({ ...modalStates, changeAdmin: new Boolean(true) as boolean })
     alert("you can change into admin")
   }
   const handleChangeCardsClick = () => {
-    setModalStates({ ...modalStates, changeCards: new Boolean(true) } as any)
+    setModalStates({ ...modalStates, changeCards: new Boolean(true) as boolean })
   }
 
   return (
