@@ -6,24 +6,20 @@ interface Props {
   children?: React.ReactNode
   canClose?: boolean
   open?: boolean
+  toggleOpen?: (open: boolean) => void
 }
 export default function PlayerNameDialog({
   dialogRef,
   handleSubmit,
   children,
   canClose,
-  open
+  open,
+  toggleOpen
 }: Props) {
-  const [isOpen, setIsOpen] = useState(open)
 
-  useEffect(() => {
-    console.log(open);
-
-    setIsOpen(open)
-  }, [open])
 
   const [dialogStyles, setDialogStyles] = useState({
-    display: isOpen ? "flex" : "none",
+    display: open ? "flex" : "none",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -37,24 +33,24 @@ export default function PlayerNameDialog({
   } as React.CSSProperties)
 
   const handleClose = () => {
-    setIsOpen(false)
+    toggleOpen!(false)
     setDialogStyles({ ...dialogStyles, display: "none" })
   }
 
   useEffect(() => {
-    if (isOpen) {
+    if (open) {
       setDialogStyles({ ...dialogStyles, display: "flex" })
     } else {
       setDialogStyles({ ...dialogStyles, display: "none" })
     }
-  }, [isOpen, dialogStyles])
+  }, [open, dialogStyles])
 
   const onSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e)
     handleClose()
   }
   return (
-    <dialog open={isOpen} style={dialogStyles} role="dialog" ref={dialogRef} className="user-form-dialog">
+    <dialog open={open} style={dialogStyles} role="dialog" ref={dialogRef} className="user-form-dialog">
       <form onSubmit={onSubmitted} className="user-form">
         {canClose && <button onClick={handleClose} role="close-dialog" className="close-dialog-button">x</button>}
         {children}

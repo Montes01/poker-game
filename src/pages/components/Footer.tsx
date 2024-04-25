@@ -31,7 +31,6 @@ export default function Footer() {
 
   const handleVoteClick = (card: string) => {
     const playerId = player.id
-    console.log(playerId)
     connection.emit(
       ioEvents.vote,
       { roomId: store.getState().room.id, playerId, cardContent: card },

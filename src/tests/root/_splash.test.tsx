@@ -2,7 +2,9 @@ import Splash from "../../pages/Splash";
 import { render } from "@testing-library/react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 describe("testing of splash component", () => {
-    beforeEach(() => {
+
+
+    test(" 2500 ms delay must be called the useNavigate function", () => {
         render(
             <BrowserRouter>
                 <Routes>
@@ -10,11 +12,6 @@ describe("testing of splash component", () => {
                 </Routes>
             </BrowserRouter>
         );
-    });
-
-    test(" 2500 ms delay must be called the useNavigate function", () => {
-        // const spy = jest.spyOn(window, "setTimeout");
-        // expect(spy).toHaveBeenCalled();
     })
 
 

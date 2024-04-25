@@ -6,18 +6,18 @@ import { store } from "../../lib/store/store";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 describe("testing of room component", () => {
-    beforeEach(() => {
+
+    test("Room component", () => {
+        expect(true).toBeTruthy();
         render(
             <Provider store={store}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<Room />} />
+                        <Route path="/" Component={Room} />
                     </Routes>
                 </BrowserRouter>
             </Provider>
         );
-    });
-    test("Room component", () => {
         const linkElement = screen.getByRole("room");
         toBeInTheDocument(linkElement);
     });
