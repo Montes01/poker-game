@@ -3,7 +3,7 @@ import "../assets/components/user-form.scss"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import UserAvatar from "../system-design/atoms/UserAvatar"
 import Button from "../system-design/atoms/Button"
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { store } from "../lib/store/store"
 import roomActions from "../lib/hooks/room/roomActions"
 import { ioEvents, room, playerType as playType } from "../lib/constants/declarations"
@@ -41,12 +41,14 @@ function Room() {
         }
       })
   }, [params.id, navigator, UseUpdateRoom])
-  connection.on(ioEvents.vote, (data) => UseVote(data.playerId, data.cardContent))
-  connection.on(ioEvents.giveAdmin, (adminId) => UseChangeAdmin(adminId))
-  connection.on(ioEvents.changeType, (player) => UseChangePlayerType(player.playerId, player.type))
-  connection.on(ioEvents.changeCards, (cards) => UseChangeCards(cards))
-  connection.on(ioEvents.reveal, ({ cards }) => UseRevealCards(cards))
-  connection.on(ioEvents.reset, () => UseReset())
+  useMemo(() => {
+    connection.on(ioEvents.vote, (data) => UseVote(data.playerId, data.cardContent))
+    connection.on(ioEvents.giveAdmin, (adminId) => UseChangeAdmin(adminId))
+    connection.on(ioEvents.changeType, (player) => UseChangePlayerType(player.playerId, player.type))
+    connection.on(ioEvents.changeCards, (cards) => UseChangeCards(cards))
+    connection.on(ioEvents.reveal, ({ cards }) => UseRevealCards(cards))
+    connection.on(ioEvents.reset, () => UseReset())
+  }, [])
 
 
   const handleInviteClick = () => inviteRef.current?.showModal()
