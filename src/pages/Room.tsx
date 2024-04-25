@@ -3,7 +3,7 @@ import "../assets/components/user-form.scss"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import UserAvatar from "../system-design/atoms/UserAvatar"
 import Button from "../system-design/atoms/Button"
-import { useEffect, useMemo, useRef } from "react"
+import { useEffect, useMemo,  useState } from "react"
 import { store } from "../lib/store/store"
 import roomActions from "../lib/hooks/room/roomActions"
 import { ioEvents, room, playerType as playType } from "../lib/constants/declarations"
@@ -24,7 +24,8 @@ function Room() {
   const { UseSetIsSpectator, UseSetVote } = playerActions()
   const navigator = useNavigate()
   const params = useParams()
-  const inviteRef = useRef<HTMLDialogElement>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isInviteOpen, setIsInviteOpen] = useState(false)
 
   const { type: playerType, name: playerName } = UseAppSelector((state) => state.player)
   const { name } = UseAppSelector((state) => state.room)
@@ -51,7 +52,7 @@ function Room() {
   }, [])
 
 
-  const handleInviteClick = () => inviteRef.current?.showModal()
+  const handleInviteClick = () => toggleInviteOpen(true)
   const handleChangeTypeClick = () => {
     const newType = playerType === playType.player ? playType.spectator : playType.player
     connection.emit(
@@ -69,8 +70,9 @@ function Room() {
       }
     )
   }
-  const menuRef = useRef<HTMLDialogElement>(null)
-  const handleOpenMenuClick = () => menuRef.current?.showModal()
+  const handleOpenMenuClick = () => setIsMenuOpen(true)
+  const toggleOpen = (open: boolean) => setIsMenuOpen(open)
+  const toggleInviteOpen = (open: boolean) => setIsInviteOpen(open)
   return (
     <section role="room" className="page-wrapper room-page-wrapper">
       <header className="room-header">
@@ -97,9 +99,9 @@ function Room() {
         <Players />
       </main>
       <Footer />
-      <InviteDialog inviteRef={inviteRef} />
+      <InviteDialog open={isInviteOpen} toggleOpen={toggleInviteOpen} />
       <RoomInitialDialog />
-      <ResponsiveButtonsDialog Ref={menuRef} inviteRef={inviteRef} />
+      <ResponsiveButtonsDialog open={isMenuOpen} toggleOpen={toggleOpen} toggleOpenInvite={toggleInviteOpen} />
     </section>
   )
 }

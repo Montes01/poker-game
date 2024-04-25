@@ -4,10 +4,11 @@ import PlayerNameForm from "../templates/PlayerNameForm"
 import { connection } from "../../lib/constants/constants"
 import { store } from "../../lib/store/store"
 import playerActions from "../../lib/hooks/player/playerActions"
+import { useState } from "react"
 export default function RoomInitialDialog() {
   const { UseSetPlayer } = playerActions()
 
-
+  const [isOpen, setIsOpen] = useState(true)
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -21,8 +22,9 @@ export default function RoomInitialDialog() {
       }
     )
   }
+  const toggleOpen = (open: boolean) => setIsOpen(open)
   return (
-    <FormDialog open handleSubmit={handleSubmit}>
+    <FormDialog open={isOpen} toggleOpen={toggleOpen} handleSubmit={handleSubmit}>
       <PlayerNameForm />
     </FormDialog>
   )
