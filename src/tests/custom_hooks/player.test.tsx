@@ -26,26 +26,26 @@ describe("Player Test", () => {
 
     it("testing useCreatePlayer hook", () => {
         expect(result).toBeTruthy();
-        const { useSetPlayer } = result!;
-        expect(useSetPlayer).toBeTruthy();
-        let player = { id: "test", name: "test", type: "player", vote: "none" } as player;
-        useSetPlayer(player);
+        const { UseSetPlayer } = result!;
+        expect(UseSetPlayer).toBeTruthy();
+        const player = { id: "test", name: "test", type: "player", vote: "none" } as player;
+        UseSetPlayer(player);
         expect(store.getState().player).toEqual(player);
     });
 
     it("testing useSetVote hook", () => {
         expect(result).toBeTruthy();
-        const { useSetVote } = result!;
-        expect(useSetVote).toBeTruthy();
-        useSetVote("test");
+        const { UseSetVote } = result!;
+        expect(UseSetVote).toBeTruthy();
+        UseSetVote("test");
         expect(store.getState().player.vote).toEqual("test");
     });
 
     it("testing useReset hook", () => {
         expect(result).toBeTruthy();
-        const { useRemoveVote } = result!;
-        expect(useRemoveVote).toBeTruthy();
-        useRemoveVote();
+        const { UseRemoveVote } = result!;
+        expect(UseRemoveVote).toBeTruthy();
+        UseRemoveVote();
         expect(store.getState().player.vote).toEqual("none");
     });
 

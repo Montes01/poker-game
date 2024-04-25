@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { store } from "../../lib/store/store"
 import Button from "../../system-design/atoms/Button"
 import Table from "../../system-design/atoms/Table"
@@ -8,28 +8,18 @@ import "../../assets/components/game-table.scss"
 import { connection } from "../../lib/constants/constants"
 import { ioEvents } from "../../lib/constants/declarations"
 import ChangeCardsDialog from "./ChangeCardsDialog"
+import { UseAppSelector } from "../../lib/hooks/store"
 export default function GameTable() {
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [isComplete, setIsComplete] = useState(false)
-  const [isRevealed, setIsRevealed] = useState(false)
-  const [players, setPlayers] = useState(store.getState().room.players)
+  const isAdmin = UseAppSelector((state) => state.room.admin === state.player.id)
+  const { isRevealed, players } = UseAppSelector((state) => state.room)
+  const isComplete = players.every(player => player.vote !== "none")
+
+
   const [modalStates, setModalStates] = useState({
     changeAdmin: false,
     changeCards: false,
   })
-  useEffect(() => {
-    const unsuscribe = store.subscribe(() => {
-      const state = store.getState()
-      setPlayers(state.room.players)
-      const playerId = state.player.id
-      setIsAdmin(state.room.admin === playerId)
-      setIsComplete(
-        state.room.players.every((player) => player.vote !== "none")
-      )
-      setIsRevealed(state.room.isRevealed)
-    })
-    return () => unsuscribe()
-  }, [])
+
   const handleRevealClick = () => {
     connection.emit(ioEvents.reveal, store.getState().room.id)
   }
@@ -47,11 +37,10 @@ export default function GameTable() {
     setModalStates({ ...modalStates, changeAdmin: false })
   }
   const handleGiveAdminClick = () => {
-    setModalStates({ ...modalStates, changeAdmin: new Boolean(true) } as any)
-    alert("you can change into admin")
+    setModalStates({ ...modalStates, changeAdmin: new Boolean(true) as boolean })
   }
   const handleChangeCardsClick = () => {
-    setModalStates({ ...modalStates, changeCards: new Boolean(true) } as any)
+    setModalStates({ ...modalStates, changeCards: new Boolean(true) as boolean })
   }
 
   return (

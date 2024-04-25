@@ -20,19 +20,9 @@ describe("testing the player name dialog template", () => {
         expect(FunctionToCall).toHaveBeenCalledTimes(1);
     })
 
-    // test("testing the player name dialog close", () => {//role="close-dialog"
-    //     const closeButton = screen.getByRole("close-dialog");
-    //     fireEvent.click(closeButton);
-    //     const dialog = screen.getByRole("dialog");
-    //     toHaveAttribute(dialog, "open", false);
-    // })
-
-
-
-
 })
 
-function Component({ submit }: { submit: Function }) {
+function Component({ submit }: { submit: () => void }) {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

@@ -1,24 +1,24 @@
 import { player } from "../../constants/declarations"
-import { useAppDispatch } from "../store"
+import { UseAppDispatch } from "../store"
 import { setPlayer, setIsSpectator, setVote } from "./slices/playerSlice"
 export default function playerActions() {
-  const dispatcher = useAppDispatch()
-  const useSetPlayer = (player: player) => {
+  const dispatcher = UseAppDispatch()
+  const UseSetPlayer = (player: player) => {
     dispatcher(setPlayer(player))
   }
-  const useSetIsSpectator = (isSpectator: boolean) => {
+  const UseSetIsSpectator = (isSpectator: boolean) => {
     dispatcher(setIsSpectator(isSpectator))
   }
-  const useSetVote = (vote: string) => {
+  const UseSetVote = (vote: string) => {
     dispatcher(setVote(vote))
   }
-  const useRemoveVote = () => {
+  const UseRemoveVote = () => {
     dispatcher(setVote("none"))
   }
   return {
-    useSetPlayer,
-    useSetVote,
-    useSetIsSpectator,
-    useRemoveVote
+    UseSetPlayer,
+    UseSetVote,
+    UseSetIsSpectator,
+    UseRemoveVote
   }
 }

@@ -14,7 +14,7 @@ export default function Home() {
   const [isValid, setIsValid] = useState<boolean | null>(null)
   const [errorMessage, setErrorMessage] = useState("")
   const [loading, setLoading] = useState(false)
-  const { useCreateRoom } = roomActions()
+  const { UseCreateRoom } = roomActions()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     try {
@@ -29,12 +29,12 @@ export default function Home() {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
     const roomName = form.get("room-name")!.toString()
-    useCreateRoom(roomName)
+    UseCreateRoom(roomName)
     setLoading(true)
   }
   useMemo(() => {
     connection.on(ioEvents.createRoom, (room: room) => navigator(`/room/${room.id}`))
-  }, [])
+  }, [navigator])
 
   return (
     <main className="page-wrapper home-page-wrapper">
