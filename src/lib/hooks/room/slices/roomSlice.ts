@@ -24,7 +24,6 @@ const roomSlice = createSlice({
       }
     },
     vote: (state, { payload }: PayloadAction<{ playerId: string, cardContent: string }>) => {
-      console.log(payload.playerId)
       return {
         ...state,
         players: state.players.map((player) => {

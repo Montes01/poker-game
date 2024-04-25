@@ -20,16 +20,6 @@ describe("testing the player name dialog template", () => {
         expect(FunctionToCall).toHaveBeenCalledTimes(1);
     })
 
-    // test("testing the player name dialog close", () => {//role="close-dialog"
-    //     const closeButton = screen.getByRole("close-dialog");
-    //     fireEvent.click(closeButton);
-    //     const dialog = screen.getByRole("dialog");
-    //     toHaveAttribute(dialog, "open", false);
-    // })
-
-
-
-
 })
 
 function Component({ submit }: { submit: () => void }) {

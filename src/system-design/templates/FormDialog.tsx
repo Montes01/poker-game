@@ -17,8 +17,6 @@ export default function PlayerNameDialog({
   const [isOpen, setIsOpen] = useState(open)
 
   useEffect(() => {
-    console.log(open);
-
     setIsOpen(open)
   }, [open])
 

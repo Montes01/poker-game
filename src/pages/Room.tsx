@@ -3,7 +3,7 @@ import "../assets/components/user-form.scss"
 import HeadLogo from "../system-design/molecules/HeadLogo"
 import UserAvatar from "../system-design/atoms/UserAvatar"
 import Button from "../system-design/atoms/Button"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { store } from "../lib/store/store"
 import roomActions from "../lib/hooks/room/roomActions"
 import { ioEvents, room, playerType as playType } from "../lib/constants/declarations"
@@ -20,7 +20,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react"
 import "@aws-amplify/ui-react/styles.css"
 import { UseAppSelector } from "../lib/hooks/store"
 function Room() {
-  const { UseReset, UseUpdateRoom, UseChangePlayerType, UseAddPlayer, UseVote, UseChangeAdmin, UseChangeCards, UseRevealCards } = roomActions()
+  const { UseReset, UseUpdateRoom, UseChangePlayerType, UseVote, UseChangeAdmin, UseChangeCards, UseRevealCards } = roomActions()
   const { UseSetIsSpectator, UseSetVote } = playerActions()
   const navigator = useNavigate()
   const params = useParams()
@@ -29,8 +29,8 @@ function Room() {
   const { type: playerType, name: playerName } = UseAppSelector((state) => state.player)
   const { name } = UseAppSelector((state) => state.room)
   useEffect(() => {
-    if (name) return
     const roomId = params.id
+    if (!roomId) navigator("/home")
     connection.emit(
       ioEvents.joinRoom,
       roomId,

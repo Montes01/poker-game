@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo } from "react"
-import { store } from "../../lib/store/store"
+import { useMemo } from "react"
 import Card from "../../system-design/atoms/Card"
 import UserAvatar from "../../system-design/atoms/UserAvatar"
 import { ioEvents } from "../../lib/constants/declarations"
